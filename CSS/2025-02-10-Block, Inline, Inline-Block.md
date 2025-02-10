@@ -67,5 +67,10 @@ CSS 에서 **모든 요소는 박스(Box) 형태**로 표현됩니다.
 
 <br>
 
-
-
+## 3️⃣ Block vs Inline vs Inline-Block 비교
+|구분|Block Box|Inline Box|Inline-Block Box|
+|---|---|---|---|
+|배치 방향|세로 (줄을 차지)|가로 (한 줄 내에 배치)|가로 (한 줄 내에 배치)|
+|크기 지정|`width`, `height` 적용 가능|`width`, `height` 적용 불가|`width`, `height` 적용 가능|
+|Margin/Padding|모두 적용 가능|위아래는 제한적, 좌우는 가능|모두 적용 가능|
+|줄 바꿈|자동으로 줄 바꿈|자동 줄 바꿈 없음|자동 줄 바꿈 없음|
