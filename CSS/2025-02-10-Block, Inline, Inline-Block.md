@@ -74,3 +74,72 @@ CSS 에서 **모든 요소는 박스(Box) 형태**로 표현됩니다.
 |크기 지정|`width`, `height` 적용 가능|`width`, `height` 적용 불가|`width`, `height` 적용 가능|
 |Margin/Padding|모두 적용 가능|위아래는 제한적, 좌우는 가능|모두 적용 가능|
 |줄 바꿈|자동으로 줄 바꿈|자동 줄 바꿈 없음|자동 줄 바꿈 없음|
+
+<br>
+
+- - -
+
+<br>
+
+## 4️⃣ 실전 문제
+### 🔹 문제 1: Block vs Inline
+<!-- ✅ 다음 코드에서 div와 span의 차이점은? -->
+```html
+<div style="background: lightblue;">Block Element</div>
+<span style="background: yellow;">Inline Element</span>
+```
+✔️ Q1. div와 span은 각각 어떤 특징을 가지는가?  
+✔️ Q2. span을 block처럼 만들려면 어떻게 해야 할까?
+
+<details> <summary><strong>정답 보기 🔍</strong></summary>
+
+```scss
+// Q1  
+- div: 블록 요소이므로 줄을 차지하고 줄바꿈이 발생함
+- span: 인라인 요소이므로 줄바꿈 없이 같은 줄에 유지됨
+// Q2
+- `display: block;` 또는 `display: inline-block;`을 사용하면 block처럼 동작함
+```
+</details>
+
+<br>
+
+### 🔹 문제 2: Inline-Block 활용
+<!-- ✅ 아래 버튼을 가로로 배치하면서 크기를 조정하려면? -->
+```html 
+<button>버튼1</button>
+<button>버튼2</button>
+```
+✔️ Q1. 기본적으로 버튼은 block, inline, inline-block 중 어떤 타입인가?    
+✔️ Q2. 버튼이 한 줄에서 배치되도록 만들면서 크기 조절이 가능하게 하려면?
+
+<details> <summary><strong>정답 보기 🔍</strong></summary>
+
+```scss
+// Q1
+- 버튼(`<button>`)은 기본적으로 `inline-block`이다.
+
+// Q2
+- `display: inline-block;`을 유지하면 크기 조절이 가능하고 가로 배치됨
+```
+</details>
+
+<br>
+
+### 🔹 문제 3: Inline 요소에 크기 적용
+```html
+<!-- ✅ span에 width, height를 적용해도 크기가 변하지 않는 이유는? -->
+<span style="width: 200px; height: 50px; background: yellow;">텍스트</span>
+```
+✔️ Q1. 왜 width, height가 적용되지 않는가?  
+✔️ Q2. 해결 방법은?
+
+<details> <summary><strong>정답 보기 🔍</strong></summary>
+
+```scss
+// Q1
+- `span`은 인라인 요소이므로 width, height 적용이 불가능함.
+// Q2
+- `display: inline-block;` 또는 `display: block;`으로 변경하면 크기 적용 가능
+```
+</details>
