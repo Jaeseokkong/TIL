@@ -100,3 +100,33 @@ export default Page;
 
 ❗ 페이지가 로드되기 전 **빈 HTML**이 클라이언트에 전달되고, **자바스크립트**가 실행되며 데이터를 가져오기 때문에 초기 로딩 시간이 길어질 수 있습니다.  
 ❗ **SEO 최적화**에는 어려움이 있을 수 있습니다. 서버에서 렌더링된 HTML이 제공되지 않기 때문에 검색엔진 크롤러가 콘텐츠를 제대로 인식하지 못할 수 있습니다.
+
+<br>
+
+- - - 
+
+<br>
+
+## 4️⃣ ISR (Incremental Static Regeneration)
+**ISR**은 SSG의 확장된 형태로, 페이지를 정적으로 생성하면서도 주기적으로 또는 특정 시간 후에 페이지를 재생성하는 방식입니다.
+
+### 🔹 예시
+```tsx
+export default async function Page() {
+  const res = await fetch('https://api.example.com/data', {
+    next: { revalidate: 60 }, // 60초마다 페이지 재생성
+  });
+  const data = await res.json();
+
+  return (
+    <div>
+      <h1>ISR 페이지</h1>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
+    </div>
+  );
+}
+```
+✔️ `next: { revalidate: 60 }`은 해당 페이지가 **60초마다 재생성**되도록 설정하는 옵션입니다. 즉, 60초마다 새 데이터를 가져와 페이지를 업데이트하게 됩니다.  
+✔️ ISR을 사용하면 **정적 파일을 빠르게 제공**하면서도, 페이지가 **주기적으로 새로운 데이터**로 갱신됩니다. 이는 변경이 잦은 데이터에 적합합니다.
+
+❗ 페이지가 재생성되는 주기에 따라 데이터가 갱신되므로, **실시간으로 변하는 데이터를 처리할 때는 별로 효율적이지 않을 수 있습니다.**
