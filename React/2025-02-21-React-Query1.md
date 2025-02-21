@@ -92,3 +92,49 @@ const MyComponent = () => {
 queryClient.invalidateQueries({ queryKey: ["myData"] })
 ```
 ✔️  특정 데이터(`queryKey`)를 갱신하여 **최신 상태 유지**
+
+<br>
+
+---
+
+<br>
+
+## 3️⃣ Query 설정 최적화
+### 🔹 `staleTime` & `cacheTime` 설정
+```tsx
+useQuery({
+  queryKey: ["myData"],
+  queryFn: fetchData,
+  staleTime: 1000 * 60, // 1분 동안 데이터 신선도 유지
+  cacheTime: 1000 * 300 // 5분 후 캐시 삭제
+})
+```
+✔️ `statleTime`: 일정 시간 동안 데이터가 신선하다고 간주 (재요청 방지)
+✔️ `cacheTime`: 캐시 유지 기간 (사용되지 않으면 삭제)
+
+### 🔹 Pagination & Infinite Query (`useInfiniteQuery`)
+```tsx
+const fetchPages = async ({ pageParam = 1 }) => {
+  const res = await fetch(`/api/data?page=${pageParam}`);
+  if (!res.ok) {
+    throw new Error("Network response was not ok")
+  }
+  const data = await res.json();
+  return data;
+}
+
+const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  queryKey: ["pagedData"],
+  queryFn: fetchPages,
+  getNextPageParam: (lastPage, pages) => latsPage.nextPage ?? false
+})
+```
+
+✔️ `useInfiniteQuery`를 활용하여 무한 스크롤 구현 가능
+✔️ `fetchNextPage()`를 호출하여 다음 페이지 로드
+
+<br>
+
+- - -
+
+<br>
