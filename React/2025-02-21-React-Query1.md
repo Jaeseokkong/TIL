@@ -18,3 +18,77 @@
 - - -
 
 <br>
+
+## 2️⃣ 기본 개념
+React Query의 핵심 개념은 다음과 같습니다.
+
+### 🔹 Query (`useQuery`)
+```tsx
+import { useQuery } from "@tanstack/react-query";
+
+const fetchData = async () => {
+  const res = await fetch("https://api.example.com/data");
+  if (!res.ok) {
+    throw new Error("Network response was not ok")
+  }
+  const data = await res.json();
+  return data
+}
+
+const MyComponent = () => {
+  cosnt { data, error, isLoading } = useQuery({ 
+    queryKey: ["myData"], 
+    queryFn: fetchData 
+  })
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+}
+```
+✔️ `useQuery`를 사용하여 API 요청을 간단하게 처리 가능
+✔️ 자동으로 **로딩 상태, 에러 상태, 데이터 캐싱** 지원
+
+<br>
+
+### 🔹 Mutation (`useMutation`)
+```tsx
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+const postData = async (newData) => {
+  const res = await fetch("https://api.example.com/data", {
+    methos: "POST",
+    headers: {
+      "Context-Type": "application/json"
+    },
+    body: JSON.stringify(newData)
+  });
+  if (!res.ok) {
+    throw new Error("Network response was not ok")
+  }
+  return res.json();
+}
+
+const MyComponent = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: postData,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["myData"] });
+    }
+  });
+
+  return <button onClick={() => mutation.mutate({ name: "New Item" })}>추가</button>;
+}
+```
+✔️ `useMutation`을 사용하여 데이터를 변경할 때 활용 가능
+✔️ 성공적으로 변경되면 `invaliateQueries`를 호출하여 데이터 갱신
+
+<br>
+
+### 🔹 Query Key & Query Invalidation
+```tsx
+queryClient.invalidateQueries({ queryKey: ["myData"] })
+```
+✔️  특정 데이터(`queryKey`)를 갱신하여 **최신 상태 유지**
