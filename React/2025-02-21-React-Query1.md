@@ -138,3 +138,20 @@ const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
 - - -
 
 <br>
+
+## 4️⃣ React Query Devtools 활용
+### 🔹 Devtools 설치
+```cmd
+npm install @tanstack/react-query-devtools
+```
+### 🔹 사용 방법
+```tsx
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+<QueryClientProvider client={queryClient}>
+  <App />
+  <ReactQueryDevtools initialOpen={false}>
+</QueryClientProvider>
+```
+✔️ React Query Devtools를 사용하면 **쿼리 상태 및 캐시 확인 가능**
+✔️ 디버깅 및 성능 최적화에 매우 유용
