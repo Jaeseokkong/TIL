@@ -17,7 +17,7 @@ Tailwind CSS는 **유틸리티 퍼스트(Utility-First) 프레임워크**로, HT
 - 유지보수가 쉽고, 반복적인 CSS 작성이 줄어듦
 
 #### 🧐 Tailwind의 유틸리티 클래스 예제
-```css
+```html
 <!-- 일반적인 CSS 방식 -->
 <div class="card">
   <h2 class="title">Hello, Tailwind!</h2>
@@ -40,3 +40,26 @@ Tailwind CSS는 **유틸리티 퍼스트(Utility-First) 프레임워크**로, HT
 </div>
 ```
 ✔️ 별도의 CSS 없이 **HTML에서 바로 스타일을 적용**할 수 있어 편리합니다.
+
+<br>
+
+- - -
+
+<br>
+
+## 3️⃣ 실습: Tailwind Play에서 테스트하기
+Tailwind Play를 이용하면 설치 없이 실시간으로 Tailwind 클래스를 실습할 수 있음.
+
+[Tailwind Play](https://play.tailwindcss.com/) 
+
+```html
+<div class="flex items-center justify-center h-screen bg-gray-200">
+  <button class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600">
+    Click Me
+  </button>
+</div>
+```
+✔️ `flex`, `items-center`, `justify-center` 등을 조합해서 **레이아웃 정렬**을 쉽게 설정  
+✔️ `hover:bg-blue-600`으로 호버 효과 추가  
+✔️ 일반 CSS보다 **더 직관적이고 간결하게** 스타일 
+ 
