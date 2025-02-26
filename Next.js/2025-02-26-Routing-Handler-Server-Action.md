@@ -13,15 +13,63 @@ Next.js에서는 `pages/api` 디렉토리를 사용하여 API 요청을 처리�
 - 외부 API나 데이터베이스에서 데이터를 가져오거나, 데이터를 가공하는 등의 처리를 서버에서 맡길 수 있음
 - 클라이언트에서 처리해야할 데이터 로직을 **서버로 분리**해 보안성과 성능을 최적화
 
-#### 🧐 예시
+#### 🧐 예시1: 데이터 가공 및 클라이언트로 전달
 ```tsx
-// pages/api/products.ts
-export async function handler(req, res) {
-  const response = await fetch('https://external-api.com/products');
-  const data = await response.json();
+// pages/api/analytics.ts
 
-  return res.status(200).json(data);
+export async function handler(req, res) {
+  try {
+    // 외부 API에서 원시 데이터 가져오기
+    const response = await fetch('https://api.example.com/traffic');
+    const trafficData = await response.json();
+
+    // 복잡한 데이터 가공 (예: 하루, 주, 월별로 트래픽 집계)
+    const processedTraffic = trafficData.reduce((acc, data) => {
+      const day = new Date(data.timestamp).toLocaleDateString();
+      if (!acc[day]) acc[day] = 0;
+      acc[day] += data.visitors;
+      return acc;
+    }, {});
+
+    // 가공된 데이터를 클라이언트로 전달
+    return res.status(200).json(processedTraffic);
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to process traffic data' });
+  }
 }
 ```
 ✔️ 클라이언트에서는 `GET /api/products` 요청을 보낼 수 있고, 서버에서는 외부 API를 호출하여 데이터를 가져와 반환합니다.
-✔️ 클라이언트는 API 라우트를 통해 데이터를 요청하고, 필요한 데이터를 간편하게 사용할 수 있습니다.
+✔️ 서버에서 **외부 API**로부터 받은 데이터를 **가공**하여 일별 방문자를 집계합니다.
+✔️ 클라이언트는 복잡한 데이터 가공 작업을 서버에서 처리하므로, 클라이언트의 부하를 줄일 수 있습니다.
+
+<br>
+
+#### 🧐 예시2: 데이터베이스에서 데이터 가져오기
+```tsx
+// pages/api/orders.ts
+
+import { connectToDatabase } from '../../lib/db';
+
+export async function handler(req, res) {
+  try {
+    // 데이터베이스 연결
+    const db = await connectToDatabase();
+    
+    // 주문 데이터 가져오기
+    const orders = await db.collection('orders').find().toArray();
+
+    // 주문 데이터 가공
+    const processedOrders = orders.map(order => ({
+      orderId: order._id,
+      customerName: order.customerName,
+      totalAmount: order.items.reduce((total, item) => total + item.price, 0),
+    }));
+
+    return res.status(200).json(processedOrders);
+  } catch (error) {
+    return res.status(500).json({ error: 'Failed to fetch orders' });
+  }
+}
+```
+✔️ 서버에서 **MongoDB**와 같은 데이터베이스에 연결하여 주문 데이터를 가져옵니다.
+✔️ 클라이언트는 데이터베이스에 직접 접근하지 않고 서버를 통해 필요한 데이터만 받아오기 때문에 보안과 성능이 개선됩니다.
