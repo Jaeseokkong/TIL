@@ -73,3 +73,62 @@ export async function handler(req, res) {
 ```
 ✔️ 서버에서 **MongoDB**와 같은 데이터베이스에 연결하여 주문 데이터를 가져옵니다.
 ✔️ 클라이언트는 데이터베이스에 직접 접근하지 않고 서버를 통해 필요한 데이터만 받아오기 때문에 보안과 성능이 개선됩니다.
+
+
+## 2️⃣ Server Action
+**Server Action**은 Next.js 13부터 도입된 기능으로, **서버에서 직접 실행되는 함수**입니다. 이를 통해 클라이언트가 서버로 데이터를 전송하고, 서버에서 해당 데이터를 처리할 수 있습니다. 기존의 API 라우트와는 다르게, **클라이언트에서 별도의 fetch 요청 없이 서버 함수를 직접 호출**할 수 있다는 점이 특징입니다.
+
+### 🔹 사용 이유
+- API 라우트 없이 서버에서 직접 실행 가능 → **네트워크 요청 감소**
+- 클라이언트에서 폼 제출 시, **별도의 API 요청 없이** 서버에서 바로 데이터 처리 가능
+- 기존의 `useEffect`나 `fetch`를 사용한 데이터 요청보다 **더 간결한 코드 작성 가능**
+
+#### 🧐 예시1: 서버에서 데이터 저장
+```tsx
+"use server"
+
+import { connectToDatabase } from "@/lib/db";
+
+export async function saveOrder(orderData) {
+  try {
+    const db = await connectToDatabase();
+    const result = await db.collection('order').insertOne(orderData);
+    return { success: true, orderId: result.insertedId };
+  } catch (error) {
+    return { success: false, error: 'Failed to save order' };
+  }
+}
+```
+✔️ `saveOrder` 함수는 서버에서 실행되므로 클라이언트에서 fetch 요청을 보낼 필요가 없습니다.  
+✔️ 데이터베이스에 직접 접근하여 데이터를 저장할 수 있습니다.
+
+#### 🧐 예시2: 클라이언트에서 Server Action 호출
+```tsx
+"use client";
+
+import { useState } from "react";
+import { saveOrder } from "@/action/orderActions";
+
+export default function OrderForm() {
+  const [order, setOrder] = useState({ name: '', items: [] });
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await saveOrder(order);
+    setMessage(result.success ? 'Order saved!', 'Error saving order');
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>\
+      <input 
+        type="text"
+        value={order.name}
+        onChange={(e) => setOrder({ ...order, name:L e.target.value })}
+      />
+      <button type="submit">Submit</button>
+      <p>message</p>
+    </form>
+  )
+}
+```
