@@ -41,3 +41,64 @@ export default ServerComponent;
 - - -
 
 <br>
+
+## 3️⃣ 실습: RSC 사용하기
+React Server Components는 **Next.js 13 이상**에서 기본적으로 지원됩니다. Next.js에서는 서버에서만 실행되는 컴포넌트를 손쉽게 사용할 수 있습니다. 아래는 Next.js에서 RSC를 사용하는 기본적인 예시입니다.
+
+### 1. 서버 측에서 컴포넌트 작성
+먼저, 서버에서 렌더링될 컴포넌트를 작성합니다. RSC는 **서버에서만 실행**되므로 클라이언트 측에서 데이터를 처리하거나 DOM을 조작하는 작업은 할 수 없습니다.
+```tsx
+// app/serverComponent.tsx
+export default function ServerComponent() {
+  return (
+    <div>
+      <h1>This is a Server Component!</h1>
+      <p>Rendered on the server, not the client.</p>
+    </div>
+  );
+}
+```
+
+### 2. `Suspense`로 비동기 데이터 로딩 처리
+RSC는 `Suspense`와 함께 사용하여, 서버에서 비동기적으로 데이터를 가져오고, 데이터를 로드할 때까지 **로딩 화면을 표시**할 수 있습니다.
+```tsx
+// app/page.tsx
+import React, { Suspense } from 'react';
+import ServerComponent from './serverComponent';
+
+export default function Page() {
+  return (
+    <div>
+      <h1>React Server Components in Next.js</h1>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ServerComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
+✔️ `Suspense`를 사용하여 서버에서 데이터를 비동기적으로 가져올 때까지 로딩 UI를 표시합니다.
+✔️ `ServerComponent`는 서버에서만 실행되며, 클라이언트에는 이미 렌더링된 HTML만 전달됩니다.
+
+### 3. 클라이언트에서 데이터와 상태 처리
+서버 컴포넌트는 클라이언트 상태를 처리할 수 없으므로, 클라이언트에서만 실행되는 컴포넌트는 `useState`와 같은 React 훅을 사용하여 **상태를 관리**해야 합니다.
+```tsx
+// app/clientComponent.tsx
+'use client';
+
+import React, { useState } from 'react';
+
+export default function ClientComponent() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h2>Client Component</h2>
+      <button onClick={() => setCount(count + 1)}>Count: {count}</button>
+    </div>
+  );
+}
+```
+
+✔️ `use client` 디렉티브를 사용하여 이 컴포넌트는 **클라이언트에서만 실행**되게 합니다.  
+✔️ 클라이언트에서 상태를 관리하는 컴포넌트와 서버에서만 실행되는 컴포넌트를 분리하여 최적화된 애플리케이션을 만들 수 있습니다.
