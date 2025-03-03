@@ -138,3 +138,21 @@ function App() {
 }
 ```
 ✔️ `useContext`의 `useState`를 함께 사용하여 **전역 상태를 동적으로 변경**할 수 있습니다.
+
+<br>
+
+- - -
+
+<br>
+
+## 5️⃣ `useContext` 사용 사 주의할 점
+### 🔹 `useContext`는 Context Provider 내부에서만 사용 가능
+```tsx
+function MyComponent() {
+  const value = useContext(MyContext); // ❌ Provider가 없으면 오류 발생
+}
+```
+
+### 🔹 `useContext`를 남용하면 성능 저하 가능
+❗ Context 값이 변경될 때 **모든 소비자(Consumer) 컴포넌트가 다시 렌더링**됩니다.  
+✔️ 최적화를 위해 `useMemo` 또는 `useReducer`와 함께 사용하면 좋습니다.
