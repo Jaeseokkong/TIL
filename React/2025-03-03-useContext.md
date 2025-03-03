@@ -48,3 +48,58 @@ Props Drilling은 부모 컴포넌트의 데이터를 **자식 → 손자 → �
 
 <br>
 
+## 3️⃣ 기존 방식 vs `useContext`
+### 🔹 기존 Props Drilling 문제
+```tsx
+function App() {
+  return <Parent username="Alice" />;
+}
+
+function Parent({ username }) {
+  return <Child username={username} />;
+}
+
+function Child({ username }) {
+  return <GrandChild username={username} />;
+}
+
+function GrandChild({ username }) {
+  return <h1>Hello, {username}!</h1>;
+}
+```
+❗ `username`을 **props로 계속 전달해야 하는 불편함(Props Drilling)**이 발생합니다.
+
+### 🔹 `useContext`를 활용한 해결
+```tsx
+import { createContext, useContext } from "react";
+
+const UserContext = createContext(null);
+
+function App() {
+  return (
+    <UserContext.Provider value="Alice">
+      <Parent />
+    </UserContext.Provider>
+  );
+}
+
+function Parent() {
+  return <Child />;
+}
+
+function Child() {
+  return <GrandChild />;
+}
+
+function GrandChild() {
+  const username = useContext(UserContext);
+  return <h1>Hello, {username}!</h1>;
+}
+```
+✔️ `useContext`를 사용하면 **중간 컴포넌트에서 props를 전달할 필요 없이** 데이터를 가져올 수 있습니다.
+
+<br>
+
+- - -
+
+<br>
