@@ -103,3 +103,38 @@ function GrandChild() {
 - - -
 
 <br>
+
+## 4️⃣ `useContext` + `useState` 조합 (전역 상태 변경)
+### 🔹 `useState`와 함께 사용하여 동적으로 상태 변경하기
+```tsx
+import { createContext, useContext, useState } from "react";
+
+const ThemeContext = createContext();
+
+function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  )
+}
+
+function ThemeSwitcher() {
+  cosnt { theme, setTheme } = useContext(ThemeContext);
+  return (
+    <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+      현재 테마: {theme}
+    </button>
+  )
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <ThemeSwitcher />
+    </ThemeProvider>
+  )
+}
+```
+✔️ `useContext`의 `useState`를 함께 사용하여 **전역 상태를 동적으로 변경**할 수 있습니다.
