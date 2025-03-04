@@ -86,5 +86,56 @@ const memoizedCallback = useCallback(() => {
 📌 반환 값
 - `memoizedCallback`: 메모이제이션된 함수로, 동일한 함수 인스턴스가 재사용
 
+<br>
 
+### 🔹 함수 메모이제이션과 `useCallbak` 이해하기
+### 🧐 예시1: 자식 컴포넌트에 props로 함수를 전달할 때
+```tsx
+const Child = React.memo(({ onClick }) => {
+  console.log("Child rendered");
+  return <button onClick={onClick}>Click me</button>;
+});
+
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  // useCallback을 사용하여 함수가 유지됨
+  const increment = useCallback(() => {
+    setCount(prev => prev + 1);
+  }, []);
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <Child onClick={increment} />
+    </div>
+  );
+}
+```
+✔️ `useCallback`을 사용하면 `increment` **함수가 같은 함수로 유지**되어 `Child`가 불필요하게 리렌더링되지 않습니다.  
+
+<br>
+
+>💡 **그럼 그냥 의존성 배열을 비우면 되는 거 아닌가?**  
+`[]`를 넣으면 함수가 처음 한 번만 생성되지만, 특정 값이 바뀔 때 **새로운 동작이 필요하면 문제가 발생**
+
+
+
+#### 🧐 예시2: 의존성 변경에 따라 새로운 동작이 필요할 때
+```tsx
+function MyComponent({ multiplier }) {
+  const [count, setCount] = useState(0);
+
+  // multiplier가 변경되면 새로운 increment 함수가 필요
+  const increment = useCallback(() => {
+    setCount(prev => prev + multiplier);
+  }, [multiplier]);
+
+  return <button onClick={increment}>+{multiplier}</button>;
+}
+```
+✔️ `multiplier` 값이 변경될 때마다 새로운 `increment` 함수가 생성됩니다.  
+✔️ 이걸 하지 않으면 이전 `multiplier` 값을 계속 참조해서, **새로운 multiplier 값이 반영되지 않는 문제 발생**합니다.
+
+<br>
 
