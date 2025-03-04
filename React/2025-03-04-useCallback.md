@@ -10,3 +10,57 @@
 
 <br>
 
+## 2️⃣ `useCallback` vs 기존 함수 처리
+### 🔹 일반적인 React 함수 처리 (`함수 선언식`)
+일반적으로 React에서는 함수가 컴포넌트가 **리렌더링될 때마다 새로 생성**됩니다.
+이는 **자식 컴포넌트**로 전달되는 함수가 변경될 수 있기 때문에 불필요한 리렌더링을 초래할 수 있습니다.
+
+#### 🧐 예시: 기존 방식에서의 함수 처리
+```tsx
+import { useState } from "react";
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  // 상태 변경 함수
+  const increment = () => setCount(prev => prev + 1);
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={increment}>Increment</button>
+    </div>
+  )
+}
+```
+❗ **불필요한 함수 재생성**: 컴포넌트가 리렌더링될 때마다 `increment` 함수가 새로 생성되므로, 자식 컴포넌트에 전달될 경우 **자식 컴포넌트도 리렌더링**될 가능성이 있습니다
+
+<br>
+
+### 🔹 `useCallback`으로 개선된 점
+useCallback을 사용하면 **함수를 메모이제이션**하여,
+컴포넌트가 리렌더링되더라도 **동일한 함수 인스턴스를 유지**할 수 있습니다.
+이로 인해 **불필요한 함수 재생성 및 자식 컴포넌트 리렌더링을 방지**할 수 있습니다.
+
+```tsx
+import { useState, useCallback } from 'react';
+
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  // useCallback을 사용하여 함수 메모이제이션
+  const increment = useCallback(() => {
+    setCount(prev => prev + 1);
+  }, []);
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={increment}>Increment</button>
+    </div>
+  );
+}
+
+```
+✔️ **불필요한 함수 재생성 방지**: `useCallback`을 사용하면 `increment` 함수가 **리렌더링될 때마다 새로 생성되지 않고 유지**됩니다.  
+✔️ **자식 컴포넌트 최적화**: `increment`를 **자식 컴포넌트의 props로 전달할 때, 동일한 함수 인스턴스를 유지**하여 불필요한 리렌더링을 방지합니다.
