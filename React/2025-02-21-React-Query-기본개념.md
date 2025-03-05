@@ -47,7 +47,7 @@ const MyComponent = () => {
   return <pre>{JSON.stringify(data, null, 2)}</pre>;
 }
 ```
-✔️ `useQuery`를 사용하여 API 요청을 간단하게 처리 가능
+✔️ `useQuery`를 사용하여 API 요청을 간단하게 처리 가능  
 ✔️ 자동으로 **로딩 상태, 에러 상태, 데이터 캐싱** 지원
 
 <br>
@@ -82,7 +82,7 @@ const MyComponent = () => {
   return <button onClick={() => mutation.mutate({ name: "New Item" })}>추가</button>;
 }
 ```
-✔️ `useMutation`을 사용하여 데이터를 변경할 때 활용 가능
+✔️ `useMutation`을 사용하여 데이터를 변경할 때 활용 가능  
 ✔️ 성공적으로 변경되면 `invaliateQueries`를 호출하여 데이터 갱신
 
 <br>
@@ -109,7 +109,7 @@ useQuery({
   cacheTime: 1000 * 300 // 5분 후 캐시 삭제
 })
 ```
-✔️ `statleTime`: 일정 시간 동안 데이터가 신선하다고 간주 (재요청 방지)
+✔️ `statleTime`: 일정 시간 동안 데이터가 신선하다고 간주 (재요청 방지)  
 ✔️ `cacheTime`: 캐시 유지 기간 (사용되지 않으면 삭제)
 
 ### 🔹 Pagination & Infinite Query (`useInfiniteQuery`)
@@ -130,7 +130,7 @@ const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
 })
 ```
 
-✔️ `useInfiniteQuery`를 활용하여 무한 스크롤 구현 가능
+✔️ `useInfiniteQuery`를 활용하여 무한 스크롤 구현 가능  
 ✔️ `fetchNextPage()`를 호출하여 다음 페이지 로드
 
 <br>
@@ -153,5 +153,5 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
   <ReactQueryDevtools initialOpen={false}>
 </QueryClientProvider>
 ```
-✔️ React Query Devtools를 사용하면 **쿼리 상태 및 캐시 확인 가능**
+✔️ React Query Devtools를 사용하면 **쿼리 상태 및 캐시 확인 가능**  
 ✔️ 디버깅 및 성능 최적화에 매우 유용
