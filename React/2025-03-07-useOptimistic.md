@@ -81,3 +81,58 @@ const [optimisticState, updateOptimisticState] = useOptimistic(
 - **updateFunction(prevState, action)**: 상태 업데이트 함수
 - **optimisticState**: 낙관적 UI가 적용된 상태
 - **updateOptimisticState(action)**: 새로운 낙관적 변경을 추가하는 함수
+
+<br>
+
+- - -
+
+<br>
+
+## 3️⃣ `useOptimistic` 실전 예제
+```tsx
+import { useOptimistic, useState } from "react";
+
+function CommentList() {
+  const [comments, setComments] = useState([{ id: 1, text: "첫 번째 댓글" }]);
+
+  const [optimisticComments, addOptimisticComment] = useOptimistic(
+    comments,
+    (prev, newComment) => [...prev, newComment]
+  );
+
+  const handleAddComment = async () => {
+  const newComment = { id: Date.now(), text: "새 댓글" };
+
+  // 1. UI에 즉시 반영 (낙관적 업데이트)
+  addOptimisticComment(newComment);
+
+  try {
+    // 2. 서버 요청
+    await fetch("/api/comments", { method: "POST", body: JSON.stringify(newComment) });
+
+    // 3. 서버 응답 후 실제 상태 업데이트
+    setComments((prev) => [...prev, newComment]);
+  } catch (error) {
+    console.error("댓글 추가 실패!");
+    // 4. 실패 시 롤백
+    // ❌ 롤백 코드 필요 없음 (setState를 안 하면 자동으로 원래 상태로 복귀)
+  }
+};
+
+
+  return (
+    <div>
+      <h2>댓글 목록</h2>
+      <ul>
+        {optimisticComments.map((comment) => (
+          <li key={comment.id}>{comment.text}</li>
+        ))}
+      </ul>
+      <button onClick={handleAddComment}>댓글 추가</button>
+    </div>
+  );
+}
+```
+
+✔️ `useOptimistic`이 낙관적 상태를 따로 관리 → `setState`와 충돌 없음  
+✔️ 서버 응답이 늦더라도 **UI가 자연스럽게 반응**
