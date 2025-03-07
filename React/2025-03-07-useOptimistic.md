@@ -70,3 +70,14 @@ function LikeButton() {
 ✔️ `optimisticLikes`는 즉시 업데이트되지만, `likes`는 서버 응답 후 동기화됨
 ✔️ 불필요한 상태 롤백 로직 없이, 더 **직관적인 코드 작성 가능**
 
+## 2️⃣ `useOptimistic` 문법
+```tsx
+const [optimisticState, updateOptimisticState] = useOptimistic(
+  initialState,
+  (prevState, action) => newState
+);
+```
+- **initialState**: 초기 상태 값
+- **updateFunction(prevState, action)**: 상태 업데이트 함수
+- **optimisticState**: 낙관적 UI가 적용된 상태
+- **updateOptimisticState(action)**: 새로운 낙관적 변경을 추가하는 함수
