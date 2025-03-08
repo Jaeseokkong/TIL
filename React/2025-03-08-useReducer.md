@@ -12,3 +12,23 @@
 ✔️ `useState`는 **단순한 상태**에 적합하고, `useReducer`는 
 **여러 값이 관련된 복잡한 상태 관리**에 적합합니다.
 
+<br>
+
+- - - 
+
+<br>
+
+## 2️⃣ `useReducer` 기본 문법
+```tsx
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+- `state`: 현재 상태 값
+- `dispatch(action)`: 상태를 변경하는 함수 (액션을 전달)
+- `reducer(state, action)`: 상태를 업데이트하는 함수
+- `initialState`: 초기 상태 값
+
+<br>
+
+- - -
+
+<br>
