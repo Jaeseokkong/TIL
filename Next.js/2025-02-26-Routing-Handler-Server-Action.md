@@ -132,3 +132,5 @@ export default function OrderForm() {
   )
 }
 ```
+✔️ `handleSubmit`에서 `saveOrder`를 직접 호출하여 데이터를 서버에 저장합니다.  
+✔️ 별도의 `fetch` 요청 없이, **서버 액션을 직접 호출**하여 데이터를 처리합니다.
