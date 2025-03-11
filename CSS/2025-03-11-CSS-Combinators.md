@@ -16,3 +16,120 @@ CSS에서 **4가지 주요 결합자**가 존재합니다.
 - - - 
 
 <br>
+
+## 2️⃣ 결합자 사용 예제
+### 🔹 자손 결합자 (` `)
+```css
+.container p {
+	color: blue;
+}
+```
+```html
+<div class="container">
+  <p>이 문장은 파란색입니다.</p>
+  <div>
+    <p>이 문장도 파란색입니다.</p>
+  </div>
+</div>
+```
+<style>
+  .container1 p {
+    color: blue;
+  }
+</style>
+
+<div class="container1">
+  <p>이 문장은 파란색입니다.</p>
+  <div>
+    <p>이 문장도 파란색입니다.</p>
+  </div>
+</div>
+
+<br>
+
+### 🔹 자식 결합자 (`>`)
+```css
+.container > p {
+  color: red;
+}
+```
+```html
+<div class="container">
+  <p>이 문장은 빨간색입니다.</p>
+  <div>
+    <p>이 문장은 변경되지 않습니다.</p>
+  </div>
+</div>
+```
+
+<style>
+  .container2 > p {
+    color: blue;
+  }
+</style>
+
+<div class="container2">
+  <p>이 문장은 파란색입니다.</p>
+  <div>
+    <p>이 문장도 파란색입니다.</p>
+  </div>
+</div>
+
+<br>
+
+### 🔹 인접 형제 결합자 (`+`)
+```css
+h1 + p {
+  font-weight: bold;
+}
+```
+```html
+<div>
+	<h1>제목</h1>
+	<p>이 문장은 굵게 표시됩니다.</p>
+	<p>이 문장은 영향을 받지 않습니다.</p>
+<div>
+```
+<style>
+	.container3 h1 + p {
+		font-weight: bold;
+	}
+</style>
+
+<div class="container3">
+	<h1>제목</h1>
+	<p>이 문장은 굵게 표시됩니다.</p>
+	<p>이 문장은 영향을 받지 않습니다.</p>
+<div>
+
+<br>
+
+### 🔹 일반 형제 결합자 (`~`)
+```css
+h1 ~ p {
+	font-style: italic
+}
+```
+```html
+<div>
+	<h1>제목</h1>
+	<p>이 문장은 기울임체입니다.</p>
+	<p>이 문장도 기울임체입니다.</p>
+</div>
+```
+<style>
+	.container4 h1 ~ p {
+		font-style: italic
+	}
+</style>
+<div class="container4">
+	<h1>제목</h1>
+	<p>이 문장은 기울임체입니다.</p>
+	<p>이 문장도 기울임체입니다.</p>
+</div>
+
+<br>
+
+- - -
+
+<br>
