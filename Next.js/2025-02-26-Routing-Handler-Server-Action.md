@@ -4,79 +4,50 @@ Next.js에서 **Routing Handler**와 **Server Action**을 활용하면 서버와
 <br>
 
 ## 1️⃣ Routing Handler
-**Routing Handler**는 **Next.js API 라우트**를 처리하는 기능으로, 요청을 특정 핸들러 함수로 라우팅하여 데이터를 처리하는 방식입니다. 이 기능을 사용하면, 서버 측에서 클라이언트 요청에 따라 데이터를 처리하고, 응답을 보낼 수 있습니다. 주로 외부 API와의 통신이나 데이터베이스와의 연동을 서버측에서 처리할 때 유용합니다.
-
-Next.js에서는 `pages/api` 디렉토리를 사용하여 API 요청을 처리할 수 있습니다. 이 방식은 **REST API**처럼 동작합니다.
+라우터 핸들러는 Next.js의 App Router에서 `route.js` 또는 `route.ts` 파일을 통해 정의되며, 특정 경로에 대한 HTTP 요청을 처리하는데 사용됩니다. 이는 기존의 `pages/api` 디렉토리에서 정의하던 API 라우터와 유사한 역할을 하지만, App Router의 구조에 맞게 재설계되었습니다.
 
 ### 🔹 사용 이유
-- 서버에서 **동적 데이터 처리**를 하고, 이를 클라이언트로 전달하기 위해 사용
-- 외부 API나 데이터베이스에서 데이터를 가져오거나, 데이터를 가공하는 등의 처리를 서버에서 맡길 수 있음
-- 클라이언트에서 처리해야할 데이터 로직을 **서버로 분리**해 보안성과 성능을 최적화
+- 공개 API 엔드포인트를 생성하여 외부 시스템이나 클라이언트에서 데이터를 가져오거나 전송할 수 있음
+- 서버 측에서 복잡한 데이터 처리 로직을 수행하고, 다양한 응답 형식을 지원
 
-#### 🧐 예시1: 데이터 가공 및 클라이언트로 전달
+#### 🧐 예시: 데이터 가공 및 클라이언트로 전달
 ```tsx
-// pages/api/analytics.ts
+// app/api/analytics/route.ts
+import { NextResponse } from "next/server";
 
-export async function handler(req, res) {
+export async function GET(request: Request) {
   try {
-    // 외부 API에서 원시 데이터 가져오기
-    const response = await fetch('https://api.example.com/traffic');
-    const trafficData = await response.json();
+    const res = await fetch('https://api.example.com/traffic');
+    const traffic: { timestamp: string; visitors: number }[] = await res.json();
 
-    // 복잡한 데이터 가공 (예: 하루, 주, 월별로 트래픽 집계)
-    const processedTraffic = trafficData.reduce((acc, data) => {
+    const processedTraffic = traffic.reduce<Record<string, number>>((acc, data) => {
       const day = new Date(data.timestamp).toLocaleDateString();
-      if (!acc[day]) acc[day] = 0;
-      acc[day] += data.visitors;
+      acc[day] = (acc[day] || 0) + data.visitors;
       return acc;
     }, {});
 
-    // 가공된 데이터를 클라이언트로 전달
-    return res.status(200).json(processedTraffic);
+    return NextResponse.json(processedTraffic);
   } catch (error) {
-    return res.status(500).json({ error: 'Failed to process traffic data' });
+    return NextResponse.json(
+      { error: "Failed to process traffic data" },
+      { status: 500 }
+    );
   }
 }
 ```
-✔️ 클라이언트에서는 `GET /api/products` 요청을 보낼 수 있고, 서버에서는 외부 API를 호출하여 데이터를 가져와 반환합니다.
-✔️ 서버에서 **외부 API**로부터 받은 데이터를 **가공**하여 일별 방문자를 집계합니다.
+✔️ 클라이언트에서는 `GET /api/analytics` 요청을 보낼 수 있고, 서버에서는 외부 API를 호출하여 데이터를 가져와 반환합니다.
+✔️ 서버에서 **외부 API**로부터 받은 데이터를 **가공**하여 일별 트래픽을 집계합니다.
 ✔️ 클라이언트는 복잡한 데이터 가공 작업을 서버에서 처리하므로, 클라이언트의 부하를 줄일 수 있습니다.
 
 <br>
 
-#### 🧐 예시2: 데이터베이스에서 데이터 가져오기
-```tsx
-// pages/api/orders.ts
+- - -
 
-import { connectToDatabase } from '../../lib/db';
-
-export async function handler(req, res) {
-  try {
-    // 데이터베이스 연결
-    const db = await connectToDatabase();
-    
-    // 주문 데이터 가져오기
-    const orders = await db.collection('orders').find().toArray();
-
-    // 주문 데이터 가공
-    const processedOrders = orders.map(order => ({
-      orderId: order._id,
-      customerName: order.customerName,
-      totalAmount: order.items.reduce((total, item) => total + item.price, 0),
-    }));
-
-    return res.status(200).json(processedOrders);
-  } catch (error) {
-    return res.status(500).json({ error: 'Failed to fetch orders' });
-  }
-}
-```
-✔️ 서버에서 **MongoDB**와 같은 데이터베이스에 연결하여 주문 데이터를 가져옵니다.
-✔️ 클라이언트는 데이터베이스에 직접 접근하지 않고 서버를 통해 필요한 데이터만 받아오기 때문에 보안과 성능이 개선됩니다.
+<br>
 
 
 ## 2️⃣ Server Action
-**Server Action**은 Next.js 13부터 도입된 기능으로, **서버에서 직접 실행되는 함수**입니다. 이를 통해 클라이언트가 서버로 데이터를 전송하고, 서버에서 해당 데이터를 처리할 수 있습니다. 기존의 API 라우트와는 다르게, **클라이언트에서 별도의 fetch 요청 없이 서버 함수를 직접 호출**할 수 있다는 점이 특징입니다.
+**Server Action**은 Next.js 13부터 도입된 기능으로, **서버에서 직접 실행되는 함수**입니다. 이를 통해 클라이언트 컴포넌트나 서버 컴포넌트에서 호출할 수 있으며, 폼 제출이나 데이터 변이(mutation) 작업을 처리하는데 사용합니다.
 
 ### 🔹 사용 이유
 - API 라우트 없이 서버에서 직접 실행 가능 → **네트워크 요청 감소**
@@ -85,11 +56,12 @@ export async function handler(req, res) {
 
 #### 🧐 예시1: 서버에서 데이터 저장
 ```tsx
-"use server"
+// app/actions/orderActions.ts
+'use server';
 
-import { connectToDatabase } from "@/lib/db";
+import { connectToDatabase } from '@/lib/db';
 
-export async function saveOrder(orderData) {
+export async function saveOrder(orderData: any) {
   try {
     const db = await connectToDatabase();
     const result = await db.collection('order').insertOne(orderData);
@@ -104,32 +76,33 @@ export async function saveOrder(orderData) {
 
 #### 🧐 예시2: 클라이언트에서 Server Action 호출
 ```tsx
-"use client";
+// app/components/OrderForm.tsx
+'use client';
 
-import { useState } from "react";
-import { saveOrder } from "@/action/orderActions";
+import { useState } from 'react';
+import { saveOrder } from '@/actions/orderActions';
 
 export default function OrderForm() {
   const [order, setOrder] = useState({ name: '', items: [] });
   const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = await saveOrder(order);
-    setMessage(result.success ? 'Order saved!', 'Error saving order');
-  }
+    setMessage(result.success ? 'Order saved!' : 'Error saving order');
+  };
 
   return (
-    <form onSubmit={handleSubmit}>\
-      <input 
+    <form onSubmit={handleSubmit}>
+      <input
         type="text"
         value={order.name}
-        onChange={(e) => setOrder({ ...order, name:L e.target.value })}
+        onChange={(e) => setOrder({ ...order, name: e.target.value })}
       />
       <button type="submit">Submit</button>
-      <p>message</p>
+      <p>{message}</p>
     </form>
-  )
+  );
 }
 ```
 ✔️ `handleSubmit`에서 `saveOrder`를 직접 호출하여 데이터를 서버에 저장합니다.  
