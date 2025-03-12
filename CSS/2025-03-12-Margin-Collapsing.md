@@ -47,5 +47,29 @@ CSS에서 **두 개 이상의 요소의 margin이 겹칠 때, 더 큰 margin 하
 
 <br>
 
+## 2️⃣ Margin Collapsing 방지 방법
+### 🔹 부모 요소에 `overflow: hidden;` 적용
+```css
+.parent {
+  overflow: hidden;
+}
+```
+✔️ 부모 요소의 `margin-top`과 자식 요소의 `margin-top` 병합을 막을 수 있음
 
+### 🔹 부모 요소에 `display: flex;` 적용
+```css
+.parent {
+  display: flex;
+  flex-direction: column;
+}
+```
+✔️ `display: flex;`를 적용하면 margin 병합이 발생하지 않음
+
+### 🔹 부모 요소에 `padding` 추가
+```css
+.parent {
+  padding-top: 1px;
+}
+```
+✔️ `padding`이 있으면 margin 병합이 발생하지 않음
 
