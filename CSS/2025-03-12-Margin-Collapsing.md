@@ -73,3 +73,7 @@ CSS에서 **두 개 이상의 요소의 margin이 겹칠 때, 더 큰 margin 하
 ```
 ✔️ `padding`이 있으면 margin 병합이 발생하지 않음
 
+
+## 📝 오늘 배운 점
+Margin Collapsing 개념을 정확히 이해하지 못하면 레이아웃이 예상과 다르게 동작할 수 있다.  
+→ **레이아웃을 잡을 때 margin 대신 padding을 적극적으로 활용하는 것이 유리할 수 있음!**
