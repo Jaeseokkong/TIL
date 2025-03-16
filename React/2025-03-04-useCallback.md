@@ -119,8 +119,6 @@ function Parent() {
 >💡 **그럼 그냥 의존성 배열을 비우면 되는 거 아닌가?**  
 `[]`를 넣으면 함수가 처음 한 번만 생성되지만, 특정 값이 바뀔 때 **새로운 동작이 필요하면 문제가 발생**
 
-
-
 #### 🧐 예시2: 의존성 변경에 따라 새로운 동작이 필요할 때
 ```tsx
 function MyComponent({ multiplier }) {
@@ -139,3 +137,6 @@ function MyComponent({ multiplier }) {
 
 <br>
 
+- - -
+
+<br>
