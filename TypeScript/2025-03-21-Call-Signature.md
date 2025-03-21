@@ -33,3 +33,28 @@ console.loog(divide(10, 2)) // 5
 ```
 ✔️ `Divide` 인터페이스를 사용해 함수 타입을 정의할 수도 있습니다.
 
+- - -
+
+<br>
+
+## 3️⃣ 호출 시그니처와 제너릭(Generic)
+제너릭을 사용하면 **다양한 타입을 지원하는 유연한 함수 타입**을 정의할 수 있습니다.
+### 🔹 제너릭을 활용한 호출 시그니처
+```ts
+type Identity<T> = (value: T) => T;
+```
+✔️ `Identity<T>`는 **입력과 동일한 타입을 반환하는 함수**를 정의하는 제너릭 타입입니다.
+
+### 🔹 활용 예시
+```ts
+const identityString: Identity<string> = (value) => value;
+console.log(identityString("Hello")); // "Hello"
+
+const identityNumber: Identity<number> = (value) => value;
+console.log(identityNumber(42)); // 42
+```
+
+- - -
+<br>
+
+
