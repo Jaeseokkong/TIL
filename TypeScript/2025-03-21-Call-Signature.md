@@ -9,3 +9,27 @@ type Add = (a: number, b: number) => number;
 - - -
 
 <br>
+
+## 2️⃣ 호출 시그니처 사용 방법
+### 🔹 타입 별칭을 이용한 정의
+```ts
+type Multiply = (x: number, y: number) => number;
+
+const multiply: Multiply = (a, b) => a * b;
+console.log(multiply(4, 5)); // 20
+```
+✔️ `Multiply` 타입을 정의하고, 해당 타입을 가지는 함수를 구현했습니다.
+
+<br>
+
+### 🔹 인터페이스를 이용한 정의
+```ts
+interface Divide {
+  (x: number, y: number): number;
+}
+
+const divide: Divide = (a, b) => a / b;
+console.loog(divide(10, 2)) // 5
+```
+✔️ `Divide` 인터페이스를 사용해 함수 타입을 정의할 수도 있습니다.
+
