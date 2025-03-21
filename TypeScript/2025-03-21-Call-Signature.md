@@ -57,4 +57,18 @@ console.log(identityNumber(42)); // 42
 - - -
 <br>
 
+## 4️⃣ 여러 개의 제너릭 타입 사용
+입력과 출력의 타입이 다를 경우, **두 개 이상의 제너릭을 사용**할 수 있습니다.
+```ts
+type Mapper<T, U> = (input: T) => U
+```
+### 🔹 활용 예시
+```ts
+const stringToNumber: Mapper<string, number> = (value) => value.length;
+console.log(stringToNumber("TypeScript")) // 10
+```
+✔️ `string`을 입력받아 `number`(문자열 길이)로 변환하는 함수입니다.
+
+- - -
+<br>
 
