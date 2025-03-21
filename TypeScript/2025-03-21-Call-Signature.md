@@ -72,3 +72,24 @@ console.log(stringToNumber("TypeScript")) // 10
 - - -
 <br>
 
+## 5️⃣ 호출 시그니처와 `extends`
+`extend` 키워드는 **제너릭 타입의 범위를 제한**하는데 사용됩니다.  
+이를 통해 특정 타입을 상속하거나, **제약 조건을 추가하여 타입 안정성을 높일 수 있습니다.**
+### 🔹 `extends`를 활용한 호출 시그니처
+```ts
+type lengthy<T extends { length: number}> = (value: T) => number;
+```
+✔️ `T`는 `{ length: number }`를 **반드시 포함해야 하는 타입**으로 제한됩니다.
+
+<br>
+
+### 🔹 활용 예시
+```ts
+const getLength: Lengthy<string> = (value) => value.length;
+console.log(getLength("Hello")); // 5
+
+const getArrayLength: Lengthy<number[]> = (arr) => arr.length;
+console.log(getArrayLength([1, 2, 3, 4])); // 4
+```
+✔️ `string`이나 `배열(array)` 처럼 `length` 속성이 있는 타입만 사용할 수 있습니다.
+
