@@ -10,3 +10,36 @@
 --- 
 <br>
 
+## 2️⃣ Virtualization 기본 개념
+### 🔹 기존 방식 vs Virtualization 방식
+#### ❌ 기존 방식 (모든 아이템을 렌더링)
+```jsx
+function List({ items }) {
+  return (
+    <div>
+      {items.map((item) => (
+        <div key={item.id}>{item.text}</div>
+      ))}
+    </div>
+  );
+}
+```
+❗ 모든 아이템을 한 번에 렌더링하므로 **메모리 사용량이 증가하고, 성능이 저하**됩니다.
+
+#### ✅ Virtualization 적용 (화면에 보이는 부분만 렌더링)
+```tsx
+import { FixedSizeList as List } from "react-window";
+
+const Row = ({ index, style }) => (
+  <div style={style}>📌 Item {index}</div>
+);
+
+function VirtualizedList() {
+  return (
+    <List height={400} itemCount={1000} itemSize={50} width={300}>
+      {Row}
+    </List>
+  );
+}
+```
+✔️ `react-window`를 사용하여 **스크롤 영역 내의 요소만 렌더링**하여 성능을 최적화됩니다.
