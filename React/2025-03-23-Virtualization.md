@@ -43,3 +43,12 @@ function VirtualizedList() {
 }
 ```
 ✔️ `react-window`를 사용하여 **스크롤 영역 내의 요소만 렌더링**하여 성능을 최적화됩니다.
+- - -
+<br>
+
+### 3️⃣ Virtualization 라이브러리
+|라이브러리|특징|
+|---|---|
+|react-window|가볍고 성능이 뛰어난 Virtualization 라이브러리|
+|react-virtualized|테이블, 리스트 등 다양한 UI 가상화 지원|
+|TanStack Virtual|최신 Virtualization 라이브러리로, 유연성이 뛰어남|
