@@ -20,3 +20,35 @@ BEM은 세 가지 주요 개념으로 구성됩니다.
 - Block이나 Element의 상태나 변형을 나타냄
 - 스타일이나 동작이 다를 때 사용
 - **클래스명 예시**: `.button--primary`, `.card--large`, `.navbar__item--active`
+- - -
+<br>
+
+## 3️⃣ BEM 네이밍 규칙
+BEM은 특정 네이밍 규칙을 따릅니다.
+- **Block과 Element는 `__`(더블 언더스코어)로 구분**
+- **Modifier는 `--`(더블 하이픈)으로 구분**
+
+### 🔹 예제 코드
+```html
+<button class="button button--primary">
+  <span class="button__icon"></span>
+  Click me
+</button>
+
+<style>
+.button {
+  background-color: gray;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+}
+
+.button__icon {
+  margin-right: 5px;
+}
+
+.button--primary {
+  background-color: blue;
+}
+</style>
+```
