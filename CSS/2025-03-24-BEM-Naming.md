@@ -52,3 +52,45 @@ BEM은 특정 네이밍 규칙을 따릅니다.
 }
 </style>
 ```
+<button class="button button--primary">
+  <span class="button__icon"></span>
+  Click me
+</button>
+
+<style>
+.button {
+  background-color: gray;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+}
+
+.button__icon {
+  margin-right: 5px;
+}
+
+.button--primary {
+  background-color: blue;
+}
+</style>
+
+---
+<br>
+
+## 4️⃣ BEM의 장점 및 주의점
+### 🔹 장점
+✅ **명확한 구조**: 코드의 역할이 직관적으로 보임  
+✅ **재사용성 증가**: 요소를 쉽게 재사용할 수 있음  
+✅ **유지보수 용이**: 협업할 때 가독성이 뛰어남  
+✅ **CSS 우선순위 문제 감소**: 깊은 선택자를 피할 수 있음
+
+### 🔹 사용 시 주의할 점
+- 너무 길거나 복잡한 네이밍을 피해야 함
+- Block은 최대한 독립적으로 설계해야 함
+- 불필요한 Modifier 사용을 줄이는 것이 좋음
+---
+<br>
+
+## 🎯 결론
+BEM은 체계적인 CSS 작성을 도와주는 강력한 네이밍 방법론입니다. 특히 규모가 커지는 프로젝트에서 유용하며, 일관성있는 코드 작성을 위해 널리 사용됩니다.  
+앞으로 BEM 네이밍 방법론을 프로젝트에 적극 활용해보도록 하겠습니다!🚀
