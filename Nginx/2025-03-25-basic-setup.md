@@ -27,3 +27,42 @@ sudo apt install nginx -y
 - NGINX 상태 확인: `sudo systemctl status nginx`
 ---
 <br>
+
+## 3️⃣ /etc/nginx/nginx.conf 기본 구조 분석
+NGINX 설정 파일(`/etc/nginx/nginx.conf`)의 주요 구조는 다음과 같습니다.
+```conf
+user www-data;
+worker_processed auto;
+error_log /var/log/nginx/error.log;
+
+pid /run/nginx.pid;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    sendfile on;
+    keepalive_timeout 65;
+
+    server {
+        listen 80;
+        server_name example.com;
+
+        location / {
+            root /var/www/html;
+            index index.html index.htm;
+        }
+    }
+}
+```
+### 🔹 주요 디렉티브
+- `worker_processes`: 처리할 수 있는 병력 작업 수 지정
+- `worker_connections`: 하나의 worker가 동시에 처리할 수 있는 최대 연결 수
+- `http {}`: 웹 서버 설정을 포함하는 블록
+- `server {}`: 개별 서버 설정을 정의하는 블록
+- `location {}`: 특정 URL 패턴에 대한 처리 방식 정의
+---
+<br>
