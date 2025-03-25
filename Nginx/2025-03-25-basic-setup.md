@@ -11,3 +11,19 @@ NGINX는 웹 서버이자 리버스 프록시, 로드 밸런서 등의 역할을
 ---
 <br>
 
+## 2️⃣ NGINX 설치 및 기본 명령어
+### 1. NGINX 설치 (Ubuntu 기준)
+```cmd
+sudo apt update
+sudo apt install nginx -y
+```
+
+### 2. NGINX 기본 명령어
+- 버전 확인: `nginx-v`
+- 설정 파일 문법 검사: `nginx -t`
+- NGINX 시작: `sudo systemctl start nginx`
+- NGINX 중지: `sudo systemctl stop nginx`
+- NGINX 재시작: `sudo systemctl restart nginx`
+- NGINX 상태 확인: `sudo systemctl status nginx`
+---
+<br>
