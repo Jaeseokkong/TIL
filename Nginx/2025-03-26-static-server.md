@@ -4,7 +4,6 @@ NGINX는 정적 파일(HTML, CSS, JS, 이미지 등)을 빠르게 제공할 수 
 
 ### 🔹 root 디렉티브
 클라이언트 요청을 처리할 기본 디렉토리를 지정
-#### 🧐 예시
 ```nginx
 server {
 	listen 80;
@@ -16,7 +15,6 @@ server {
 
 ### 🔹 index 디렉티브
 기본적으로 제공할 파일(예: `index.html`)을 설정
-#### 🧐 예시
 ```nginx
 server {
 	listen 80;
@@ -73,3 +71,19 @@ sudo systemctl restart nginx
 ✔️ 위 과정으로 설정하면 브라우저에서 `http://example.com`에 접속함녀 `Hello, NGINX!`페이지가 나타남
 ---
 <br>
+
+## 3️⃣ server_name과 listen 설정
+### 🔹 listen 설정
+- 서버가 어떤 포트에서 요청을 받을지 지정
+- 예시: `listen 80;` → 80번 포트에서 요청 수신
+
+### 🔹 server_name 설정
+- 가상 호스트(Virtual Host) 기능을 사용하여 도메인 별로 다른 설정 적용 가능
+```nginx
+server {
+    listen 80;
+    server_name example.com www.example.com;
+    root /var/www/example;
+}
+```
+✔️ `server_name`에 여러 개의 도메인을 설정하면 동일한 설정을 공유 가능
