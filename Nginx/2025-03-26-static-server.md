@@ -43,3 +43,33 @@ server {
 ✔️ `images/logo.png` 요청이 들어오면 `/var/www/static/images/logo.png` 파일을 제공
 ---
 <br>
+
+## 2️⃣ 기본 HTML 페이지 배포
+### 1. 배포할 리델터리 생성
+```cmd
+sudo mkdir -p /var/www/example
+```
+
+### 2️. 샘플 HTML 파일 생성
+```cmd
+echo '<h1>Hello, NGINX!</h1>' | sudo tee /var/www/example/index.html
+```
+
+### 3. NGINX 설정 파일 수정 (`etc/nginx/sites-available/example`)
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+    root /var/www/example;
+    index index.html;
+}
+```
+
+### 4. 설정 적용 및 서비스 시작
+```cmd
+sudo ln -s /etc/nginx/sites-available/example /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+```
+✔️ 위 과정으로 설정하면 브라우저에서 `http://example.com`에 접속함녀 `Hello, NGINX!`페이지가 나타남
+---
+<br>
