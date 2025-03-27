@@ -25,3 +25,29 @@ server {
 }
 ```
 ✔️ `/api/`로 시작하는 요청이 들어오면 `http://localhost:3000/`으로 전달
+---
+<br>
+
+## 3️⃣ `proxy_set_header`, `X-Forwarded-For` 개념 이해
+### 🔹 proxy_set_header
+NGINX가 백엔드 서버로 요청을 전달할 때, 특정 HTTP 헤더 값을 추가하거나 변경할 수 있습니다.
+```nginx
+location /api/ {
+  proxy_pass http://localhost:3000/;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+}
+```
+### 🔹 X-Forwarded-For 헤더
+- 원래 클라이언트의 IP 주소를 보존하는 역할을 함
+- 기본적으로 리버스 프록시를 거치면 백엔드 서버에서 `remote_addr` 값이 NGINX의 IP로 설정됨
+- 이를 해결하기 위해 `X-Forwarded-For` 헤더를 사용하면 백엔드에서 실제 클라이언트 IP를 확인할 수 있음
+
+#### 🧐 예제: 백엔드에서 클라이언트 IP 확인하기
+```js
+app.get('/', (req, res) => {
+    const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    res.send(`Client IP: ${clientIp}`);
+});
+```
