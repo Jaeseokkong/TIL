@@ -57,3 +57,21 @@ upstream backend {
 
 ---
 <br>
+
+## 3️⃣ Gzip 압축 및 캐싱 설정
+### 🔹 Gzip 압축 활성화
+```nginx
+gzip on;
+gzip_types text/plain text/css application/json application/javascript;
+gzip_min_length 1000;
+```
+✔️ 응답 크기를 줄여 속도를 개선 (1KB 이상이고 파입 타입이 맞는 경우 압축)
+
+### 🔹 캐싱 설정
+```nginx
+location /static/ {
+		expires 30d;
+		add_header Cache-Control "public, max-age=2592000";
+}
+```
+✔️ 정적 파일을 30일 동안 캐싱하여 성능 최적화화
