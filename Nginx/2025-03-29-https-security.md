@@ -42,3 +42,4 @@ server {
     return 301 https://$host$request_uri;
 }
 ```
+✔️ HTTP 요청을 자동으로 HTTPS로 리디렉트
