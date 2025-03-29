@@ -13,5 +13,32 @@ sudo certbot --nginx -d example.com -d www.example.com
 ### 🔹 자동 갱신 설정
 Let's Encrypt 인증서는 90일마다 갱신해야 합니다. 자동 갱신을 설정하려면 다음 명령어를 클론잡에 추가하면 됩니다.
 ✔️ 인증서 갱신이 정상적으로 작동하는지 확인 가능
+
 ---
 <br>
+
+## 2️⃣ `ssl_certificate` 및 `ssl_protocols` 설정
+### 🔹 SSL/TLS 설정 예제
+```nginx
+server {
+    listen 443 ssl;
+    server_name example.com;
+
+    ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH";
+    ssl_prefer_server_ciphers on;
+}
+```
+✔️ 최신 보안 프로토콜을 적용하여 안전한 통신을 보장
+
+### 🔹  HTTP → HTTPS 강제 리디렉션
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+    return 301 https://$host$request_uri;
+}
+```
