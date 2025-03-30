@@ -43,3 +43,30 @@ server {
 }
 ```
 ✔️ HTTP 요청을 자동으로 HTTPS로 리디렉트
+
+---
+<br>
+
+## 3️⃣ Rate Limiting 및 Access Control
+### 🔹 Rate Limiting (요청 속도 제한)
+```nginx
+limit_req_zone $binary_remote_addr zone=one:10m rate=5r/s;
+
+server {
+    location /api/ {
+        limit_req zone=one burst=10 nodelay;
+    }
+}
+```
+✔️ 초당 5개의 요청만 허용하며, 최대 10개의 버스트 요청까지 허용
+
+### 🔹 IP 기반 접근 제어
+```nginx
+location /admin/ {
+    allow 192.168.1.100;
+    allow 192.168.1.101;
+    deny all;
+}
+```
+✔️ 특정 IP만 `/admin/` 페이지에 접근 가능하도록 설정
+
