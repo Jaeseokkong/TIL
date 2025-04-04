@@ -48,3 +48,29 @@ export const config = {
 
 --- 
 <br>
+
+## 4️⃣ 토큰 발급 예시 (API Route에서)
+```ts
+// app/api/login/route.ts
+import { NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
+
+export async function POST(req: Request) {
+  const { email, password } = await req.json();
+
+  // 실제 서비스에서는 여기서 유저 인증 로직 수행
+  if (email === 'test@example.com' && password === '1234') {
+    const token = jwt.sign({ email }, process.env.JWT_SECRET!, { expiresIn: '1h' });
+
+    const res = NextResponse.json({ success: true });
+    res.cookies.set('token', token, {
+      httpOnly: true,
+      path: '/',
+    });
+
+    return res;
+  }
+
+  return NextResponse.json({ success: false }, { status: 401 });
+}
+```
