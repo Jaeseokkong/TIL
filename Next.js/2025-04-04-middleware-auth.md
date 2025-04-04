@@ -14,3 +14,37 @@
 - **보안 강화** → 미인증 사용자 접근 차단
 ---
 <br>
+
+## 3️⃣ 기본 구조 (Next.js App Router 기준)
+```ts
+// middleware.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { jwtVerify } from 'jose';
+
+export async function middleware(req: NextRequest) {
+  const token = req.cookies.get('token')?.value; // 쿠키에서 토큰 꺼냄
+
+  if (!token) {
+    return NextResponse.redirect(new URL('/login', req.url)); // 없으면 로그인 페이지로
+  }
+
+  try {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    await jwtVerify(token, secret); // 유효성 검사
+    return NextResponse.next(); // 통과
+  } catch (err) {
+    return NextResponse.redirect(new URL('/login', req.url)); // 실패하면 로그인으로
+  }
+}
+
+// 보호할 경로 설정
+export const config = {
+  matcher: ['/profile', '/dashboard/:path*'],
+};
+```
+✔️ `matcher`를 사용해 인증이 필요한 페이지 경로를 지정할 수 있습니다. 예: `/profile`, `/dashboard/*`
+
+
+
+--- 
+<br>
