@@ -7,3 +7,54 @@
 |:---|:---|
 |`typeof`|값을 기반으로 타입을 추출|
 |`keyof`|객체 타입의 키만 뽑아서 유니언 타입으로 만들기|
+
+---
+<br>
+
+## 2️⃣ 실습 예시 - 테마 객체에서 타입 추출하기
+```ts
+const theme = {
+	colors: {
+		primary: '#3498db',
+    secondary: '#2ecc71',
+    danger: '#e74c3c'
+	}
+}
+```
+
+### 🔹 `typeof`로 객체의 타입을 추출
+```ts
+type Theme = typeof theme;
+
+// ✅ Theme 타입
+// type Theme = {
+//     colors: {
+//         primary: string;
+//         secondary: string;
+//         danger: string;
+//     };
+// }
+```
+✔️ `Theme` 타입은 `theme` 객체의 구조와 **동일한 타입**을 갖습니다.
+
+### 🔹 `keyof`로 유효한 키만 추출해서 사용
+```ts
+type ColorKeys = keyof Theme['colors'];
+
+// ✅ 해당 키 값들을 갖는 유니온 타입으로 지정
+// type ColorKeys = "primary" | "secondary" | "danger" 
+```
+
+
+### 🔹 특정 키 제한
+```ts
+function getColor(key: ColorKeys) {
+  return theme.colors[key];
+}
+
+getColor('primary');   // ✅
+getColor('warning');   // ❌ 컴파일 에러! ('warning'은 없는 키)
+```
+
+---
+<br>
