@@ -60,3 +60,37 @@ type Employee2 = Person2 & { employeeId: number };
 ---
 <br>
 
+### 🔹 선언 병합 (interface만 가능)
+```ts
+interface Box {
+	size: number;
+}
+interface Box {
+	color: string;
+}
+
+// 최종 결과
+// interface Box {
+//   size: number;
+//   color: string;
+// }
+```
+⚠️ `type`은 이름 중복 시 에러 발생 → 병합 불가
+```ts
+type Box = { size: number };
+// ❌ Error: Duplicate identifier 'Box'
+type Box = { color: string };
+```
+
+### 🔹 유니언/교차 타입 표현 (type만 가능)
+```ts
+type Status = 'loading' | 'success' | 'error';
+
+type Response =
+	| { status: 'loading' }
+	| { status: 'success'; data: string; }
+	| { status: 'error'; error: Error; };
+```
+✔️ `type`은 다양한 구조와 조합이 필요한 복잡한 상황에 더 적합합니다.  
+✔️ `interface`는 **이런 유니언 타입을 표현할 수 없습니다.**
+
