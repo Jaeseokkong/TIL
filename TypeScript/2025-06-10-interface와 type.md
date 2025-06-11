@@ -98,3 +98,90 @@ type Response =
 
 ---
 <br>
+
+## 4️⃣ 언제 어떤 걸 쓸까?
+### 🔹 핵심 비교 요약
+|상황|추천|이유|
+|:---|---|:---|
+|React 컴포넌트 Props| ✅ interface | 확장성 좋고, 선언 병합가능|
+|다양한 타입 조합 (유니언, 튜플 등)| ✅ type| 복잡한 타입 표현에 더 유연하고, 유니언 & 튜플 지원|
+|객체 형태 정의 및 확장| ✅ interface | `extends` 키워드로 자연스러운 상속과 선언 병한 지원|
+|기본 타입 별칭 정의| ✅ type | 원시 타입, 유니언, 튜플, 조건부 타입 등 다양하게 정의 가능|
+선언 병합 필요할 때| ✅ interface| 동일 이름의 인터페이스를 합쳐서 확장 가능|
+|타입 조작 필요할 때 (맵드 타입 등)| ✅ type | 조건부 타입, 유틸리티 타입, 맵드 타입 작성에 유리|
+|기존 JS 코드와 호환성 고려| ✅ interface | JS 객체 형태를 정의하는데 직관적이고, IDE 지원도 좋음|
+
+### 🔹 상세 설명 및 예제
+#### 🧐 React 컴포넌트 Props 정의 (interface 추천)
+```tsx
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ label, onClick }) => (
+  <button onClick={onClick}>{label}</button>
+);
+```
+✔️ 선언 병합 가능해서 Props를 확장하기 편합니다.
+
+---
+<br>
+
+#### 🧐 다양한 타입 조합 (type 추천)
+```tsx
+type Status = "loading" | "success" | "error";
+
+type ResponseData = [number, string];
+
+type Result = {
+  status: Status;
+  data: ResponseData;
+};
+```
+✔️ 유니언 타입이나 튜플을 표현하기 편합니다.
+
+---
+<br>
+
+#### 🧐 interface 확장과 선언 병합
+```tsx
+interface User {
+  id: number;
+  name: string;
+}
+
+interface User {
+  email: string;  // 선언 병합으로 자동 추가됨
+}
+
+interface Admin extends User {
+  role: string;
+}
+
+const admin: Admin = {
+  id: 1,
+  name: "Alice",
+  email: "alice@example.com",
+  role: "admin",
+};
+```
+✔️ 선언 병합과 extends로 객체 확장이 자연스럽습니다.
+
+---
+<br>
+
+#### 🧐 복잡한 타입 조작 (type 추천)
+```ts
+type Nullable<T> = T | null;
+
+type User = {
+  id: number;
+  name: string;
+};
+
+type NullableUser = Nullable<User>;  // User | null
+
+type Keys = keyof User;  // "id" | "name"
+```
+✔️ 제네릭과 조건부 타입, 맵드 타입 등 타입 조작에 용이합니다.
