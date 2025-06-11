@@ -1,3 +1,5 @@
+![interface vs type](../images/interface-vs-type.png)
+
 # interface와 type의 차이점과 올바른 사용법
 `interface`와 `type`은 모두 **객체의 타입을 정의할 때 사용**되자만,  
 용도와 표현력에서 약간의 차이가 있어 상황에 따라 선택적으로 사용하는 것이 좋습니다.
@@ -94,3 +96,5 @@ type Response =
 ✔️ `type`은 다양한 구조와 조합이 필요한 복잡한 상황에 더 적합합니다.  
 ✔️ `interface`는 **이런 유니언 타입을 표현할 수 없습니다.**
 
+---
+<br>
