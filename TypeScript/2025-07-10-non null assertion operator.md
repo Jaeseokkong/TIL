@@ -9,4 +9,18 @@ const name: string | null = getName();
 console.log(name!.length); // 컴파일러에게 "이건 null 아냐!"라고 단언
 ```
 
+## 1️⃣ 왜 이 연산자가 필요할까?
+```ts
+const el = document.getElementById("input") as HTMLInputElement;
+el.value = "hello" // ❌ 오류: el이 null일 수도 있음
+```
 
+TypeScript는 `getElementById`가 null을 반환할 수도 있다고 경고합니다.  
+하지만 개발자는 해당 요소가 **반드시 존재한다는 걸 알고 있을 수** 있습니다.  
+이럴 때 `!` 연산자를 쓰며, 타입스크립트가 경고하지 않도록 만들 수 있습니다.
+
+---
+<br>
+
+## 
+ 
