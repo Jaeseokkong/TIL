@@ -22,5 +22,16 @@ TypeScript는 `getElementById`가 null을 반환할 수도 있다고 경고합�
 ---
 <br>
 
-## 
+## 2️⃣ `!` 연산자란?
+### ✅ 정의
+`!` 연산자는 변수 뒤에서 붙여서 **"이건 절대 null 또는 undefined가 아니야!"** 라고 컴파일러에게 알려주는 역할을 합니다.
+```ts
+function getLength(str: string | null): number {
+	return str!.length; // null 아님을 보장
+}
+```
+- 컴파일러는 null이 아님을 믿으며, 런타임에 null이면 에러 발생
+> 즉 `!` 연산자는 **타입 체크를 우회하는 강단 단언**입니다. 믿고 쓰되 책임은 개발자에게 있습니다.
  
+ ---
+ <br>
