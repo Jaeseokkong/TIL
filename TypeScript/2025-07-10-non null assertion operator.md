@@ -33,5 +33,35 @@ function getLength(str: string | null): number {
 - 컴파일러는 null이 아님을 믿으며, 런타임에 null이면 에러 발생
 > 즉 `!` 연산자는 **타입 체크를 우회하는 강단 단언**입니다. 믿고 쓰되 책임은 개발자에게 있습니다.
  
- ---
- <br>
+---
+<br>
+
+## 3️⃣ 실무 예제 모음
+### 🧐 예제 1: DOM 요소 접근
+```ts
+	const el = document.getElementById("username") as HTMLInputElement;
+	el!.focus(); // mount 이후라 null 아님을 확신
+```
+
+### 🧐 예제 2: React `ref` 사용
+```tsx
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		inputRef.current!.focus(); // // ✅ mount 이후라 null 아님
+	}, []);
+```
+
+### 🧐 예제 3: 콜백 안에서 값 보장
+```ts
+let config: Conofig | undefined;
+
+initialize((result) => {
+	config = result;
+});
+
+useConfig(config!); // 콜백 호출 이후엔 undefined 아님
+```
+---
+<br>
+
