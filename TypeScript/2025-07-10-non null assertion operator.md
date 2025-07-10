@@ -65,3 +65,31 @@ useConfig(config!); // 콜백 호출 이후엔 undefined 아님
 ---
 <br>
 
+## 4️⃣ 언제 조심해야 할까?
+|상황|설명|
+|:---|:---|
+|아직 값이 초기화되지 않음|→ 무조건 런타임 에러 발생 가능|
+|서버 응답이나 외부 데이터 사용|→ null 가능성이 충분하므로 매우 위험|
+|SSR, Lasy Load, 조건부 렌더링 등|→ DOM이 존재하지 않을 수 있으므로 방어 코드 필요|
+
+---
+<br>
+
+## 5️⃣ 안전한 대안들
+`!` 연산자는 매우 편리하지만, 다음과 같은 안전한 방법이 있다면 먼저 고려하는 것이 좋습니다.
+### 🔹 Null 체크
+```ts
+if (el !== null) {
+  el.focus();
+}
+```
+
+### 🔹 Optional chanining(`?.`)
+```ts
+el?.focus();
+```
+
+### 🔹 Nullish coalescing (`??`)
+```ts
+const nameLength = name?.length ?? 0;
+```
