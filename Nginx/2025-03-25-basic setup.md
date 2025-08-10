@@ -9,7 +9,6 @@ NGINX는 웹 서버이자 리버스 프록시, 로드 밸런서 등의 역할을
 - 동적 콘텐츠 처리: Apache는 기본적으로 CGI, PHP 모듈을 제공 (NGINX는 별도 설정 필요)
 - 일반적으로 NGINX는 리버스 프록시 및 정적 콘텐츠 제공에 강점을 가짐
 ---
-<br>
 
 ## 2️⃣ NGINX 설치 및 기본 명령어
 ### 1. NGINX 설치 (Ubuntu 기준)
@@ -26,7 +25,6 @@ sudo apt install nginx -y
 - NGINX 재시작: `sudo systemctl restart nginx`
 - NGINX 상태 확인: `sudo systemctl status nginx`
 ---
-<br>
 
 ## 3️⃣ /etc/nginx/nginx.conf 기본 구조 분석
 NGINX 설정 파일(`/etc/nginx/nginx.conf`)의 주요 구조는 다음과 같습니다.
@@ -65,4 +63,3 @@ http {
 - `server {}`: 개별 서버 설정을 정의하는 블록
 - `location {}`: 특정 URL 패턴에 대한 처리 방식 정의
 ---
-<br>

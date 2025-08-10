@@ -15,7 +15,6 @@ Let's Encrypt 인증서는 90일마다 갱신해야 합니다. 자동 갱신을 
 ✔️ 인증서 갱신이 정상적으로 작동하는지 확인 가능
 
 ---
-<br>
 
 ## 2️⃣ `ssl_certificate` 및 `ssl_protocols` 설정
 ### 🔹 SSL/TLS 설정 예제
@@ -45,7 +44,6 @@ server {
 ✔️ HTTP 요청을 자동으로 HTTPS로 리디렉트
 
 ---
-<br>
 
 ## 3️⃣ Rate Limiting 및 Access Control
 ### 🔹 Rate Limiting (요청 속도 제한)
