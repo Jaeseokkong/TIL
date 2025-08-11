@@ -10,7 +10,6 @@
 ```
 
 ---
-<br>
 
 ## 2️⃣ 핵심 개념: block period & swap period
 ### 🔹 Block period (블록 기간)
@@ -24,7 +23,6 @@
 > 즉, swap period는 대체 폰트를 쓰다가 웹 폰트로 "스왑"할 수 있는 시간입니다.
 
 ---
-<br>
 
 ## 3️⃣ 각 `font-display` 값 자세히 보기
 ### 🔹 `font-display: auto`
@@ -96,7 +94,6 @@
 ⚠️ **단점**: 웹 폰트가 전혀 적용되지 않을 수 있음
 
 ---
-<br>
 
 ## 🧠 정리 요약
 |값|block period|swap period|폰트 경험|

@@ -40,7 +40,6 @@ server {
 ```
 ✔️ `images/logo.png` 요청이 들어오면 `/var/www/static/images/logo.png` 파일을 제공
 ---
-<br>
 
 ## 2️⃣ 기본 HTML 페이지 배포
 ### 1. 배포할 리델터리 생성
@@ -70,7 +69,6 @@ sudo systemctl restart nginx
 ```
 ✔️ 위 과정으로 설정하면 브라우저에서 `http://example.com`에 접속함녀 `Hello, NGINX!`페이지가 나타남
 ---
-<br>
 
 ## 3️⃣ server_name과 listen 설정
 ### 🔹 listen 설정
