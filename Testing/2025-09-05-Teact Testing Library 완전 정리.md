@@ -8,3 +8,11 @@
 - **"사용자가 보는 것과 같은 방식"**으로 요소를 찾고 상호작용
 
 ---
+
+## 2️⃣ 설치
+```bash
+npm install --save-dev @testing-library/react @testing-library/jest-dom
+```
+
+- `@testing-library/react`: 핵심 기능 제공 (렌더링, 쿼리)
+- `@testing-library/jest-dom`: Jest에서 사용할 수 있는 DOM 전용 Matcher 제공
