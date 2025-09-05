@@ -54,3 +54,24 @@ test("버튼 클릭 시 카운트가 증가한다", async () => {
 ```
 
 ---
+
+## 4️⃣ 쿼리(Query) 메서드
+RTL은 요소를 찾을 때 **접근성(Accessibility)** 기준을 권장합니다.
+- **역할(Role)** 기반: `getByRole` (가장 권장)
+- **라벨(Label)** 기반: `getByLabelText`
+- **텍스트(Text)** 기반: `getByText`
+- **플레이스홀더(Placeholder)** 기반: `getByPlaceholderText`
+- **테스트 ID** 기반: `getByTestId` (최후의 수단)
+
+```jsx
+screen.getByRole("button", { name: "로그인" });
+screen.getByLabelText("아이디");
+screen.getByPlaceholderText("비밀번호 입력");
+screen.getByText("회원가입");
+```
+
+👉 `getBy*` 계열은 요소가 없으면 에러 발생,  
+👉 `queryBy*` 는 요소 없으면 null 반환,  
+👉 `findBy*` 는 비동기 요소 탐색 시 Promise 반환.  
+
+---
