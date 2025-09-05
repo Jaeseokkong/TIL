@@ -75,3 +75,30 @@ screen.getByText("회원가입");
 👉 `findBy*` 는 비동기 요소 탐색 시 Promise 반환.  
 
 ---
+
+## 5️⃣ 사용자 이벤트 (user-event)
+- RTL은 `userEvent` 유틸을 통해 실제 사용자의 상호작용을 시뮬레이션합니다.
+- 예: 클릭, 입력, 키보드 이벤트 등
+
+```jsx
+const input = screen.getByRole("textbox");
+await userEvent.type(input, "Hello");
+
+expect(input).toHaveValue("Hello");
+```
+
+---
+
+## 6️⃣ Jest-DOM Matchers
+`@testing-library/jest-dom`을 설치하면 DOM 전용 Matcher를 활용할 수 있습니다.
+- `toBeInTheDocument()` : 요소 존재 여부
+- `toHaveTextContent()` : 텍스트 포함 여부
+- `toBeVisible()` : 보이는지 여부
+- `toHaveValue()` : 입력 값 검증
+
+```jsx
+expect(screen.getByText("로그인")).toBeInTheDocument();
+expect(screen.getByRole("textbox")).toHaveValue("Hello");
+```
+
+---
