@@ -16,3 +16,41 @@ npm install --save-dev @testing-library/react @testing-library/jest-dom
 
 - `@testing-library/react`: 핵심 기능 제공 (렌더링, 쿼리)
 - `@testing-library/jest-dom`: Jest에서 사용할 수 있는 DOM 전용 Matcher 제공
+
+---
+
+## 3️⃣ 기본 사용법
+
+### 🔹 컴포넌트 렌더링
+```jsx
+// Counter.js
+import { useState } from "react";
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>증가</button>
+    </div>
+  );
+}
+```
+
+```jsx
+// Counter.test.js
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import Counter from "./Counter";
+
+test("버튼 클릭 시 카운트가 증가한다", async () => {
+  render(<Counter />);
+
+  const button = screen.getByRole("button", { name: "증가" });
+  await userEvent.click(button);
+
+  expect(screen.getByText("Count: 1")).toBeInTheDocument();
+});
+```
+
+---
