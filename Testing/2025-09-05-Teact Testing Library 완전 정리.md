@@ -102,3 +102,10 @@ expect(screen.getByRole("textbox")).toHaveValue("Hello");
 ```
 
 ---
+
+## 7️⃣ RTL의 핵심 철학
+- **사용자 관점(User-centric)** → 버튼을 "클래스명"이 아니라 **역할(Role)** 과 **레이블(Label)** 로 찾자.
+
+- **구현 세부사항(Implementation detail)을 피하자** → state 값 직접 접근하지 말고, UI를 통해 검증하자.
+
+- **접근성(Accessibility)을 중시하자** → 스크린리더 등 실제 사용자 환경을 고려한 테스트 작성.
