@@ -70,9 +70,11 @@ screen.getByPlaceholderText("비밀번호 입력");
 screen.getByText("회원가입");
 ```
 
-👉 `getBy*` 계열은 요소가 없으면 에러 발생,  
-👉 `queryBy*` 는 요소 없으면 null 반환,  
-👉 `findBy*` 는 비동기 요소 탐색 시 Promise 반환.  
+|메서드|요소 없을 때|사용 시점|
+|:---|:---|:---|
+|getBy*|에러 발생|반드시 존재해야 할 때|
+|queryBy*|`null` 반환|없을 수도 있을 때|
+|findBy*|Promise 반환|비동기 요소 탐색 시|
 
 ---
 
