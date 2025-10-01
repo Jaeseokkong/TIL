@@ -38,3 +38,17 @@ const pathname = usePathname();
 router.push('/home');       // 페이지 이동
 console.log(pathname);      // 현재 경로 확인
 ```
+
+## 2️⃣ useRouter API 차이
+
+|기능|Pages Router (`next/router`)|App Router (`next/navigation`)|
+|:---|:---|:---|
+|import|`import { useRouter } from 'next/router'`|`import { useRouter } from 'next/navigation'`|
+|페이지 이동|`router.push('/push')`|동일|
+|이벤트|`router.events.on(...)` 사용 가능|없음 (`usePathname` 감지로 대체)|
+|쿼리 접근|`router.query`|`useSearchParams()`|
+|history 이동|`router.back()`, `router.replace()`|동일|
+
+- App Router에서는 이벤트 기반 로딩/스피너 관리가 불가능하며, 경로 변화를 감지하는 방식으로 구현해야 함
+
+---
