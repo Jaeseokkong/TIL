@@ -52,3 +52,42 @@ console.log(pathname);      // 현재 경로 확인
 - App Router에서는 이벤트 기반 로딩/스피너 관리가 불가능하며, 경로 변화를 감지하는 방식으로 구현해야 함
 
 ---
+
+## 3️⃣ 해결 방법: App Router에서 라우터 다루기
+
+### 🔹 페이지 전환 스피너 예시
+
+```ts
+'use client';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+
+export default function LoadingSpinner() {
+  const pathname = usePathname();
+  const [loading, setLoading] = useState(false);
+  const [prevPath, setPrevPath] = useState(pathname);
+
+  useEffect(() => {
+    if (pathname !== prevPath) {
+      setLoading(true);
+      const timeout = setTimeout(() => {
+        setLoading(false);
+        setPrevPath(pathname);
+      }, 300); // 최소 로딩 시간
+      return () => clearTimeout(timeout);
+    }
+  }, [pathname, prevPath]);
+
+  if (!loading) return null;
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-white/50 z-50">
+      <div className="w-12 h-12 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+    </div>
+  );
+}
+```
+
+> Pages Router에서는 `router.events`를 사용했지만, App Router에서는 `pathname` 변화를 감지해 스피너를 구현
+
+---
