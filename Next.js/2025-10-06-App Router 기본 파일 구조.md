@@ -69,3 +69,62 @@ layout.tsx → loading.tsx → page.tsx → error.tsx
 - 에러 발생 시 → `error.tsx` 표시
 
 ---
+
+## 5️⃣ 예시 코드
+
+### ✅ layout.tsx
+
+```tsx
+// app/layout.tsx
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ko">
+      <body>
+        <header>공통 헤더</header>
+        <main>{children}</main>
+      </body>
+    </html>
+  );
+}
+```
+
+### ✅ page.tsx
+
+```tsx
+// app/page.tsx
+export default function HomePage() {
+  return <h1>홈 페이지</h1>;
+}
+```
+
+### ✅ loading.tsx
+
+```tsx
+// app/loading.tsx
+export default function Loading() {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <p>로딩 중...</p>
+    </div>
+  );
+}
+```
+
+### ✅ error.tsx
+
+```tsx
+'use client';
+
+export default function Error({ error, reset }: { error: Error; reset: () => void }) {
+  return (
+    <div className="text-center py-10">
+      <h2>⚠️ 에러 발생: {error.message}</h2>
+      <button onClick={() => reset()} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+        다시 시도
+      </button>
+    </div>
+  );
+}
+```
+
+---
