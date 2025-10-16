@@ -65,3 +65,9 @@ function reducer(state, action) {
 상태 변경 자체는 **reducer 함수**가 담당합니다.
 
 ---
+
+## ✍️ 요약
+
+- `useReducer`는 상태와 상태 변경 로직을 분리하는 훅  
+- `reducer(state, action)`은 순수 함수로 새로운 상태를 반환  
+- `dispatch(action)`은 상태 변경을 트리거하는 역할  
