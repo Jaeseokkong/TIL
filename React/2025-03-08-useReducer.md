@@ -54,3 +54,14 @@ function reducer(state, action) {
 `reducer`를 통해 "상태 변경 규칙"을 외부로 분리하는 방식입니다.
 
 ---
+
+## 3️⃣ useReducer의 실행 과정
+
+1. 컴포넌트가 처음 렌더링 되면 `useReducer`가 `initialState`를 기준으로 `state`를 생성
+2. `dispatch(action)`이 호출되면 React가 내부적으로 `reducer(state, action)` 실행
+3. 새로운 `state`가 반환되면, React는 리렌더링을 트리거
+
+> 💡 즉, `dispatch`는 단순히 "액션을 reducer로 전달하는 트리거"일 뿐,  
+상태 변경 자체는 **reducer 함수**가 담당합니다.
+
+---
