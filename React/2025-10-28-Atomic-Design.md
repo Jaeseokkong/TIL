@@ -72,3 +72,54 @@ src/
 - 각 계층은 상위 게층에만 의존하도록 구성 (순환 참조 방지)
 
 ---
+
+## 5️⃣ React 예시
+
+```tsx
+// 🧩 Atomic Design Example
+
+
+const Atom = () => <button>Button</button>;
+
+
+const Molecule = () => (
+	<div>
+		<input placeholder="Search..." />
+		<Atom />
+	</div>
+);
+
+
+const Organism = () => (
+	<header>
+		<h1>MyApp</h1>
+		<Molecule />
+	</header>
+);
+
+
+const Template = ({ children }: { children: React.ReactNode }) => (
+	<div>
+		<Organism />
+		<main>{children}</main>
+	</div>
+);
+
+
+export default function Page() {
+return (
+	<Template>
+		<h2>Home Page</h2>
+	</Template>
+);
+```
+
+- **Atom**: 가장 작은 단위의 UI 요소 (`Button`)
+- **Molecule**: Atom을 조합한 작은 기능 단위 (`Input` + `Button`)
+- **Oranism**: 여러 Molecule로 구성된 독립 세션 (`Header`)
+- **Template**: 페이지의 레이아웃 골격 (`Header` + `Content` 영역)
+- **Page**: 실제 데이터를 담아 완성된 화면 (Home Page)
+
+각 단계는 하위 요소를 조합하며 점점 더 복잡한 UI를 형성합니다.
+
+---
