@@ -33,3 +33,33 @@
 - 모든 UI를 엄격히 나누면 오히려 복잡해질 수 있음 - 실용적인 균형 필요
 
 ---
+
+## 3️⃣ 폴더 구조 예시
+
+```bash
+src/
+└── components/
+	├── atoms/
+	│ 	├── Button.tsx
+	│ 	├── Input.tsx
+	│ 	└── Label.tsx
+	│
+	├── molecules/
+	│ 	├── SearchBar.tsx
+	│ 	└── LoginForm.tsx
+	│
+	├── organisms/
+	│ 	├── Header.tsx
+	│ 	├── CardList.tsx
+	│ 	└── Footer.tsx
+	│
+	├── templates/
+	│ 	├── MainLayout.tsx
+	│ 	└── ArticleTemplate.tsx
+	│
+	└── pages/
+		├── HomePage.tsx
+		└── ArticlePage.tsx
+```
+
+---
