@@ -72,3 +72,33 @@ Tailwind는 CSS 상태 선택자를 유틸리티 단위로 추상화합니다.
 - 체크 시 `span`의 배경색 변경
 
 ---
+
+## 4️⃣ 상태 조합 가능
+
+Tailwind는 여러 상태를 **연속적으로 연결**할 수 있습니다.
+
+```html
+<button class="hover:focus:bg-green-500 active:scale-95">
+  Save
+</button>
+```
+- 마우스 오버 중이며 포커스일 때만 색상 초록색으로 변경
+
+```html
+<input class="focus:invalid:border-red-500" />
+```
+
+- 포커스 중이며 invalid일 때만 빨간 테두리.
+
+---
+
+## 사용 시 유용한 패턴
+
+| 패턴       | 예시                              | 설명                |
+| :------- | :------------------------------ | :---------------- |
+| 기본 + 상태  | `bg-gray-100 hover:bg-gray-200` | 기본값과 상태를 함께 정의    |
+| 부모 상태 반응 | `group-hover:text-blue-500`     | `group` 부모 상태에 반응 |
+| 형제 상태 반응 | `peer-checked:bg-green-500`     | 체크 상태에 따라 스타일 변경  |
+| 조합 상태    | `hover:focus:bg-red-500`        | 복합 상태 처리 가능       |
+
+---
