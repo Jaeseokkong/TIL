@@ -41,3 +41,34 @@ Tailwind는 CSS 상태 선택자를 유틸리티 단위로 추상화합니다.
 
 ---
 
+## 3️⃣ 고급 셀렉터 - `group` & `peer`
+
+### 🧩 `group`
+
+부모 요소에 `group` 클래스를 지정하고, 자식 요소가 `group-hover:` 등의 상태를 감지합니다.
+
+```html
+<div class="group">
+  <button class="opacity-0 group-hover:opacity-100">보기</button>
+</div>
+```
+
+- 부모에 마우스를 올리면 자식 버튼이 나타남
+
+---
+
+### 🧩 `peer`
+
+입력요소 상태에 따라 형제 요소 스타일 변경 시 사용합니다.
+
+```html
+<label class="inline-flex items-center cursor-pointer">
+  <input type="checkbox" class="peer hidden" />
+  <span class="w-5 h-5 border border-gray-400 peer-checked:bg-blue-500"></span>
+  <span class="ml-2">동의합니다</span>
+</label>
+```
+
+- 체크 시 `span`의 배경색 변경
+
+---
