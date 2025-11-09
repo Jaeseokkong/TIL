@@ -29,3 +29,24 @@ src/
 ```
 
 ---
+
+## 3️⃣ 코드 예시
+
+### 🎨 Presentational Component
+
+```tsx
+// UserList.tsx
+type User = { id: number; name: string };
+
+export default function UserList({ users }: { users: User[] }) {
+  return (
+    <ul>
+      {users.map(user => (
+        <li key={user.id}>{user.name}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+>상태 없이, 단순히 props로 받은 users를 UI로 렌더링만 합니다.
