@@ -13,3 +13,19 @@
 ---
 
 > 💡 핵심: **Container는 “어떻게 동작할지”**, **Presentational은 “어떻게 보일지”** 만 담당한다.
+
+---
+
+## 2️⃣ 구조 예시
+
+```bash
+src/
+└── components/
+    ├── presentational/
+    │   ├── UserList.tsx
+    │   └── UserCard.tsx
+    └── containers/
+        └── UserListContainer.tsx
+```
+
+---
