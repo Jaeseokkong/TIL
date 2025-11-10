@@ -18,3 +18,26 @@ CSS 트랜지션보다 **자연스럽고 선언적인 애니메이션 제어**�
 |**layout**|DOM 변경 시 레이아웃 이동을 부드럽게 보정|리스트 재정렬, 스텝 전환|
 
 ---
+
+## 2️⃣ 기본 문법
+
+```tsx
+import { motion } from 'framer-motion';
+
+export default function Example() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}   // 처음 상태
+      animate={{ opacity: 1, y: 0 }}    // 애니메이션 도착 상태
+      transition={{ duration: 0.5 }}     // 전환 시간
+    >
+      Hello Motion 👋
+    </motion.div>
+  );
+}
+```
+
+> ✅ motion.div는 div와 동일한 역할을 하지만,  
+props로 애니메이션 속성을 직접 부여할 수 있습니다.
+
+---
