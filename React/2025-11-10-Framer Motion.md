@@ -41,3 +41,31 @@ export default function Example() {
 props로 애니메이션 속성을 직접 부여할 수 있습니다.
 
 ---
+
+## 3️⃣ Variants 패턴
+`variants`는 여러 애니메이션 상태를 **객체로 선언**하고,  
+컴포넌트 간 **재사용**하거나 **조건별 전환**을 쉽게 관리할 수 있습니다.
+
+```tsx
+const variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 },
+};
+
+<motion.div
+  variants={variants}
+  initial="hidden"
+  animate="visible"
+  exit="exit"
+  transition={{ duration: 0.4 }}
+>
+  Fade In & Out
+</motion.div>
+```
+
+> 💡 `variants`를 쓰면 상태별 스타일을 깔끔하게 구분할 수 있어,  
+“페이지 전환”이나 “리스트 항목 순차 등장”에 특히 유용합니다.
+
+---
+
