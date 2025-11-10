@@ -69,3 +69,42 @@ const variants = {
 
 ---
 
+## 4️⃣ AnimatePresence – 조건부 렌더링 시 애니메이션 유지
+
+React의 조건부 렌더링(`{step === 1 && <Card />}`)은 기본적으로  
+**DOM을 즉시 제거되어 퇴장 애니메이션이 사라집니다.**
+
+이를 해결하기 위해 `AnimationPresence`를 사용합니다.
+
+```tsx
+import { AnimatePresence, motion } from 'framer-motion';
+
+<AnimatePresence mode="wait">
+  {step === 1 && (
+    <motion.div
+      key="step1"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.4 }}
+    >
+      Step 1
+    </motion.div>
+  )}
+
+  {step === 2 && (
+    <motion.div
+      key="step2"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.4 }}
+    >
+      Step 2
+    </motion.div>
+  )}
+</AnimatePresence>
+```
+
+> 🪄 `mode="wait"`을 주면 이전 컴포넌트의 exit 애니메이션이 완료된 후  
+다음 컴포넌트가 등장합니다. (깜빡임 방지)
