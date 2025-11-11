@@ -108,3 +108,24 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 > 🪄 `mode="wait"`을 주면 이전 컴포넌트의 exit 애니메이션이 완료된 후  
 다음 컴포넌트가 등장합니다. (깜빡임 방지)
+
+---
+
+## 5️⃣ 상호작용 애니메이션
+
+사용자 액션에 반응하는 애니메이션은 `whileHover`, `whileTap`, `whileDrag` 등으로 간단히 구현할 수 있습니다.
+
+```tsx
+<motion.button
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  transition={{ type: 'spring', stiffness: 300 }}
+  className="px-4 py-2 bg-blue-500 text-white rounded-xl"
+>
+  Click Me
+</motion.button>
+```
+
+> ⚡ CSS `:hover`보다 더 부드럽고, 물리적 반응(스프링 애니메이션)도 쉽게 줄 수 있습니다.
+
+---
