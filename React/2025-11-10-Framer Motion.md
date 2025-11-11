@@ -83,24 +83,24 @@ import { AnimatePresence, motion } from 'framer-motion';
   {step === 1 && (
     <motion.div
       key="step1"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.4 }}
     >
-      Step 1
+      <Card>Step 1 Content</Card>
     </motion.div>
   )}
 
   {step === 2 && (
     <motion.div
       key="step2"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 50 }}
       transition={{ duration: 0.4 }}
     >
-      Step 2
+      <Card>Step 2 Content</Card>
     </motion.div>
   )}
 </AnimatePresence>
@@ -129,3 +129,4 @@ import { AnimatePresence, motion } from 'framer-motion';
 > ⚡ CSS `:hover`보다 더 부드럽고, 물리적 반응(스프링 애니메이션)도 쉽게 줄 수 있습니다.
 
 ---
+
