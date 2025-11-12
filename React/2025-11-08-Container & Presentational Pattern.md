@@ -49,4 +49,29 @@ export default function UserList({ users }: { users: User[] }) {
 }
 ```
 
->상태 없이, 단순히 props로 받은 users를 UI로 렌더링만 합니다.
+> 상태 없이, 단순히 props로 받은 users를 UI로 렌더링만 합니다.
+
+---
+
+### ⚙️ Container Component
+```tsx
+// UserListContainer.tsx
+import { useEffect, useState } from "react";
+import UserList from "../presentational/UserList";
+
+export default function UserListContainer() {
+  const [users, setUsers] = useState<{ id: number; name: string }[]>([]);
+
+  useEffect(() => {
+    fetch("/api/users")
+      .then(res => res.json())
+      .then(setUsers);
+  }, []);
+
+  return <UserList users={users} />;
+}
+```
+
+> 데이터 로직, API 호출, 상태 관리는 여기에서 수행됩니다.
+
+---
