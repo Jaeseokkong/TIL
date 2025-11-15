@@ -279,3 +279,18 @@ function addAge(user) {
 const arr = [1,2,3];
 const newArr = [...arr, 4]; // push 대신
 ```
+
+---
+
+9️⃣ Object.freeze
+
+객체의 속성을 변경할 수 없도록 동결시킵니다.
+
+```js
+const person = Object.freeze({ name: "Tom" });
+person.name = "Jerry"; // 무시됨
+```
+
+- 하지만 얕은 freeze → 내부 객체는 여전히 mutable
+
+---
