@@ -262,3 +262,20 @@ function addAge(user) {
 ```
 
 ---
+
+## 8️⃣ 가변 vs 불변 API 비교
+
+| 가변(Mutable) | 불변(Immutable)  |
+| ----------- | -------------- |
+| push        | concat         |
+| pop         | slice          |
+| shift       | slice          |
+| splice      | filter, map    |
+| sort        | slice().sort() |
+
+### 🧐 예시
+
+```js
+const arr = [1,2,3];
+const newArr = [...arr, 4]; // push 대신
+```
