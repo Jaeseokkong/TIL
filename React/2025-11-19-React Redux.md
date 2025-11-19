@@ -47,3 +47,45 @@ export function App() {
 - Context 값이 변경되는 대신, 개별 컴포넌트가 store 변경을 직접 구독해서 불필요한 렌더링 방지
 
 ---
+
+## 3️⃣ Redux Hooks
+
+React-Redux에서 가장 많이 사용하는 Hook은 다음 두가지입니다.
+
+### 🔹 `useSelector()`
+
+React store의 상태 중 **일부만 선택해서 가져오는 Hook**입니다.
+
+```js
+const count = useSelector((state) => state.counter.value);
+```
+
+#### 📌 특징
+
+- 필요한 state 일부만 선택 → 성능 최적화 
+- 선택한 값이 바뀌지 않으면 해당 컴포넌트는 리렌더링되지 않음
+
+#### 🔍 내부 동작
+
+- 컴포넌트가 useSelector 실행 → store.subscribe 등록
+- state 변경 → selector 실행 → 값 변경 여부 비교
+- 바뀌었으면 해당 컴포넌트만 렌더링
+
+---
+
+### 🔹 `useDispatch()`
+
+Redux의 dispatch 함수를 가져오는 Hook입니다.
+
+```js
+const dispatch = useDispatch();
+
+dispatch({ type: "INCREMENT" });
+```
+
+#### 📌 특징
+
+- 함수 자체는 절대 새로 생성되지 않음 → 안전하게 useCallback 없이 사용 가능
+- 이벤트 핸들러로 주로 사용
+
+---
