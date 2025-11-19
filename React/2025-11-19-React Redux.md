@@ -22,3 +22,28 @@ React 트리 어디에서든 dispatch를 가능하게 합니다.
 - props drilling 없이 어떤 컴포넌트에서도 store에 접근 가능
 
 ---
+
+## 2️⃣ Provider
+
+React 앱에서 Redux를 사용하려면 **Provider로 컴포넌트를 감싸 store를 전달**해야 합니다
+
+```tsx
+import { Provider } from "react-redux";
+import { store } from "./store";
+
+export function App() {
+  return (
+    <Provider store={store}>
+      <RootComponent />
+    </Provider>
+  );
+}
+```
+
+### 🔍 내부 동작
+
+- React Context를 사용해 store를 하위 트리에 주입
+- useSelector, useDispatch는 모두 이 Context를 사용해 store에 접근
+- Context 값이 변경되는 대신, 개별 컴포넌트가 store 변경을 직접 구독해서 불필요한 렌더링 방지
+
+---
