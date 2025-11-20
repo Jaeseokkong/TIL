@@ -89,3 +89,47 @@ dispatch({ type: "INCREMENT" });
 - 이벤트 핸들러로 주로 사용
 
 ---
+
+## 4️⃣ connect() vs Hooks
+
+React-Redux는 원래 Hook이 없던 시절에는 `connect()` HOC를 사용해서 Redux와 연결했습니다.
+
+### 🔹 예: connect() 사용 방식 (옛날 방식)
+
+```js
+import { connect } from "react-redux";
+
+function Counter({ value, onIncrement }) {
+  return (
+    <div>
+      <p>{value}</p>
+      <button onClick={onIncrement}>+</button>
+    </div>
+  );
+}
+
+const mapStateToProps = (state) => ({
+  value: state.counter.value,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onIncrement: () => dispatch({ type: "INCREMENT" }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+```
+
+#### ⚠️ 단점
+
+- 코드량 많음
+- 가독성이 떨어짐
+- 로직이 컴포넌트 외부로 분산됨
+
+#### ✅`useSelector`, `useDispatch` 공식 추천
+
+- 함수형 컴포넌트와 가장 자연스럽게 통합
+- 코드가 깔끔
+- TS 친화적
+- 필요한 부분만 구독 가능 → 성능 좋음
+
+---
