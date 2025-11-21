@@ -48,7 +48,7 @@ RTK는 크게 3가지 핵심 기능을 중심으로 구성되어 있습니다.
 
 ## 3️⃣ Redux Toolkit 기본 예시 (ToDo관리)
 
-### 📁 todoSlice.js
+### 📁 `todoSlice.js`
 
 ```js
 import { createSlice } from "@reduxjs/toolkit";
@@ -94,4 +94,68 @@ export default todoSlice.reducer;
 
 ---
 
-### 
+## 4️⃣ Store 구성 - `configureStore()`
+
+### 📁 `store/index.js`
+
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import todoReducer from "./todoSlice";
+
+const store = configureStore({
+  reducer: {
+    todo: todoReducer, // slice.reducer 연결
+  },
+});
+
+export default store;
+```
+
+---
+
+### 🔹 store 구조 이해
+
+RTK의 store는 `slice.reducer`들을 객체 형태로 결합합니다.
+
+```js
+{
+  todo: {
+    items: [...]
+  }
+}
+```
+
+
+```js
+{
+  todo: {...},
+  user: {...},
+  theme: {...}
+}
+```
+
+slice가 늘어날수록 기능별 상태가 store의 트리 형태로 정리됩니다.
+
+---
+
+### 🔹 configureStore의 기본 기능
+
+RTK의 configureStore는 아래 기능들이 자동으로 내장되어 있습니다.
+
+- **Redux DevTools 자동 연결**
+
+    - 상태 변화 추적 가능
+
+- **Redux Thunk 내장**
+
+    - 비동기 로직을 위한 createAsyncThunk와 호환
+
+- **미들웨어 자동 설정**
+
+    - 불변성 검사, 직렬성 검사 등 기본 안정 장치 포함
+
+- **boilerplate**제거
+
+    - 기존 createStore + applyMiddleware + compose 필요 없음
+
+---
