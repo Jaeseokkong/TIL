@@ -45,3 +45,53 @@ RTK는 크게 3가지 핵심 기능을 중심으로 구성되어 있습니다.
 - loading/error 상태 처리까지 내장
 
 ---
+
+## 3️⃣ Redux Toolkit 기본 예시 (ToDo관리)
+
+### 📁 todoSlice.js
+
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+const todoSlice = createSlice({
+  name: "todo",
+  initialState: {
+    items: [],
+  },
+  reducers: {
+    addTodo: (state, action) => {
+      state.items.push({
+        id: Date.now(),
+        text: action.payload,
+        done: false,
+      });
+    },
+    toggleTodo: (state, action) => {
+      const todo = state.items.find((t) => t.id === action.payload);
+      if (todo) todo.done = !todo.done;
+    },
+    removeTodo: (state, action) => {
+      state.items = state.items.filter((t) => t.id !== action.payload);
+    },
+  },
+});
+
+export const { addTodo, toggleTodo, removeTodo } = todoSlice.actions;
+export default todoSlice.reducer;
+```
+
+#### 🔍 포인트
+
+✔ **slice는 "기능 단위 상태 조각"**
+
+- Redux는 전역 상태를 하나의 큰 store에 담지만, RTK에서는 기능별로 **slice로 분할**하여 관리
+- action type을 따로 작성할 필요 없음 (`addTodo()`, `toggleTodo()` 자동 생성)
+
+✔ **Reducer 내부에서 state를 직접 변경하는 코드가 가능한 이유**
+
+- RTK는 내부적으로 **Immer 라이브러리**를 사용
+- 직접 변경처럼 보여도 실제로는 새로운 불변 객체를 만듦
+
+---
+
+### 
