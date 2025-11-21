@@ -159,3 +159,80 @@ RTK의 configureStore는 아래 기능들이 자동으로 내장되어 있습니
     - 기존 createStore + applyMiddleware + compose 필요 없음
 
 ---
+
+## 5️⃣ React에서 사용 예시
+
+### 📁 `App.jsx`
+
+```jsx
+import React, { useState } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import store from "./store";
+import { addTodo, toggleTodo, removeTodo } from "./todoSlice";
+
+function TodoList() {
+  const [text, setText] = useState("");
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todo.items);
+
+  return (
+    <div>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="할 일 입력"
+      />
+      <button onClick={() => dispatch(addTodo(text))}>추가</button>
+
+      <ul>
+        {todos.map((t) => (
+          <li key={t.id}>
+            <span
+              onClick={() => dispatch(toggleTodo(t.id))}
+              style={{ textDecoration: t.done ? "line-through" : "none" }}
+            >
+              {t.text}
+            </span>
+            <button onClick={() => dispatch(removeTodo(t.id))}>삭제</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <TodoList />
+    </Provider>
+  );
+}
+```
+
+---
+
+## 6️⃣ Redux Toolkit의 상태 변화 흐름
+
+RTK도 Redux와 동일하게 **단방향 흐름**을 유지합니다.
+
+```scss
+UI → dispatch(action)
+  
+     ↓
+
+(createSlice가 자동 생성한)
+reducer(state, action)
+
+     ↓
+
+새로운 state 반환 (Immer가 불변성 처리)
+
+     ↓
+
+store 변경 & 관련 컴포넌트 렌더링
+```
+
+> **UI → dispatch → slice.reducer → 새로운 state → 컴포넌트 리렌더링**
+
+---
