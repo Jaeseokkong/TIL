@@ -236,3 +236,23 @@ store 변경 & 관련 컴포넌트 렌더링
 > **UI → dispatch → slice.reducer → 새로운 state → 컴포넌트 리렌더링**
 
 ---
+
+## 7️⃣ createSlice 패턴 정리
+
+RTK에서 가장 중요한 건 **slice 기반 설계**입니다.
+
+| 구성           | 설명                                 |
+| ------------ | ---------------------------------- |
+| name         | slice의 네임스페이스                      |
+| initialState | 초기 상태                              |
+| reducers     | 상태 변경 함수(불변성 자동 처리)                |
+| actions      | reducers로부터 자동 생성되는 action creator |
+| reducer      | slice 전체 reducer                   |
+
+### 🔹 slice 설계 패턴
+
+- 기능 단위로 slice 분리 (예: userSlice, authSlice, todoSlice, themeSlice)
+- 명확한 action 이름 (예: `addTodo`, `deleteTodo` 같은 도메인 중심 이름)
+- 최소한의 state (불필요한 중첩 구조 피하기)
+
+---
