@@ -92,3 +92,36 @@ const userSlice = createSlice({
 	- 네트워크 에러, 서버 에러 등 다양한 오휴 정보를 `action.error`에서 받을 수 있음
 
 ---
+
+## 4️⃣ Payload와 Error 커스터마이징
+
+실무에서는 서버 에러 코드를 함께 전달해야 합니다. (`rejectWithValue` 활용)
+
+```js
+export const login = createAsyncThunk(
+	"auth/login",
+	async (form, { rejectWithValue }) => {
+		try {
+			const res = await fetch("/api/login", {
+			method: "POST",
+			body: JSON.stringify(form),
+		});
+			if (!res.ok) {
+				const error = await res.json();
+				return rejectWithValue(error.message);
+			}
+			return res.json();
+		} catch (err) {
+			return rejectWithValue("네트워크 오류");
+		}
+	}
+);
+```
+
+Slice
+
+```js
+.addCase(login.rejected, (state, action) => {
+	state.error = action.payload;
+})
+```
