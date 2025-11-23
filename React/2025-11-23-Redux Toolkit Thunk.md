@@ -45,3 +45,50 @@ export const fetchUser = createAsyncThunk(
 - user/fetchUser/rejected
 
 ---
+
+## 3️⃣ Slice에서 비동기 상태 처리
+
+Redux Toolkit에서는 `extraReducers`로 비동기 상태를 처리합니다.
+
+```js
+const userSlice = createSlice({
+	name: "user",
+	initialState: {
+		data: null,
+		loading: false,
+		error: null,
+	},
+	extraReducers: (builder) => {
+		builder
+		.addCase(fetchUser.pending, (state) => {
+			state.loading = true;
+			state.error = null;
+		})
+		.addCase(fetchUser.fulfilled, (state, action) => {
+			state.loading = false;
+			state.data = action.payload;
+		})
+		.addCase(fetchUser.rejected, (state, action) => {
+			state.loading = false;
+			state.error = action.error;
+		});
+	},
+});
+```
+
+- `pending` 상태
+
+	- 비동기 요청 **시작될 때** 자동 호출
+	- `loading`을 `true` 로 변경, 기존 오류 상태 초기화
+
+- `fulfilled` 상태
+
+	- 요청이 **성공했을 때** 실행
+	- 서버에서 받아온 데이터를 저장
+
+- `rejected` 상태
+
+	- 요청이 **실패했을 때** 실행
+	- 네트워크 에러, 서버 에러 등 다양한 오휴 정보를 `action.error`에서 받을 수 있음
+
+---
