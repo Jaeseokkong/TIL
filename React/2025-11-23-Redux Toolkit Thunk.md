@@ -18,3 +18,30 @@ Redux Toolkit(RTK)은 Redux의 비동기 흐름을 표중화한 도구이며,
 
 ---
 
+## 2️⃣ `createAsyncThunk` 기본 개념
+
+`createAsyncThunk`는 **비동기 요청을 하나의 thunk로 추상화**하고 아래 3가지 "라이프사이클 액션"을 자동 생성합니다.
+
+1. **pending** (요청 시작)
+2. **fulfilled** (요청 성공)
+3. **rejected** (요청 실패)
+
+### 🧐 예시
+
+```js
+export const fetchUser = createAsyncThunk(
+	"user/fetchUser",
+	async (userId) => {
+		const res = await fetch(`/api/users/${userId}`);
+		return await res.json();
+	}
+);
+```
+
+**자동 생성되는 액션**
+
+- user/fetchUser/pending
+- user/fetchUser/fulfilled
+- user/fetchUser/rejected
+
+---
