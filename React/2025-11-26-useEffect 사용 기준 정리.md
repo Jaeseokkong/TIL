@@ -74,4 +74,61 @@ useEffect는 **부수효과**를 위한 훅이지 로직 실행기가 아님
 
 ---
 
+## 2️⃣ useEffect를 사용해야 하는 경우
+
+### 🔹 외부 시스템 구독 / 연결 관리
+
+- WebSocket 연결·해제
+- 이벤트 리스너 등록·해제
+- observer, third-parth library mount/unmount
+
+```tsx
+useEffect(() => {
+	socket.connect();
+	socket.on('data', onData);
+	return () => {
+		socket.off('data', onData);
+		socket.disconnect();
+	};
+}, []);
+```
+
+--- 
+
+### 🔹 DOM 수동 조작
+
+React가 담당하지 않는 브라우저 API 사용 시
+
+```tsx
+useEffct(() => {
+	inputRef.current.focus():
+}, [])
+```
+
+---
+
+### 🔹 타이머/인터벌 관련 + 정리(cleanup) 필요할 때
+
+```tsx
+useEffect(() => {
+	const id = setInterval(() => tick(), 1000);
+	return () => clearInterval(id);
+}, [])
+```
+
+---
+
+### 🔹 외부 비동기 작업 + 중단 로직 필요할 때
+
+```tsx
+useEffect(() => {
+	const controller = new AbortController();
+
+	fetch('api/data', { signal: controller.signal });
+
+	return () => controller.abort();
+}, [])
+```
+
+---
 
