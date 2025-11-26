@@ -141,3 +141,16 @@ useEffect는 "렌더 이후 동작"을 관리하는 훅이지, 로직 또는 데
 
 ---
 
+## 4️⃣ 실무 체크리스트
+
+✔ state 계산하려는 건가? → useMemo로 바꿔보기
+
+✔ props를 다른 state에 복제하려는 건가? → 복제하지 말기
+
+✔ API 요청을 넣으려는가? → RTK Query/React Query가 맞음
+
+✔ eventListener/WebSocket/canvas/DOM 조작인가? → useEffect가 맞음
+
+✔ cleanup이 필요한 작업인가? → useEffect가 맞음
+
+---
