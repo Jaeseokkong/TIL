@@ -13,3 +13,32 @@
 
 ---
 
+## 2️⃣ 기본 사용 예시
+
+```jsx
+import { useDeferredValue } from "react";
+
+
+function Search() {
+	const [query, setQuery] = useState("");
+	const deferredQuery = useDeferredValue(query);
+
+
+	const results = useMemo(() => {
+		return heavySearch(deferredQuery);
+	}, [deferredQuery]);
+
+
+	return (
+		<>
+			<input value={query} onChange={(e) => setQuery(e.target.value)} />
+			<SearchResults results={results} />
+		</>
+	);
+}
+```
+
+- `query`는 즉시 업데이트돼서 입력 딜레이가 없음
+- `heavySearch`는 `deferredQuery` 기반이므로 **입력이 빠르게 바뀌어도 불필요한 렌더링이 줄어듦**
+
+---
