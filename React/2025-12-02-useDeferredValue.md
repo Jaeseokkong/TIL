@@ -50,3 +50,14 @@ function Search() {
 - 즉각적인 UI 반응은 중요하지만, **무거운 작업은 뒤로 미뤄도 되는 경우**
 
 ---
+
+## 4️⃣ `useDeferredValue`와 `useTransition` 비교
+
+|Hook|목적|차이|
+|:---|:---|:---|
+|`useDeferredValue`|특정 값의 업데이트 우선순위를 낮춤|값 단위로 지연 처리|
+|`useTransition`|특정 상태 업데이트를 Transition으로 표시|상태 업데이트 흐름 단위로 제어|
+
+> 간단히: **값만 지연 → useDeferredValue, 상태 업데이트 프로세스를 지연 → useTransition**
+
+---
