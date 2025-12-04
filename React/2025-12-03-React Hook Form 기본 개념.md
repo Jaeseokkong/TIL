@@ -31,3 +31,30 @@ const [value, setValue] = useState("");
 React Hook Form은 이런 비효율을 피하기 위해 **uncontroller 기반**으로 동작합니다.
 
 ---
+
+## 3️⃣ React Hook Form의 핵심 훅: `useForm`
+
+```jsx
+cosnt {
+    register,
+    handleSubmit,
+    formState: { errors },
+} = useForm();
+```
+
+### 🔹 각 API 역할
+
+- **register**
+
+    input을 React Hook Form에 연결하는 함수
+    → ref 기반이라 input의 변화를 자체적으로 추적합니다.
+
+- **handleSubmit**
+
+    제출 시 데이터 수집 + validation 실행 + 성공/실패 콜백 진행
+
+- **errors**
+    
+    각 필드의 validation 에러 정보
+
+---
