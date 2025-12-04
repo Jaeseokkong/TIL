@@ -58,3 +58,33 @@ cosnt {
     각 필드의 validation 에러 정보
 
 ---
+
+## 4️⃣ 기본 사용 예시
+
+```jsx
+const { register, handleSubmit, formState: { errors } } = useForm();
+
+const onSubmit = (data) => {
+  console.log(data);
+};
+
+return (
+  <form onSubmit={handleSubmit(onSubmit)}>
+    <input
+      {...register("email", { required: "이메일은 필수입니다" })}
+    />
+    {errors.email && <span>{errors.email.message}</span>}
+
+    <button type="submit">제출</button>
+  </form>
+);
+```
+
+### ⚙️ 동작 방식
+
+- input의 값은 state로 관리하지 않아도 됩니다.
+- 입력 시 **리렌더링 발생하지 않습니다.**
+- 제출할 때 한 번에 data가 모입니다.
+- 에러 메시지는 formState에서 자동으로 관리됩니다.
+
+---
