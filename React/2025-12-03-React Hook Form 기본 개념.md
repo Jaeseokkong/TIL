@@ -109,3 +109,35 @@ DOM이 input 값을 직접 관리 → React 렌더링 영향 ❌
     등 일부만 렌더링되고, 전체 폼이 다시 그려지지 않습니다.
 
 ---
+
+## 6️⃣ validation 처리 방식
+
+React Hook Form은 **3가지 방법**을 지원합니다.
+
+### 🔹 등록 시 rule 선언
+
+```jsx
+register("email", { required: "필수 입력" })
+```
+
+### 🔹 커스텀 validation
+
+```jsx
+register("age", {
+  validate: value => value > 19 || "성인은 20세부터입니다",
+});
+```
+
+### 🔹 resolver로 schema 기반 validation
+
+또는 yup, zod처럼 schema validator 연동
+
+```jsx
+const schema = z.object({
+  email: z.string().email(),
+});
+
+useForm({ resolver: zodResolver(schema) });
+```
+
+---
