@@ -88,3 +88,24 @@ return (
 - 에러 메시지는 formState에서 자동으로 관리됩니다.
 
 ---
+
+## 5️⃣ React Hook Form이 빠른 이유
+
+React Hook Form은 다음 전략을 사용합니다.
+
+### 🔹 Uncontrolled Input 기반
+
+DOM이 input 값을 직접 관리 → React 렌더링 영향 ❌
+
+### 🔹 ref로 input을 등록
+
+`register()` 호출 시 input을 Form System에 연결하고, 값 변화를 알아서 추적합니다.
+
+### 🔹 필요한 곳만 리렌더링
+
+- 에러 UI
+- watched value를 사용하는 곳
+
+    등 일부만 렌더링되고, 전체 폼이 다시 그려지지 않습니다.
+
+---
