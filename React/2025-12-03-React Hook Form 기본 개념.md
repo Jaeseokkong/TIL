@@ -163,3 +163,14 @@ useForm({ resolver: zodResolver(schema) });
 - 퍼포먼스 요구되는 UI
 
 ---
+
+## 8️⃣ React Hook Form의 장점 & 단점
+
+| 장점                     | 단점                          |
+| ---------------------- | --------------------------- |
+| 리렌더링 최소화 → 빠름          | Controller 사용 시 코드가 늘어남     |
+| API 단순                 | 기본 사용법과 advanced의 갭이 존재     |
+| validation 강력          | 동적 폼 구성 시 러닝커브 존재           |
+| schema validator와 잘 통합 | 비제어 기반이라 이벤트 제어가 까다로운 경우 있음 |
+
+---
