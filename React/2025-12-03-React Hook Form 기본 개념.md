@@ -141,3 +141,25 @@ useForm({ resolver: zodResolver(schema) });
 ```
 
 ---
+
+## 7️⃣ 언제 React Hook Form을 사용해야 하나?
+
+### 🔹 큰 폼에서 렌더링 비용이 커질 때
+
+- 회원가입
+- 설정 페이지
+- 대용량 입력 폼
+
+### 🔹 validation 흐름을 간단하게 구성하고 싶을 때
+
+### 🔹 FormState를 일관적으로 관리하고 싶을 때
+
+- 에러, dirty, touched 등 상태를 hook으로 얻을 수 있음
+
+### 🔹 React Hook Form의 장점이 특히 드러날 때
+
+- 큰 폼
+- 복잡한 폼 상태
+- 퍼포먼스 요구되는 UI
+
+---
