@@ -35,7 +35,7 @@ React Hook Form은 이런 비효율을 피하기 위해 **uncontroller 기반**�
 ## 3️⃣ React Hook Form의 핵심 훅: `useForm`
 
 ```jsx
-cosnt {
+const {
     register,
     handleSubmit,
     formState: { errors },
