@@ -41,6 +41,7 @@ const {
     register,
     handleSubmit,
     formState: { errors },
+    control
 } = useForm();
 ```
 
@@ -58,6 +59,10 @@ const {
 - **errors**
     
     각 필드의 validation 에러 정보
+
+- **control**
+
+  Controlled 컴포넌트 (MUI·Chakra·커스텀 UI 등)와 연결할 때 사용 (`Controller`에서 사용 )
 
 ---
 
