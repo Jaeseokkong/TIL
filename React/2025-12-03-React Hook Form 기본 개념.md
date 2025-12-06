@@ -16,7 +16,7 @@ React Hook Form은 가장 적은 리렌더링과 간단한 API 제공을 목표�
 
 ## 2️⃣ 기존 폼 관리의 문제점
 
-일반적으로 input을 이렇게 관리합니다.
+일반적인 React 폼은 state를 통해 input을 제어합니다.
 
 ```jsx
 const [value, setValue] = useState("");
@@ -24,11 +24,11 @@ const [value, setValue] = useState("");
 <input value={value} onChange={(e) => setValue(e.target.value)} />;
 ```
 
-이 방식의 문제
+### ❗ 문제점
 
-- 입력할 때마다 **컴포넌트가 리렌더링됨**
-- 큰 폼(form wizard, 다단계 폼)에서는 성능 저하 발생
-- validation을 직접 작성해야 해서 코드가 복잡해짐
+- 입력(타이핑)할 때마다 **컴포넌트 전체가 리렌더링**됨
+- 큰 폼이나 복잡한 UI에서는 성능 문제가 발생
+- validation 코드를 직접 관리해야 하므로 복잡함
 
 React Hook Form은 이런 비효율을 피하기 위해 **uncontroller 기반**으로 동작합니다.
 
