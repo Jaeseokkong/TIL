@@ -30,3 +30,34 @@ const name = watch("name");
 - 특정 값에 따라 다른 필드를 활성화/비활성화
 
 ---
+
+## 2️⃣ `setValue`
+
+> "특정 필드의 값을 프로그래밍적으로 업데이트하는 함수"
+
+폼 데이터를 직접 조작해야 할 때 사용합니다.  
+특히 사용자 입력 없이 값이 자동으로 변경되는 상황에서 자주 등장합니다.
+
+### 🧐 사용 예시
+
+```tsx
+setValue("name", "홍길동", {
+  shouldValidate: true,
+  shouldDirty: true,
+  shouldTouch: true,
+});
+```
+
+- `shouldValidate`: 값 설정 후 즉시 검증 실행
+- `shouldDirty`: dirty 상태 업데이트
+- `shouldTouch`: touched 플래그 업데이트
+
+실무에서 특히 유용한 옵션들입니다.
+
+### 📌 언제 사용하나?
+
+- 자동 입력 (자동완성, 주소 API 등)
+- 특정 값에 기반한 계산 결과 채우기
+- reset 이후 특정 값만 다시 업데이트
+
+---
