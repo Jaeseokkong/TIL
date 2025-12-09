@@ -94,3 +94,26 @@ const email = getValues("email");
 | **getValues** | 현재 값 즉시 조회    | ❌ 리렌더링 없음  | 비교/조건 체크        |
 
 ---
+
+## 5️⃣ 전체 흐름 이해
+
+이 세 가지는 함께 쓰이면 강력해집니다.
+
+```tsx
+const count = watch("count");
+
+useEffect(() => {
+  if (count > 10) {
+    setValue("status", "max");
+  }
+}, [count]);
+
+const values = getValues();
+console.log(values.status);
+```
+
+- `watch`로 count 변화를 감지하고
+- `setValue`로 값 자동 업데이트
+- `getValues`로 폼 전체 값을 즉시 확인
+
+---
