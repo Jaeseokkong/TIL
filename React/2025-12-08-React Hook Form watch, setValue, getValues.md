@@ -61,3 +61,26 @@ setValue("name", "홍길동", {
 - reset 이후 특정 값만 다시 업데이트
 
 ---
+
+## 3️⃣ `getValue`
+
+> "현재 form의 값을 즉시 가져오는 함수 (리렌더링 없이)"
+
+`watch`는 값이 바뀌면 컴포넌트가 리렌더링되지만
+`getValue`는 컴포넌트 리렌더링 없이 **현재 저장된 값만 즉지 조회합니다.**
+
+### 🧐 사용 예시
+
+```tsx
+const allValues = getValues();
+const email = getValues("email");
+```
+
+### 📌 언제 사용하나?
+
+- onSubmit 전에 특정 조건 검증
+- 값 비교 (비밀번호 확인)
+- 여러 필드 값을 기반으로 계산 수행
+- watch처럼 UI 리렌더링이 필요 없는 경우
+
+---
