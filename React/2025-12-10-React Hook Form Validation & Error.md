@@ -40,3 +40,28 @@ const { register, handleSubmit, formState: { errors } } = useForm();
 - `validate`는 커스텀 로직(동기/비동기 모두 가능)
 
 ---
+
+## 3️⃣ validate로 커스텀(동기 + 비동기)
+
+### 🔹 동기 validate
+
+```tsx
+register("username", {
+	validate: (value) => value !== "admin" || "사용할 수 없는 아이디입니다."
+})
+```
+
+### 🔹 비동기 validate (Promise 반환)
+
+```tsx
+register("username", {
+	validate: async (value) => {
+		const available = await apiCheckUsername(value); // 서버 확인
+		return available || "이미 사용 중인 아이디입니다.";
+	}
+})
+```
+
+- 비동기 validate 사용 시 제출(submit)은 Promise가 resolve될 때까지 대기
+
+---
