@@ -17,3 +17,26 @@
 - **포커싱**: `setFocus`로 첫 번째 에러 필드에 자동 포커스 가능합니다.
 
 ---
+
+## 2️⃣ 기본 검증 (register의 rules)
+
+```tsx
+const { register, handleSubmit, formState: { errors } } = useForm();
+
+<input
+  {...register("email", {
+    required: "이메일은 필수입니다.",
+    pattern: {
+      value: /\S+@\S+\.\S+/,
+      message: "이메일 형식이 아닙니다."
+    },
+    minLength: { value: 5, message: "최소 5자 이상" }
+  })}
+/>
+{errors.email && <p>{errors.email.message}</p>}
+```
+
+- `required`, `min`, `max`, `minLength`, `maxLength`, `pattern`, `validate` 등을 제공
+- `validate`는 커스텀 로직(동기/비동기 모두 가능)
+
+---
