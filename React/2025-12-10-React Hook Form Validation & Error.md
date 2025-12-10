@@ -65,3 +65,20 @@ register("username", {
 - 비동기 validate 사용 시 제출(submit)은 Promise가 resolve될 때까지 대기
 
 ---
+
+## 4️⃣ Controller와 rules (controlled 컴포넌트)
+
+```tsx
+<Controller
+  control={control}
+  name="date"
+  rules={{ required: "날짜를 선택하세요." }}
+  render={({ field }) => <DatePicker {...field} />}
+/>
+{errors.date && <p>{errors.date.message}</p>}
+```
+
+- `Controller`에서 `rules`를 쓰면 RHF에서 검증을 수행
+- 외부 UI 라이브러리와 결함 시 많이 사용
+
+---
