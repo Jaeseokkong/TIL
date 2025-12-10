@@ -82,3 +82,31 @@ register("username", {
 - 외부 UI 라이브러리와 결함 시 많이 사용
 
 ---
+
+## 5️⃣ 스키마 기반 검증 (resolver) — Zod / Yup 예시
+
+### 🔹 Zod + resolver
+
+```bash
+## 설치
+npm install zod @hookform/resolvers
+```
+
+```tsx
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  name: z.string().min(1, "이름은 필수입니다."),
+  email: z.string().email("올바른 이메일을 입력하세요."),
+});
+
+const { register, handleSubmit, formState: { errors } } = useForm({
+  resolver: zodResolver(schema),
+});
+```
+
+- 장점: 검증 로직을 한 곳에서 선언, 타입 안전성(특히 zod) 확보.
+- 단점: 작은 폼엔 오버헤드일 수 있음.
+
+---
