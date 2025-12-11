@@ -133,3 +133,29 @@ try {
 - `setError`는 `isValid`/`isDirty` 상태와 별개로 에러를 추가
 
 ---
+
+## 7️⃣ 에러 UI 패턴 (접근성과 UX 고려)
+
+- 에러 텍스트는 `<p role="alert">`처럼 접근성 표기 권장.
+- 첫 에러에 자동으로 포커스:
+
+```tsx
+const { handleSubmit, setFocus } = useForm();
+
+const onSubmit = async (data) => {
+  // 서버 에러 처리 후
+  setFocus("email"); // 해당 필드로 포커스
+};
+```
+
+또는 `handleSubmit(onValid, onInvalid)`에서 `onInvalid`로 첫 에러 필드 focus 처리:
+
+```tsx
+const onInvalid = (errors) => {
+  const firstErrorKey = Object.keys(errors)[0];
+  setFocus(firstErrorKey as any);
+};
+<form onSubmit={handleSubmit(onValid, onInvalid)} />
+```
+
+---
