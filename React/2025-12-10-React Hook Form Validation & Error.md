@@ -159,3 +159,20 @@ const onInvalid = (errors) => {
 ```
 
 ---
+
+## 8️⃣ formState 관련: 에러와 상태
+
+`formState`의 useful props:
+
+- `errors` — 필드 에러 트리
+- `isDirty`, `dirtyFields` — 사용자가 변경한 필드
+- `isSubmitting` — 제출 중
+- `isValid` — (mode 설정에 따라) 모든 검증이 통과했는지
+
+```tsx
+const { formState: { errors, isSubmitting } } = useForm({ mode: "onBlur" });
+```
+
+- `mode` 옵션: `onSubmit`(기본), `onBlur`, `onChange`, `onTouched`, `all` — 어느 시점에 검증할지 결정
+
+---
