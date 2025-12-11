@@ -110,3 +110,26 @@ const { register, handleSubmit, formState: { errors } } = useForm({
 - 단점: 작은 폼엔 오버헤드일 수 있음.
 
 ---
+
+## 6️⃣ 서버 에러 처리 (setError / clearErrors)
+
+서버에서 `email already exists` 같은 에러를 받았을 때 필드에 바인딩하는 일반 패턴:
+
+```tsx
+const { setError } = useForm();
+
+try {
+  await apiRegister(data);
+} catch (err) {
+  // 예: err.response.data = { field: 'email', message: '이미 사용중' }
+  setError("email", { type: "server", message: "이미 사용중인 이메일입니다." });
+  // 또는 전역 에러:
+  setError("root", { type: "server", message: "서버 에러 발생" });
+}
+```
+
+- `setError(name, { type, message, ... })`
+- `clearErrors('email')` 또는 `clearErrors()`로 에러 제거
+- `setError`는 `isValid`/`isDirty` 상태와 별개로 에러를 추가
+
+---
