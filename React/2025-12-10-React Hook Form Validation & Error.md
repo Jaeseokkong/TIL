@@ -176,3 +176,29 @@ const { formState: { errors, isSubmitting } } = useForm({ mode: "onBlur" });
 - `mode` 옵션: `onSubmit`(기본), `onBlur`, `onChange`, `onTouched`, `all` — 어느 시점에 검증할지 결정
 
 ---
+
+## 9️⃣ Nested fields & useFieldArray 에러 구조
+
+폼 필드가 중첩되면 `errors`도 중첩 객체로 들어감:
+
+```tsx
+errors = {
+  addresses: [
+    { street: { message: "필수" } },
+    undefined,
+  ]
+}
+```
+
+useFieldArray 예시에서 에러 읽기:
+
+```tsx
+{errors.addresses?.[index]?.street && (
+  <p>{errors.addresses[index].street.message}</p>
+)}
+```
+
+- 동적 필드라면 `key` 기반 렌더링과 에러 표시에 주의.
+- `append`, `remove` 동작 후 에러 참조가 꼬이지 않도록 인덱스 일관성 유지.
+
+---
