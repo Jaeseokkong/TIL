@@ -202,3 +202,71 @@ useFieldArray 예시에서 에러 읽기:
 - `append`, `remove` 동작 후 에러 참조가 꼬이지 않도록 인덱스 일관성 유지.
 
 ---
+
+## 🔟 예제: 실제 폼(종합)
+
+```tsx
+import { useForm, Controller } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  name: z.string().min(1, "이름은 필수입니다."),
+  email: z.string().email("올바른 이메일을 입력하세요."),
+});
+
+type FormData = z.infer<typeof schema>;
+
+export default function SignupForm() {
+  const {
+    register,
+    control,
+    handleSubmit,
+    setError,
+    clearErrors,
+    setFocus,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: "onBlur",
+  });
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      await api.register(data);
+    } catch (err) {
+      // 서버 응답 예시: { field: 'email', message: '이미 존재' }
+      if (err.field) {
+        setError(err.field, { type: "server", message: err.message });
+        setFocus(err.field);
+      } else {
+        setError("root", { type: "server", message: "알 수 없는 서버 에러" });
+      }
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit, (errs) => {
+      // onInvalid: 첫 에러로 포커스
+      const firstKey = Object.keys(errs)[0];
+      setFocus(firstKey as any);
+    })}>
+      <input {...register("name")} placeholder="이름" />
+      {errors.name && <p role="alert">{errors.name.message}</p>}
+
+      <Controller
+        control={control}
+        name="email"
+        render={({ field }) => <input {...field} placeholder="이메일" />}
+      />
+      {errors.email && <p role="alert">{errors.email.message}</p>}
+
+      {errors.root && <p role="alert">{errors.root.message}</p>}
+
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "제출중..." : "제출"}
+      </button>
+    </form>
+  );
+}
+```
