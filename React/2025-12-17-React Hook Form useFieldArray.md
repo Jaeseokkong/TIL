@@ -11,3 +11,33 @@
 - 장바구니 아이템 목록
 
 ---
+
+## 1️⃣ 왜 `useFieldArray`가 필요한가?
+
+일반적인 폼은 필드 구조가 **정적**입니다.
+
+```tsx
+<input {...register("name")} />
+<input {...register("email")} />
+```
+
+하지만 동적 폼은 **필드 개수와 구조가 런타임에 변합니다.**
+
+```tsx
+addresses[0].street
+addresses[1].street
+addresses[2].street
+```
+
+이걸 `useState`로 관리하면:
+
+- index 꼬임
+- key 관리
+- validation 연동
+- 에러 동기화
+
+등이 매우 복잡해집니다.
+
+✔️` useFieldArray`는 이 문제를 React Hook Form 내부 상태와 완전히 동기화된 방식으로 해결합니다.
+
+---
