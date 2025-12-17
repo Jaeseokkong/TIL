@@ -61,4 +61,53 @@ const { fields, append, remove } = useFieldArray({
 - `append`: 항목 추가
 - `remove`: 항목 삭제
 
+### 🔹 예제
+
+```tsx
+type FormData = {
+  addresses: { street: string }[];
+};
+
+const { register, control, handleSubmit } = useForm<FormData>({
+  defaultValues: {
+    addresses: [{ street: "" }],
+  },
+});
+
+const { fields, append, remove } = useFieldArray({
+  control,
+  name: "addresses",
+});
+
+return (
+  <>
+    {fields.map((field, index) => (
+      <div key={field.id}>
+        <input
+          {...register(`addresses.${index}.street`, {
+            required: "주소는 필수입니다.",
+          })}
+        />
+        <button type="button" onClick={() => remove(index)}>
+          삭제
+        </button>
+      </div>
+    ))}
+
+    <button
+      type="button"
+      onClick={() => append({ street: "" })}
+    >
+      주소 추가
+    </button>
+  </>
+);
+```
+
+#### 🔑 핵심 포인트
+
+- `field.id`를 **key로 반드시 사용**
+- `index는` register 경로에만 사용
+- `append/remove`는 RHF 상태를 직접 조작
+
 ---
