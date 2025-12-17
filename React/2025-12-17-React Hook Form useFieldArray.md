@@ -41,3 +41,24 @@ addresses[2].street
 ✔️` useFieldArray`는 이 문제를 React Hook Form 내부 상태와 완전히 동기화된 방식으로 해결합니다.
 
 ---
+
+## 2️⃣ 기본 사용법
+
+### 🔹 기본 구조
+
+```tsx
+const { control, register } = useForm();
+
+const { fields, append, remove } = useFieldArray({
+  control,
+  name: "addresses",
+});
+```
+
+- `control`: `useForm`에서 내려받은 `control` 객체
+- `name`: 배열로 관리할 필드 이름
+- `fields`: 현재 필드 배열 상태
+- `append`: 항목 추가
+- `remove`: 항목 삭제
+
+---
