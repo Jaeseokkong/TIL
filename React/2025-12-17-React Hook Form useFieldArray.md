@@ -1,6 +1,6 @@
 # 📋 React Hook Form — useFieldArray 정리
 
-`useFieldArray`는 **동적으로 변한는 폼 필드 리스트**를 관리하기 위한 React Hook Form의 핵심 API입니다.  
+`useFieldArray`는 **동적으로 변하는 폼 필드 리스트**를 관리하기 위한 React Hook Form의 핵심 API입니다.  
 단일 input을 다루는 것과 달리, 배열 형태의 필드를 추가/삭제/정렬해야 하는 경우에 사용합니다.
 
 예를 들면 다음과 같은 상황입니다:
@@ -38,7 +38,7 @@ addresses[2].street
 
 등이 매우 복잡해집니다.
 
-✔️` useFieldArray`는 이 문제를 React Hook Form 내부 상태와 완전히 동기화된 방식으로 해결합니다.
+✔️ `useFieldArray`는 이 문제를 React Hook Form 내부 상태와 완전히 동기화된 방식으로 해결합니다.
 
 ---
 
@@ -107,7 +107,7 @@ return (
 #### 🔑 핵심 포인트
 
 - `field.id`를 **key로 반드시 사용**
-- `index는` register 경로에만 사용
+- `index`는 register 경로에만 사용
 - `append/remove`는 RHF 상태를 직접 조작
 
 ---
@@ -153,7 +153,7 @@ const {
 
 ### 🔹 `append`
 
-배열의 맨 뒤에서 새로운 필드 추가
+배열의 맨 뒤에 새로운 필드를 추가
 
 ```ts
 append({ name: "", price: 0 });
@@ -244,7 +244,7 @@ replace([
 ```
 
 - 서버에서 받은 배열로 초기화할 때
-- `reset`과 유사하지만 `fieldArray`만 교체
+- `reset`과 유사하지만 `fieldArray`만 교체됨
 - 전체 구조를 한 번에 바꾸는 경우 사용
 
 ---
