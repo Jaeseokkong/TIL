@@ -26,3 +26,18 @@ export const api = createApi({
 ```
 
 ---
+
+## 2️⃣ 주요 옵션 한눈에 보기
+
+| 옵션                                      | 역할                | 중요도 |
+| --------------------------------------- | ----------------- | --- |
+| `reducerPath`                           | store에 등록될 key    | ⭐   |
+| `baseQuery`                             | 모든 요청의 공통 로직      | ⭐⭐⭐ |
+| `tagTypes`                              | 캐시 무효화 라벨         | ⭐⭐⭐ |
+| `endpoints`                             | 실제 API 정의         | ⭐⭐⭐ |
+| `keepUnusedDataFor`                     | 캐시 유지 시간          | ⭐⭐  |
+| `refetchOnMountOrArgChange`             | 마운트 시 재요청         | ⭐⭐  |
+| `refetchOnFocus` / `refetchOnReconnect` | 포커스/네트워크 복구 시 재요청 | ⭐   |
+| `serializeQueryArgs`                    | 캐시 키 커스터마이징       | ⭐⭐  |
+
+---
