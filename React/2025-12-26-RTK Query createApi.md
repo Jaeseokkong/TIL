@@ -107,7 +107,7 @@ endpoints: (builder) => ({
   addTodo: builder.mutation({ ... }),
 });
 ```
-
+- 서버 상태를 어떻게 캐시하고 동기화할지"를 정의하는 영역
 - 실제 API 요청 정의
 - 여기서 endpoint별 hook 자동 생성
 
@@ -186,7 +186,7 @@ serializeQueryArgs: ({ endpointName }) => endpointName
 transformResponse: (response) => response.data
 ```
 
-- 서버 응답을 UI 친화적인 형태로 변화
+- 서버 응답을 UI 친화적인 형태로 변환
 - 컴포넌트에서 중첩 접근 방지
 
 ---
