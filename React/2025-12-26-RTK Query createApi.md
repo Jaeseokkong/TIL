@@ -132,3 +132,74 @@ endpoints: (builder) => ({
   - `onQueryStarted`
 
 ---
+
+## 4️⃣ 캐시 관련 옵션
+
+### 🔹 `keepUnusedDataFor`
+
+```ts
+keepUnusedDataFor: 60 // seconds
+```
+
+- 사용 중인 컴포넌트가 없어도 캐시 유지 시간
+- 기본값: 60초
+
+👉 페이지 이동 시 체감 성능에 영향 큼
+
+---
+
+### 🔹 `refetchOnMountOrArgChange`
+
+```ts
+refetchOnMountOrArgChange: true
+```
+
+- 컴포넌트 마운트 시 강제 refetch 여부
+- 데이터 최신성이 중요한 화면에서 사용
+
+---
+
+### 🔹 `refetchOnFocus / refetchOnReconnect`
+
+- 브라우저 포커스 복귀
+- 네트워크 재연결 시 자동 재요청
+- `setupListeners(store.dispatch)` 필요
+
+---
+
+### 🔹 `serializeQueryArgs`
+
+```ts
+serializeQueryArgs: ({ endpointName }) => endpointName
+```
+
+- 쿼리 캐시 키를 직접 제어
+- pagination / infinite scroll에서 중요
+
+👉 args가 달라도 같은 캐시를 쓰고 싶을 때 사용
+
+---
+
+### 🔹 `transformResponse`
+
+```ts
+transformResponse: (response) => response.data
+```
+
+- 서버 응답을 UI 친화적인 형태로 변화
+- 컴포넌트에서 중첩 접근 방지
+
+---
+
+### 🔹 `onQueryStarted` (고급)
+
+```ts
+onQueryStarted(arg, { dispatch, queryFulfilled }) {
+  // optimistic update, side effects
+}
+```
+
+- mutation 시작 시 실행
+- 낙관적 업데이트, 로그, 알림 처리
+
+👉 실무에서는 updateQueryData와 함께 사용
