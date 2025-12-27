@@ -41,3 +41,94 @@ export const api = createApi({
 | `serializeQueryArgs`                    | 캐시 키 커스터마이징       | ⭐⭐  |
 
 ---
+
+## 3️⃣ 주요 옵션
+
+### 🔹 `reducerPath`
+
+```ts
+reducerPath: 'api'
+```
+
+- Redux store에 등록될 reducer key
+- 기본값은 `'api'`
+
+#### 언제 바꾸나?
+
+- 여러 API slice를 동시에 쓸 때
+- 마이크로 프론트엔드 구조
+
+---
+
+### 🔹 `baseQuery`
+
+```ts
+baseQuery: fetchBaseQuery({
+  baseUrl: '/api',
+  prepareHeaders: (headers, { getState }) => {
+    const token = getState().auth.token;
+    if (token) headers.set('authorization', `Bearer ${token}`);
+    return headers;
+  },
+});
+```
+
+- 모든 요청이 거치는 공통 fetch 로직
+- 인증, 공통 헤더, 에러 처리 담당
+
+#### 실무 포인트
+
+- 단순 API → `fetchBaseQuery`
+- 인증/재시도/토큰 갱신 필요 → wrapper 함수 사용
+
+---
+
+### 🔹 `tagTypes`
+
+```ts
+tagTypes: ['User', 'Todo']
+```
+
+- 캐시 무효화 시스템의 기준이 되는 타입
+- 문자열 배열로 **미리 선언 필수**
+
+#### 규칙
+
+- 도메인 단위로 정의 (`User`, `Post`)
+- 너무 세분화하지 말 것
+
+---
+
+### 🔹 `endpoints`
+
+```ts
+endpoints: (builder) => ({
+  getTodos: builder.query({ ... }),
+  addTodo: builder.mutation({ ... }),
+});
+```
+
+- 실제 API 요청 정의
+- 여기서 endpoint별 hook 자동 생성
+
+#### `builder.query`
+
+- GET 요청
+- 캐시 대상
+- 주요 옵션
+
+  - `query`
+  - `providesTags`
+  - `transformResponse`
+
+#### `builder.mutation`
+
+- POST / PATCH / DELETE
+- 서버 상태 변경
+- 주요 옵션
+
+  - `query`
+  - `invalidatesTags`
+  - `onQueryStarted`
+
+---
