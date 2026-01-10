@@ -31,7 +31,7 @@ app/
 
 ---
 
-## 2️⃣ Route Gruop의 필요성
+## 2️⃣ Route Group의 필요성
 
 App Router의 `layout.tsx`는 **하위 라우트에 자동 전파**됩니다.
 
@@ -94,17 +94,16 @@ export default function SiteLayout({ children }: { children: React.ReactNode; })
 ### 🔹 레이아웃 제외 페이지
 
 ```tsx
-export default function SiteLayout({ children }: {children: React.ReactNode; }) {
+// app/resume/page.tsx
+export default function ResumePage() {
 	return (
 		<html lang="ko">
 			<body>
-				<Header />
-				{children}
-				<Footer />
+				<ResumeContent />
 			</body>
 		</html>
 	);
-	}
+}
 ```
 
 📌 루트 layout이 없기 때문에
