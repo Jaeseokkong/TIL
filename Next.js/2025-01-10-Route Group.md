@@ -112,3 +112,37 @@ export default function SiteLayout({ children }: {children: React.ReactNode; }) 
 - `<html>` / `<body>` 직접 포함 필수
 
 ---
+
+## 4️⃣ Route Group은 "라우팅 트리 제어" 도구
+
+Route Group은 단순 폴더 정리가 아니라<br/>
+**라우트 트리 자체를 나누는 장치**입니다.
+
+가능한 것들
+
+- 레이아웃 분리
+- loading.tsx 범위 분리
+- error.tsx 범위 분리
+- template.tsx 분리
+- auth / admin / marketing 영역 구분
+
+```bash
+app/
+├── (auth)/
+│   ├── layout.tsx
+│   └── login/page.tsx
+├── (site)/
+│   └── layout.tsx
+```
+
+## 5️⃣ Route Group 활용 시점
+
+### ✅ 사용 케이스
+
+- 공통 레이아웃을 **일부 페이지에서만 제외**
+- 인증 영역 / 관리자 페이지 분리
+- 마케팅 페이지 vs 서비스 페이지 분리
+- PDF / iframe / 임베드 전용 페이지
+- 다른 loading / error UX가 필요한 경우
+
+---
