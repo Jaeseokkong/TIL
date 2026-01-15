@@ -153,3 +153,28 @@ function* counter() {
 👉 상태 관리, 종료 조건을 **언어 레벨에서 해결**
 
 ---
+
+## 7️⃣ 실무에서 쓰이는 이유
+
+- **지연 평가(Lazy Evaluation)**
+- 대용량 데이터 처리
+- 무한 시퀀스
+- 커스텀 iterable 구현
+
+```js
+function* infinite() {
+  let i = 0;
+  while (true) {
+    yield i++;
+  }
+}
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+> **Iterable**은 반복 가능한 규약이고,<br/>
+**Iterator**는 반복을 수행하는 객체이며,<br/>
+**Generator**는 이터레이터를 가장 우아하게 만드는 문법입니다.
+
