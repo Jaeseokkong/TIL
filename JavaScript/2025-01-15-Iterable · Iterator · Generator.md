@@ -58,3 +58,39 @@ iterator.next(); // { value: undefined, done: true }
 - 한 번 끝나면 다시 처음부터 ❌
 
 ---
+
+## 3️⃣ 이터러블과 이터레이터의 관계
+
+```bash
+Iterable
+  └─ Symbol.iterator()
+       └─ Iterator
+            └─ next()
+```
+- **이터러블** → 이터레이터를 만들 수 있는 객체
+- **이터레이터** → 실제 반복을 수행하는 객체
+
+---
+
+## 4️⃣ for...of의 내부 동작
+
+```js
+for (const v of iterable) {
+  console.log(v);
+}
+```
+
+내부적으로는 👇
+
+```js
+const iterator = iterable[Symbol.iterator]();
+
+while (true) {
+  const { value, done } = iterator.next();
+  if (done) break;
+  console.log(value);
+}
+```
+
+---
+ 
