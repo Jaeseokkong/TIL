@@ -52,7 +52,7 @@ iterator.next(); // { value: 3, done: false }
 iterator.next(); // { value: undefined, done: true }
 ```
 
-### 핵심 포인트
+### 🔹 핵심 포인트
 
 - 이터레이터는 **상태(staet)** 를 기억
 - 한 번 끝나면 다시 처음부터 ❌
@@ -94,3 +94,62 @@ while (true) {
 
 ---
  
+## 5️⃣ 제너레이터(Generator)란?
+
+>**이터레이터를 생성하는 함수**<br/>
+실행을 중간에 멈췄다가 다시 이어서 실행 가능
+
+```js
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const g = gen();
+
+g.next(); // { value: 1, done: false }
+g.next(); // { value: 2, done: false }
+g.next(); // { value: 3, done: false }
+g.next(); // { value: undefined, done: true }
+```
+
+### 🔹 제너레이터의 특징
+
+- `function*` 문법
+- `yeild`로 값 반환
+- **이터러블 + 이터레이터** 둘 다 만족
+
+```js
+g[Symbol.iterator]() === g; // true
+```
+
+## 6️⃣ 제너레이터가 해결하는 문제
+
+### ❌ 일반 이터레이터 구현
+
+```js
+const iterator = {
+  i: 0,
+  next() {
+    return this.i < 3
+      ? { value: this.i++, done: false }
+      : { done: true };
+  },
+};
+```
+
+### ✅ 제너레이터
+
+```js
+function* counter() {
+  let i = 0;
+  while (i < 3) {
+    yield i++;
+  }
+}
+```
+
+👉 상태 관리, 종료 조건을 **언어 레벨에서 해결**
+
+---
