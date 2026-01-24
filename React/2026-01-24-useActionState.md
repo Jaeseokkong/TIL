@@ -25,6 +25,11 @@ const [state, action, isPending] = useActionState(
 - `action`: form의 `action` 속성에 연결되는 함수
 - `isPending`: 서버 액션 실행 중 여부 (로딩 상태)
 
+### 🔹 인자 구성
+
+- `serverAction`: 실행된 **Server Action 함수**로 `(prevState, formDate)`를 인자로 받음
+- `initialState`: 서버 액션 실행 전의 **초기 상태 값** `state`의 초기값으로  **직렬화 가능한 값(JSON-safe)** 이어야 함
+
 ---
 
 ## 2️⃣ 기본 사용 예제
