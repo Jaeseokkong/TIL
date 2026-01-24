@@ -26,3 +26,56 @@ const [state, action, isPending] = useActionState(
 - `isPending`: 서버 액션 실행 중 여부 (로딩 상태)
 
 ---
+
+## 2️⃣ 기본 사용 예제
+
+### 🔹 Server Action
+
+```js
+// app/actions.js
+"use server";
+
+export async function submitForm(prevState, formData) {
+  const name = formData.get("name");
+
+  if (!name) {
+    return { error: "이름을 입력하세요" };
+  }
+
+  return { success: true, name };
+}
+```
+
+---
+
+### 🔹 Client Component
+
+```js
+"use client";
+
+import { useActionState } from "react";
+import { submitForm } from "./actions";
+
+const initialState = { error: null, success: false };
+
+export default function Form() {
+  const [state, action, isPending] = useActionState(
+    submitForm,
+    initialState
+  );
+
+  return (
+    <form action={action}>
+      <input name="name" />
+      <button disabled={isPending}>
+        {isPending ? "전송 중..." : "제출"}
+      </button>
+
+      {state.error && <p>{state.error}</p>}
+      {state.success && <p>성공!</p>}
+    </form>
+  );
+}
+```
+
+---
