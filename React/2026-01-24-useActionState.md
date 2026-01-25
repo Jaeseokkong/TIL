@@ -84,3 +84,31 @@ export default function Form() {
 ```
 
 ---
+
+## 3️⃣ 기본 방식과의 차이점
+
+### ⚠️ 기존 방식
+
+- `onSubmit`
+- `fetch`
+- `useState`
+- `try / catch`
+- 로딩 상태 직접 관리
+
+```text
+로직 분산 + 보일러플레이트 증가
+```
+
+---
+
+### ✅ useActionState 방식
+
+- form → Server Action 직접 연결
+- 서버 결과를 자동으로 state로 반영
+- pending 상태 자동 제공
+
+```text
+선언형 + 서버 중심 데이터 흐름
+```
+
+---
