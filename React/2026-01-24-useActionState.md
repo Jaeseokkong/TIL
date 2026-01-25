@@ -112,3 +112,22 @@ export default function Form() {
 ```
 
 ---
+
+## 4️⃣ useActionState의 핵심 특징
+
+### 🔹 서버가 상태의 주도권을 가짐
+
+- 상태 변경 로직은 서버에 위치
+- 클라이언트는 결과를 **소비**만 함
+
+### 🔹 직렬화 가능한 값만 state로 전달
+
+- JSON-safe 데이터만 가능
+- 함수, 클래스, Date 객체 등은 불가
+
+### 🔹 React Concurrent 기능과 연동
+
+- `isPending`은 transition 기반
+- UI 블로킹 없이 자연스러운 UX 제공
+
+---
