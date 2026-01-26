@@ -7,3 +7,32 @@
 
 ---
 
+## 1️⃣ useFormStatus란?
+
+> **form 제출 상태(pending)를 추적하는 React Hook**
+
+`useFormStatus`는 form이 제출되는 순간부터<br/>
+서버 액션이 완료될 때가지의 상태를 관리합니다.
+
+---
+
+## 2️⃣ 기본 사용 예제
+
+```js
+"use client";
+
+import { useFormStatus } from "react";
+
+export default function MyForm() {
+    const { pending } = useFormStatus();
+
+    return (
+        <form action={someAction}>
+            <input name="name" />
+            <button disabled={pending}>
+                {pending ? "전송 중..." : "제출"}
+            </button>
+        </form>
+    );
+}
+```
