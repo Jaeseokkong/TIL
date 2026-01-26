@@ -36,3 +36,28 @@ export default function MyForm() {
     );
 }
 ```
+
+- `pending`: form 제출 중인지 여부
+
+---
+
+## 3️⃣ useActionState와의 차이
+
+| 구분  | useFormStatus | useActionState           |
+| --- | ------------- | ------------------------ |
+| 목적  | form 제출 상태    | 서버 액션 결과 상태              |
+| 반환값 | pending       | state, action, isPending |
+| 사용처 | UI 로딩 표시      | 서버 결과 반영                 |
+
+---
+
+## 4️⃣ 언제 사용하면 좋을까?
+
+- 버튼에 **로딩 표시**
+- 제출 중 **중복 제출 방지**
+- 폼이 "서버 응답을 기다리는 상태"를 UI로 표현할 때
+
+📌 단, `useFormStatus`는 **서버 결과를 저장하지 않음** <br/>
+→ 결과 상태가 필요하면 `useActionState`와 함께 사용
+
+---
