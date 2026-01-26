@@ -61,3 +61,38 @@ export default function MyForm() {
 → 결과 상태가 필요하면 `useActionState`와 함께 사용
 
 ---
+
+## 5️⃣ 참고: useActionState와 함께 쓰는 패턴
+
+```js
+"use client";
+
+import { useActionState, useFormStatus } from "react";
+import { submitForm } from "./actions";
+
+const initialState = { error: null, success: false };
+
+export default function Form() {
+    const [state, action, isPending] = useActionState(
+        submitForm,
+        initialState
+    );
+    const { pending } = useFormStatus();
+
+    return (
+        <form action={action}>
+            <input name="name" />
+            <button disabled={pending}>
+                {pending ? "전송 중..." : "제출"}
+            </button>
+
+            {state.error && <p>{state.error}</p>}
+            {state.success && <p>성공!</p>}
+        </form>
+    );
+}
+```
+
+- `useFormStatus`는 **form 제출의 pending 상태만 추적**
+- 서버 결과가 필요하면 `useActionState`가 필수
+- 둘을 함께 사용하면 **UI 로딩 + 결과 표시**를 깔끔하게 처리 가능
