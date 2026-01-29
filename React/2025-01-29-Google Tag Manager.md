@@ -22,3 +22,19 @@ Google Tage Manager(GTM)는 **코드를 직접 수정하지 않고도**<br/>
 👉 **배포 없이 GTM UI에서 제어 가능**
 
 ---
+
+## 2️⃣ 기본 구조: dataLayer
+
+GTM은 `dataLayer`**라는 전역 배열**을 통해 이벤트를 수신합니다.
+
+```js
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: "someEvent",
+});
+```
+
+- `dataLayer.push()` → GTM으로 이벤트 전달
+- `event` 값이 **트리거의 기준**이 됨
+
+---
