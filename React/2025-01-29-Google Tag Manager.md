@@ -26,3 +26,25 @@ Google Tag Manager(GTM)는<br/>
 👉 GTM은 **어디로 보낼지(GA, Ads, Meta)** 결정
 
 ---
+
+## 2️⃣ GTM의 핵심 구조
+
+GTM은 크게 이 구조로 동작합니다.
+
+```scss
+[웹앱(React)]
+   ↓ dataLayer.push()
+[dataLayer]
+   ↓
+[GTM Container]
+   ↓
+[Trigger → Tag → GA / Ads / Pixel]
+```
+
+### 🔹 핵심 포인트
+
+- 개발자는 **dataLayer에 이벤트를 push**
+- GTM은 그 이벤트를 감지
+- 조건(Trigger)에 맞으면 Tag 실행
+
+---
