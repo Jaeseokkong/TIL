@@ -121,3 +121,19 @@ window.dataLayer.push({
 - `page_type === "reservation"`
 
 ---
+
+### 🔹 Variable
+
+> dataLayer에서 꺼내 쓰는 값
+
+```js
+{
+  event: "purchase",
+  price: 30000
+}
+```
+
+- `price` → GTM Variable로 매핑
+- GA 이벤트 파라미터로 전달 가능
+
+---
