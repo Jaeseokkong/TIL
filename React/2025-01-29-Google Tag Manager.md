@@ -107,3 +107,17 @@ window.dataLayer.push({
 - Custom HTM
 
 ---
+
+### 🔹 Trigger
+
+> 언제 Tag를 실행할지
+
+- 특정 이벤트 이름
+- 특정 페이지
+- 특정 변수 조건
+
+예:
+- `event === "purchase"` 일 때
+- `page_type === "reservation"`
+
+---
