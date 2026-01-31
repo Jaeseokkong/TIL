@@ -94,3 +94,16 @@ window.dataLayer.push({
 👉 “상태 변화 = 이벤트” 로 사고 전환 필요
 
 ---
+
+## 5️⃣ GTM에서 쓰는 3가지 개념
+
+### 🔹 Tag
+
+> 실제로 실행되는 스크립트
+
+- GA4 이벤트
+- Google Ads 전환
+- Meta Pixel
+- Custom HTM
+
+---
