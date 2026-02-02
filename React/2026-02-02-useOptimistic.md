@@ -18,3 +18,35 @@
 - 실패 시 별도의 롤백 로직없이 자연스럽게 복구
 
 ---
+
+## 2️⃣ 기존 방식(useState)의 한계
+
+### ❌ useState로 낙관적 업데이트 구현
+
+```tsx
+import { useState } from "react";
+
+function LikeButton() {
+  const [likes, setLikes] = useState(100);
+
+  const handleLike = async () => {
+    setLikes((prev) => prev + 1); // UI 먼저 업데이트
+
+    try {
+      await fetch("/api/like", { method: "POST" });
+    } catch {
+      setLikes((prev) => prev - 1); // 실패 시 직접 롤백
+    }
+  };
+
+  return <button onClick={handleLike}>👍 {likes}</button>;
+}
+```
+
+#### 문제점
+
+- 실패 시 **롤백 로직을 직접 작성**
+- 실제 상태와 UI 상태가 **섞이기 쉬움**
+- 비동기 흐름이 복잡해질수록 관리 난이도 증가
+
+---
