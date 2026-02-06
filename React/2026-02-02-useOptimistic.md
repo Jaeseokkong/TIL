@@ -68,3 +68,37 @@ const [optimisticState, updateOptimisticState] = useOptimistic(
 - `updateOptimisticState(action)`: 낙관적 변경 트리거
 
 ---
+
+## 4️⃣ useOptimistic로 좋아요 버튼 구현
+
+```tsx
+function LikeButton() {
+  const [likes, setLikes] = useState(100);
+
+  const [optimisticLikes, addOptimisticLike] = useOptimistic(
+    likes,
+    (prev, amount) => prev + amount
+  );
+
+  const handleLike = async () => {
+    // 1. UI 즉시 업데이트
+    addOptimisticLike(1);
+
+    // 2. 서버 요청
+    await fetch("/api/like", { method: "POST" });
+
+    // 3. 서버 성공 시 실제 상태 반영
+    setLikes((prev) => prev + 1);
+  };
+
+  return <button onClick={handleLike}>👍 {optimisticLikes}</button>;
+}
+```
+
+### 📌 포인트
+
+- UI는 `optimisticLikes`를 사용
+- 실제 서버 상태는 `likes`로 관리
+- **실제 상태만 업데이트하면 자동으로 동기화**
+
+---
