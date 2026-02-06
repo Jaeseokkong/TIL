@@ -1,4 +1,4 @@
-# ⚡ useOptimistic - 낙관적 UI 업데이트를 위한 Hook
+`# ⚡ useOptimistic - 낙관적 UI 업데이트를 위한 Hook
 `useOptimistic`는 **비동기 서버 요청이 완료되기 전에 UI를 먼저 업데이트**할 수 있도록 도와주는 React Hook입니다.
 
 서버 응답을 기다린느 동안에도<br/>
@@ -48,5 +48,23 @@ function LikeButton() {
 - 실패 시 **롤백 로직을 직접 작성**
 - 실제 상태와 UI 상태가 **섞이기 쉬움**
 - 비동기 흐름이 복잡해질수록 관리 난이도 증가
+
+---
+
+## 3️⃣ useOptimistic 기본 사용법
+
+```tsx
+const [optimisticState, updateOptimisticState] = useOptimistic(
+  initialState,
+  (prevState, action) => newState
+);
+```
+
+### 🔹 구성 요소
+
+- `initialState`: 실제 상태 값
+- `updateFunction(prev, action)`: 낙관적 상태를 어떻게 변경할지 정의
+- `optimisticState`: UI에 바로 반영되는 상태
+- `updateOptimisticState(action)`: 낙관적 변경 트리거
 
 ---
