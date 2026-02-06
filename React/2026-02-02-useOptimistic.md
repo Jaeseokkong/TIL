@@ -102,3 +102,62 @@ function LikeButton() {
 - **실제 상태만 업데이트하면 자동으로 동기화**
 
 ---
+
+## 5️⃣ 실전 예제 – 댓글 추가
+
+```tsx
+import { useOptimistic, useState } from "react";
+
+function CommentList() {
+  const [comments, setComments] = useState([
+    { id: 1, text: "첫 번째 댓글" },
+  ]);
+
+  const [optimisticComments, addOptimisticComment] = useOptimistic(
+    comments,
+    (prev, newComment) => [...prev, newComment]
+  );
+
+  const handleAddComment = async () => {
+    const newComment = {
+      id: Date.now(),
+      text: "새 댓글",
+    };
+
+    // 1. UI 즉시 반영
+    addOptimisticComment(newComment);
+
+    try {
+      // 2. 서버 요청
+      await fetch("/api/comments", {
+        method: "POST",
+        body: JSON.stringify(newComment),
+      });
+
+      // 3. 실제 상태 업데이트
+      setComments((prev) => [...prev, newComment]);
+    } catch {
+      console.error("댓글 추가 실패");
+      // ❌ 롤백 코드 불필요
+    }
+  };
+
+  return (
+    <div>
+      <ul>
+        {optimisticComments.map((c) => (
+          <li key={c.id}>{c.text}</li>
+        ))}
+      </ul>
+      <button onClick={handleAddComment}>댓글 추가</button>
+    </div>
+  );
+}
+```
+
+## 🔹 핵심
+
+- 실패 시 `setComments`가 호출되지 않으면 UI는 **자동으로 기존 상태로 복귀**
+- 낙관적 상태와 실제 상태가 **충돌하지 않음**
+
+---
