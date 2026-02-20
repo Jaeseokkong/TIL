@@ -136,11 +136,38 @@ func.call(thisArg, arg1, arg2, ...)
 ✔️ 실행 즉시 호출 <br/>
 ✔️ this를 원하는 객체로 지정 가능
 
-### 📌 call vs apply 차이
+---
 
-| 구분 | call  | apply |
-| -- | ----- | ----- |
-| 실행 | 즉시 실행 | 즉시 실행 |
-| 인자 | 개별 전달 | 배열 전달 |
+## 5️⃣ 왜 필요한가?
+
+### 🔹 콜백에서 this가 깨지는 문제
+
+```js
+class Counter {
+  constructor() {
+    this.count = 0;
+  }
+
+  increase() {
+    console.log(++this.count);
+  }
+}
+
+const counter = new Counter();
+
+setTimeout(counter.increase, 1000); // ❌ this 깨짐
+```
+
+- `setTimeout`이 함수를 일반 함수로 호출
+- 호출 주체가 사라짐
+- `this`가 undefined (strict mode)
+
+#### 🔹 해결
+
+```js
+setTimeout(counter.increase.bind(counter), 1000);
+```
+
+✔️ this를 counter로 고정
 
 ---
