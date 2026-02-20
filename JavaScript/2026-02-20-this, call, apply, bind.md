@@ -60,3 +60,32 @@ user.greet(); // undefined
 → 상위 스코프의 this를 그대로 사용(lexical this)
 
 ---
+
+## 2️⃣ bind() - this를 고정하는 방법
+
+> this가 고정된 **새로운 함수를 반환**
+
+```js
+function greet() {
+  console.log(this.name);
+}
+
+const user = { name: "Jun" };
+
+const boundGreet = greet.bind(user);
+
+boundGreet(); // Jun
+```
+
+### 🔹 문법
+
+```js
+const newFunc = func.bind(thisArg, arg1, arg2...)
+```
+
+✔️ 실행 ❌<br/>
+✔️ 새로운 함수 반환<br/>
+✔️ this 영구 고정
+
+---
+
