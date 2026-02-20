@@ -88,4 +88,26 @@ const newFunc = func.bind(thisArg, arg1, arg2...)
 ✔️ this 영구 고정
 
 ---
+ 
+## 3️⃣ apply() - 배열로 인자 전달
 
+```js
+function introduce(age, job) {
+  console.log(this.name, age, job);
+}
+
+const user = { name: "Jun" };
+
+introduce.apply(user, [28, "developer"]);
+```
+
+### 🔹 문법
+
+```js
+func.apply(thisArg, [argsArray])
+```
+
+✔️ 실행 ⭕
+✔️ 인자 배열 전달
+
+---
