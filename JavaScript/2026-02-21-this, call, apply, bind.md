@@ -80,3 +80,25 @@ new 바인딩
 new가 가장 강력
 
 ---
+
+## 2️⃣ 화살표 함수의 this (특수 케이스)
+
+> 화살표 함수는 this 바인딩 규칙을 따르지 않음
+
+```js
+const obj = {
+  name: "Jun",
+  greet: () => {
+    console.log(this.name);
+  }
+};
+```
+
+✔️ 상위 스코프의 this 사용<br>
+✔️ call/apply/bind로 변경 불가능
+
+```js
+obj.greet.call({ name: "Kim" }); // 여전히 변경 안 됨
+```
+
+---
