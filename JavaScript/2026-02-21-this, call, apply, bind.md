@@ -67,3 +67,16 @@ const u = new User("Jun");
 ✔️ new로 호출되면 → 새로 생성된 인스턴스가 this
 
 ---
+
+### 🎯 우선순위
+
+```bash
+new 바인딩
+  > 명시적 바인딩 (call/apply/bind)
+    > 암시적 바인딩
+      > 기본 바인딩
+```
+
+new가 가장 강력
+
+---
