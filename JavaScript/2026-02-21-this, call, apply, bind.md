@@ -102,3 +102,36 @@ obj.greet.call({ name: "Kim" }); // 여전히 변경 안 됨
 ```
 
 ---
+
+## 3️⃣ bind() - this를 고정
+
+> 새로운 함수를 반환 (즉시 실행 ❌)
+
+```js
+function greet() {
+  console.log(this.name);
+}
+
+const user = { name: "Jun" };
+
+const bound = greet.bind(user);
+bound(); // Jun
+```
+
+### 🔹 특징
+
+- this 영구 고정
+- 부분 적용 가능
+
+```js
+function add(a, b) {
+  return a + b;
+}
+
+const add5 = add.bind(null, 5);
+add5(3); // 8
+```
+
+👉 첫 번째 인자 미리 고정
+
+---
