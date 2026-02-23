@@ -157,3 +157,20 @@ greet.apply(user, [arg1, arg2]);
 ✔️ 인자를 배열로 전달
 
 ---
+
+## 6️⃣ 메서드 빌려쓰기
+
+```js
+const arrLike = {
+  0: "a",
+  1: "b",
+  length: 2
+};
+
+Array.prototype.forEach.call(arrLike, console.log);
+```
+
+✔️ 배열이 아닌 객체에 배열 메서드 사용<br/>
+✔️ call/apply 자주 쓰이는 패턴
+
+---
