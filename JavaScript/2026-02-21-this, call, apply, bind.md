@@ -174,3 +174,38 @@ Array.prototype.forEach.call(arrLike, console.log);
 ✔️ call/apply 자주 쓰이는 패턴
 
 ---
+
+## 7️⃣ 콜백에서 this 깨지는 이유
+
+```js
+setTimeout(counter.increase, 1000);
+```
+
+→ setTimeout이 함수를 **일반 함수로 호출**
+
+그래서 기본 바인딩 적용<br/>
+→ strict mode면 undefined
+
+### 🔹 해결 방법
+
+#### bind 사용
+
+```js
+setTimeout(counter.increase.bind(counter), 1000);
+```
+
+#### 화살표 함수 사용
+```js
+setTimeout(() => counter.increase(), 1000);
+```
+
+#### 클래스 필드 화살표 메서드
+```js
+class Counter {
+  increase = () => {
+    console.log(this.count);
+  };
+}
+```
+
+---
