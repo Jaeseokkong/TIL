@@ -45,4 +45,59 @@ useQuery({
 
 👉 **queryKey 설계 = 캐시 설계**
 
+--- 
+
+### 🔹 캐시의 생명주기 (전체 흐름)
+
+```bash
+fetch 성공
+	↓
+캐시에 저장
+	↓
+fresh 상태
+	↓
+stale 상태
+	↓
+inactive 상태
+	↓
+gcTime 초과
+	↓
+메모리에서 제거
+```
+
+---
+
+## 3️⃣ staleTime - "언제 다시 동기화할 것인가?"
+
+> 데이터의 신선도를 결정하는 시간
+
+```ts
+useQuery({
+  queryKey: ["todos"],
+  queryFn: fetchTodos,
+  staleTime: 1000 * 10,
+});
+```
+
+**⏱️ 동작 방식**
+
+- fetch 성공 → fresh
+- 10초 후 → stale
+
+⚠️ stale이 된다고 자동 refetch가 일어나지는 않음
+
+> stale은 단지 "이 데이터는 오래됐을 수 있음" 이라는 표시(flag)
+
+---
+
+### 🔹 stale이 실제로 쓰이는 순간
+
+다음 이벤트 발생 시 staledlaus refresh
+
+- 컴포넌트 mount
+- window focus
+- 네트워크 reconnect
+
+> staleTime은 "재요청 여부를 판단하는 기준"
+
 ---
