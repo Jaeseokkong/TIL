@@ -20,3 +20,29 @@ React Query가 존재하는 이유는 서버 상태가 다음 특징을 가지�
 > 서버 상태는 "가져와서 끝"이 아니라 "계속 관리해야 하는 데이터"
 
 ---
+
+## 2️⃣ TanStack Query의 캐시 구조
+
+React Query는 내부적으로 **Query Cache**를 가집니다.
+
+- 전역(QueryClient 단위)
+- queryKey 기반 식별
+- 데이터 + 상태 + 타이머 포함
+
+---
+
+### 🔹 queryKey = 캐시의 ID
+
+```ts
+useQuery({
+  queryKey: ["user", userId],
+  queryFn: fetchUser,
+});
+```
+
+- 동일한 queryKey → 같은 캐시 공유
+- 다른 queryKey → 완전히 다른 캐시
+
+👉 **queryKey 설계 = 캐시 설계**
+
+---
