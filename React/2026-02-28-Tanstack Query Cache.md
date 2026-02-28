@@ -131,3 +131,39 @@ stale 상태에서 refetch가 일어나면:
 → 이때부터 GC 타이머 시작
 
 ---
+
+## 6️⃣ gcTime - "캐시를 언제 메모리에서 지울 것인가?"
+
+```ts
+useQuery({
+  queryKey: ["todos"],
+  queryFn: fetchTodos,
+  gcTime: 1000 * 60 * 5,
+});
+```
+
+- inactive 상태가 된 후 5분이 지나면 캐시 삭제
+
+**📌 중요 포인트**
+
+- stale과 무관
+- fetch 시점과 무관
+- 오직 inactive 기준
+
+---
+
+### 🔹 **중간에 다시 사용할 경우**
+
+```bash
+inactive
+	↓ (3분 경과)
+다른 컴포넌트에서 동일 queryKey 사용
+	↓
+다시 active
+	↓
+GC 타이머 취소
+```
+
+👉 gcTime은 "연속된 inactive 시간" 기준
+
+---
