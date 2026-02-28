@@ -101,3 +101,33 @@ useQuery({
 > staleTime은 "재요청 여부를 판단하는 기준"
 
 ---
+
+## 4️⃣ background refetch 전략
+
+stale 상태에서 refetch가 일어나면:
+
+1. 기존 캐시 데이터가 먼저 렌더
+2. 뒤에서 네트워크 요청
+3. 성공 시 UI 갱신
+
+👉 로딩 스피너 없이 자연스러운 UX
+
+---
+
+## 5️⃣ active / inactive - 캐시 사용 여부
+
+### 🔹 active
+
+해당 query를 사용하는 컴포넌트가 1개 이상 존재
+
+→ GC(Garbage Collection) 대상 아님
+
+---
+
+### 🔹 inactive
+
+해당 query를 사용하는 컴포넌트가 0개
+
+→ 이때부터 GC 타이머 시작
+
+---
