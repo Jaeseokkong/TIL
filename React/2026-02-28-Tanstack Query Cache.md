@@ -205,6 +205,18 @@ GC 타이머 취소
 
 👉 gcTime은 "연속된 inactive 시간" 기준
 
+
+---
+
+### 🔹 v5 변경 사항
+
+기존 `cacheTime` → `gcTime`으로 변경
+
+이유:
+
+>단순 캐시 유지 시간이 아니라<br/>
+Garbage Collection 대기 시간이기 때문
+
 ---
 
 ## 7️⃣ 캐시 설계 전략
