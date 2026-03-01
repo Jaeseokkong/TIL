@@ -25,9 +25,9 @@ React Query가 존재하는 이유는 서버 상태가 다음 특징을 가지�
 
 ---
 
-## 2️⃣ TanStack Query의 캐시 구조
+## 2️⃣ Query Cache 구조
 
-React Query는 내부적으로 **Query Cache**를 가집니다.
+TanStack Query는 내부적으로 전역 **Query Cache**를 가진다.
 
 - 전역(QueryClient 단위)
 - queryKey 기반 식별
@@ -44,8 +44,25 @@ useQuery({
 });
 ```
 
-- 동일한 queryKey → 같은 캐시 공유
-- 다른 queryKey → 완전히 다른 캐시
+✔️ 동일한 queryKey → 같은 캐시 공유<br/>
+✔️ 다른 queryKey → 완전히 다른 캐시
+
+#### ❌ 잘못된 설계
+
+```ts
+["user"]
+```
+
+→ userId가 달라도 같은 캐시 사용 (버그 유발)
+
+####  ✅ 올바른 설계
+
+```ts
+["user", userId]
+["posts", { page, filter }]
+```
+
+> queryKey는 반드시 "데이터를 유일하게 식별하는 정보"를 포함해야 한다.
 
 👉 **queryKey 설계 = 캐시 설계**
 
