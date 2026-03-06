@@ -125,3 +125,61 @@ data.pages.map((page) =>
 👉 **페이지 단위 데이터를 내부적으로 관리**
 
 ---
+
+## 4️⃣ 다음 페이지 요청
+
+```ts
+fetchNextPage()
+```
+
+예:
+
+```ts
+<button onClick={() => fetchNextPage()}>
+    더 보기
+</button>
+```
+
+### 🔹 상태 값
+
+| 상태                 | 설명           |
+| ------------------ | ------------ |
+| hasNextPage        | 다음 페이지 존재 여부 |
+| isFetchingNextPage | 다음 페이지 요청 중  |
+| fetchNextPage      | 다음 페이지 fetch |
+
+---
+
+## 5️⃣ 핵심 옵션: `getNextPageParam`
+
+다음 페이지를 계산하는 함수입니다.
+
+```ts
+getNextPageParam: (lastPage, pages) => lastPage.nextCursor
+```
+
+### 🔹 파라미터
+
+| 값        | 의미              |
+| -------- | --------------- |
+| lastPage | 방금 가져온 페이지      |
+| pages    | 지금까지 가져온 모든 페이지 |
+
+---
+
+예시 API
+
+```json
+{
+  "data": [...],
+  "nextCursor": 3
+}
+```
+
+구현
+
+```ts
+getNextPageParam: (lastPage) => lastPage.nextCursor
+```
+
+---
