@@ -183,3 +183,31 @@ getNextPageParam: (lastPage) => lastPage.nextCursor
 ```
 
 ---
+
+## 6️⃣ 흐름도
+
+```bash
+컴포넌트 mount
+    ↓
+data = undefined
+    ↓
+queryFn 실행
+(pageParam = initialPageParam)
+    ↓
+1페이지 fetch
+    ↓
+pages[0] 저장
+    ↓
+getNextPageParam 실행
+    ↓
+다음 pageParam 계산
+```
+
+---
+
+## ✍️ 한 줄 요약
+
+> `useInfiniteQuery`는 페이지 기반 서버 데이터를<br/>
+Query Cache 내부에서 pages 배열로 누적 관리하여<br/>
+무한 스크롤과 pagination을 쉽게 구현하는 시스템이다.
+
