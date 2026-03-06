@@ -13,3 +13,43 @@
 - cursor 기반 pagination
 
 ---
+
+## 1️⃣ `useInfiniteQuery` 필요성
+
+일반 pagination은 `useQuery`로 구현하면 다음 문제가 발생합니다.
+
+```ts
+useQuery({
+  queryKey: ["posts", page],
+  queryFn: () => fetchPosts(page)
+})
+```
+
+문제 점 
+
+- 페이지가 바뀔 때마다 **기존 데이터 사라짐**
+- **리스트 누적 관리 직접 구현 필요**
+- 스크롤 UX 구현 어려
+
+예
+
+```
+1페이지 → 렌더
+2페이지 → 기존 데이터 사라짐
+3페이지 → 또 교체
+```
+
+하지만 실제 UI는 보통
+
+```
+1페이지
+2페이지
+3페이지
+```
+
+처럼 **계속 누적된 리스트**가 필요합니다.
+
+👉 이 문제를 해결하는 것이 `useInfiniteQuery`
+
+---
+
