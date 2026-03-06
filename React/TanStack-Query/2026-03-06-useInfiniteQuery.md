@@ -53,3 +53,75 @@ useQuery({
 
 ---
 
+## 2️⃣ 기본 구조
+
+```ts
+const {
+  data,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+  status
+} = useInfiniteQuery({
+  queryKey: ["posts"],
+  queryFn: ({ pageParam }) => fetchPosts(pageParam),
+  initialPageParam: 1,
+  getNextPageParam: (lastPage) => lastPage.nextPage
+});
+```
+
+### 🔹 주요 옵션
+
+| 옵션               | 설명             |
+| ---------------- | -------------- |
+| queryKey         | 캐시 식별          |
+| queryFn          | 페이지 데이터 fetch  |
+| pageParam        | 다음 페이지 요청 파라미터 |
+| initialPageParam | 첫 페이지 값        |
+| getNextPageParam | 다음 페이지 계산      |
+
+---
+
+## 3️⃣ 내부 데이터 구조
+
+`useQuery`
+
+```ts
+data = {...}
+```
+
+`useInfiniteQuery`
+
+```ts
+data = {
+  pages: [],
+  pageParams: []
+}
+```
+
+예시: 
+
+```ts
+data = {
+  pages: [
+    { posts: [1,2,3] },
+    { posts: [4,5,6] },
+    { posts: [7,8,9] }
+  ],
+  pageParams: [1,2,3]
+}
+```
+
+### 🔹 렌더링 방식
+
+```ts
+data.pages.map((page) =>
+  page.posts.map(post => (
+    <Post key={post.id} />
+  ))
+)
+```
+
+👉 **페이지 단위 데이터를 내부적으로 관리**
+
+---
