@@ -108,3 +108,29 @@ observer.observe(targetElement)
 - 브라우저가 최적화 처리
 
 ---
+
+### 🔹 라이브러리 사용
+
+직접 구현하지 않고 라이브러리를 사용할 수도 있습니다.
+
+대표적인 라이브러리
+
+- react-infinite-scroller
+- react-intersection-observer
+
+#### 🧐 예시
+
+```ts
+import InfiniteScroll from "react-infinite-scroller";
+
+<InfiniteScroll
+  loadMore={loadMore}
+  hasMore={hasMore}
+>
+  {items.map(item => (
+    <Item key={item.id} />
+  ))}
+</InfiniteScroll>
+```
+
+---
