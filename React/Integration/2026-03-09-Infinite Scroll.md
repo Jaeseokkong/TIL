@@ -41,7 +41,7 @@ UI 렌더
 
 ---
 
-## 3️⃣ 구현 방법
+## 2️⃣ 구현 방법
 
 Infinite Scroll은 크게 3가지 방법으로 구현할 수 있습니다.
 
@@ -131,6 +131,83 @@ import InfiniteScroll from "react-infinite-scroller";
     <Item key={item.id} />
   ))}
 </InfiniteScroll>
+```
+
+---
+
+## 3️⃣ React Query와 함께 사용하는 패턴
+
+Infinite Scroll은 보통 **TanStack Query**의 `useInfiniteQuery`와 함께 사용됩니다.
+
+### 🧐 사용 예시
+
+```ts
+import InfiniteScroll from "react-infinite-scroller";
+import { useInfiniteQuery } from "@tanstack/react-query";
+
+const initialUrl = "https://swapi.dev/api/species/";
+
+const fetchSpecies = async ({ pageParam = initialUrl }) => {
+  const response = await fetch(pageParam);
+  return response.json();
+};
+
+export default function SpeciesList() {
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    isError,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ["species"],
+    queryFn: fetchSpecies,
+    getNextPageParam: (lastPage) => lastPage.next,
+  });
+
+  if (isLoading) return <h3>Loading...</h3>;
+
+  if (isError) return <div>Error: {error.toString()}</div>;
+
+  return (
+    <>
+      {isFetching && <div>Loading...</div>}
+
+      <InfiniteScroll
+        loadMore={() => fetchNextPage()}
+        hasMore={hasNextPage}
+      >
+        {data.pages.map((page) =>
+          page.results.map((species) => (
+            <div key={species.name}>
+              <h3>{species.name}</h3>
+              <p>Language: {species.language}</p>
+              <p>Average Lifespan: {species.average_lifespan}</p>
+            </div>
+          ))
+        )}
+      </InfiniteScroll>
+    </>
+  );
+}
+```
+
+#### 코드 흐름
+
+```ts
+InfiniteScroll
+      ↓
+loadMore 실행
+      ↓
+fetchNextPage()
+      ↓
+useInfiniteQuery가 다음 페이지 요청
+      ↓
+data.pages 배열에 데이터 추가
+      ↓
+리스트 렌더링
 ```
 
 ---
