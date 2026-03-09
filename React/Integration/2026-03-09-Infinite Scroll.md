@@ -40,3 +40,71 @@ UI 렌더
 ```
 
 ---
+
+## 3️⃣ 구현 방법
+
+Infinite Scroll은 크게 3가지 방법으로 구현할 수 있습니다.
+
+### 🔹 Scroll Event 방식
+
+가장 기본적인 방식입니다.
+
+```ts
+window.addEventListener("scroll", handleScroll)
+```
+
+#### 🧐 예시
+
+```ts
+const handleScroll = () => {
+  const bottom =
+    window.innerHeight + window.scrollY >= document.body.offsetHeight
+
+  if (bottom) {
+    loadMore()
+  }
+}
+```
+
+단점
+- scroll 이벤트가 **매우 많이 발생**
+- 성능 문제가 발생할 수 있음
+
+---
+
+### 🔹 IntersectionObserver
+
+요즘 가장 많이 사용하는 방식입니다.
+
+브라우저 API인 **Intersection Observer API**를 사용합니다.
+
+#### ⚙️ 동작 방식
+
+```ts
+sentinel element
+       ↓
+viewport에 들어옴
+       ↓
+callback 실행
+       ↓
+데이터 요청
+```
+
+#### 🧐 예시
+
+```ts
+const observer = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    loadMore()
+  }
+})
+
+observer.observe(targetElement)
+```
+
+장점
+
+- scroll 이벤트보다 **성능 좋음**
+- 브라우저가 최적화 처리
+
+---
