@@ -140,3 +140,76 @@ isRefetching = true
 이 경우 **작은 로딩 UI**를 표시할 때 사용합니다.
 
 ---
+
+## 5️⃣ Error State (요청 실패)
+
+데이터 요청이 실패하면 다음 상태가 됩니다.
+
+| 상태        | 의미    |
+| --------- | ----- |
+| `isError` | 요청 실패 |
+| `error`   | 에러 객체 |
+
+예시
+
+```ts
+if (isError) {
+  return <ErrorMessage />
+}
+```
+
+---
+
+## 6️⃣ `isLoading` vs `isFetching`
+
+| 상태           | 의미          |
+| ------------ | ----------- |
+| `isLoading`  | 첫 데이터 요청    |
+| `isFetching` | 모든 fetch 요청 |
+
+---
+
+예
+
+```bash
+첫 페이지 요청
+isLoading = true
+isFetching = true
+
+추가 요청
+isLoading = false
+isFetching = true
+```
+
+---
+
+## 7️⃣ 전체 Lifecycle 흐름
+
+```ts
+Component Mount
+      ↓
+Query 실행
+      ↓
+isLoading = true
+isFetching = true
+      ↓
+데이터 fetch
+      ↓
+isSuccess = true
+      ↓
+Cache 저장
+      ↓
+Background Refetch
+      ↓
+isFetching = true
+isRefetching = true
+      ↓
+데이터 업데이트
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+> React Query는 쿼리의 lifecycle에 따라 다양한 상태 값을 제공하며<br/>
+이를 통해 데이터 요청, 캐싱, refetch 상태를 효율적으로 관리할 수 있습니다.
