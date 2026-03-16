@@ -86,3 +86,70 @@ const { mutate } = useMutation({
 👉 `mutate()`를 호출할 때 mutation이 실행됩니다.
 
 ---
+
+## 4️⃣ Mutation 상태
+
+`useMutation`도 **상태 값을 제공**합니다.
+
+| 상태          | 의미            |
+| ----------- | ------------- |
+| `isPending` | mutation 요청 중 |
+| `isSuccess` | mutation 성공   |
+| `isError`   | mutation 실패   |
+
+예
+
+```ts
+if (isPending) {
+  return <Spinner />
+}
+```
+
+---
+
+## 5️⃣ 주요 옵션
+
+### 🔹 `onSuccess`
+
+mutation이 성공했을 때 실행됩니다.
+
+```ts
+useMutation({
+  mutationFn: createPost,
+  onSuccess: () => {
+    console.log("post created")
+  }
+})
+```
+
+---
+
+### 🔹 `onError`
+
+mutation 실패 시 실행됩니다.
+
+```ts
+useMutation({
+  mutationFn: createPost,
+  onError: (error) => {
+    console.log(error)
+  }
+})
+```
+
+---
+
+### 🔹 `onSettled`
+
+성공/실패 여부와 관계없이 실행됩니다.
+
+```ts
+useMutation({
+  mutationFn: createPost,
+  onSettled: () => {
+    console.log("mutation finished")
+  }
+})
+```
+
+---
