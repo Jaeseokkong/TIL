@@ -35,3 +35,54 @@ DELETE /posts/1
 👉 이 문제를 해결하는 것이 `useMutation`
 
 ---
+
+## 2️⃣ 기본 구조
+
+```ts
+const { mutate, isPending, isSuccess, isError } = useMutation({
+  mutationFn: (newPost) => createPost(newPost)
+})
+```
+
+### 🔹 주요 반환 값
+
+| 값         | 설명             |
+| --------- | -------------- |
+| mutate    | mutation 실행 함수 |
+| isPending | mutation 실행 중  |
+| isSuccess | mutation 성공    |
+| isError   | mutation 실패    |
+
+---
+
+## 3️⃣ 사용 예시
+
+```ts
+const createPost = async (post) => {
+  const response = await fetch("/posts", {
+    method: "POST",
+    body: JSON.stringify(post),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+
+  return response.json()
+}
+
+const { mutate } = useMutation({
+  mutationFn: createPost
+})
+```
+
+실행
+
+```ts
+<button onClick={() => mutate({ title: "Hello" })}>
+  Create Post
+</button>
+```
+
+👉 `mutate()`를 호출할 때 mutation이 실행됩니다.
+
+---
