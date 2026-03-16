@@ -153,3 +153,70 @@ useMutation({
 ```
 
 ---
+
+## 6️⃣ Query Invalidation
+
+데이터 변경 후에는 **기존 캐시 데이터를 다시 가져와야 하는 경우가 많습니다.**
+
+예
+
+```bash
+게시글 생성
+→ posts 목록 변경
+→ posts query 다시 요청 필요
+```
+
+이때 사용하는 것이 **Query Invalidation**입니다.
+
+```ts
+queryClient.invalidateQueries()
+```
+
+예
+
+```ts
+import { useQueryClient } from "@tanstack/react-query"
+
+const queryClient = useQueryClient()
+
+const mutation = useMutation({
+  mutationFn: createPost,
+  onSuccess: () => {
+    queryClient.invalidateQueries(["posts"])
+  }
+})
+```
+
+👉 mutation 성공 후 `posts` query를 다시 요청합니다.
+
+---
+
+## 7️⃣ Mutation 흐름
+
+```bash
+사용자 이벤트 발생
+      ↓
+mutate() 호출
+      ↓
+mutationFn 실행
+      ↓
+서버 요청
+      ↓
+isPending = true
+      ↓
+요청 성공
+      ↓
+isSuccess = true
+      ↓
+onSuccess 실행
+      ↓
+query invalidation
+      ↓
+관련 query refetch
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+> `useMutation`은 서버 데이터를 생성, 수정, 삭제하는 작업을 처리하는 TanStack Query 훅이며, mutation 실행 후에는 `invalidateQueries`를 통해 관련 쿼리를 다시 가져오는 패턴을 자주 사용합니다.
