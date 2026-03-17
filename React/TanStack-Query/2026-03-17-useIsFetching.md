@@ -6,3 +6,25 @@
 `useIsFetching`은 **애플리케이션 전체 query 상태를 확인할 수 있습니다.**
 
 ---
+
+## 1️⃣ `useIsFetching` 필요성
+
+여러 개의 query가 동시에 실행되는 경우
+
+```text
+posts 요청
+users 요청
+comments 요청
+```
+
+각 query마다 `isFetching`을 관리하면 전역 로딩 상태를 관리하기 어렵습니다.
+
+```ts
+isFetching (posts)
+isFetching (users)
+isFetching (comments)
+```
+
+👉 이 문제를 해결하는 것이 `useIsFetching`
+
+---
