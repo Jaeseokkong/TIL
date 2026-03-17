@@ -28,3 +28,35 @@ isFetching (comments)
 👉 이 문제를 해결하는 것이 `useIsFetching`
 
 ---
+
+## 2️⃣ 기본 구조
+
+```ts
+import { useIsFetching } from "@tanstack/react-query";
+
+const isFetching = useIsFetching();
+```
+
+### 🔹 반환 값
+
+| 값      | 의미                      |
+| ------ | ----------------------- |
+| number | 현재 fetching 중인 query 개수 |
+
+---
+
+### 🔹 동작 방식
+
+```
+Query A → fetching
+Query B → fetching
+Query C → idle
+```
+
+```ts
+useIsFetching() === 2
+```
+
+👉 동시에 여러 요청이 발생하면 개수가 증가합니다.
+
+---
