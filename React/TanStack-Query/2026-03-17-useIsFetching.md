@@ -101,3 +101,21 @@ const isFetching = useIsFetching();
 ```
 
 ---
+
+## 5️⃣ 특정 Query만 필터링
+
+특정 query만 확인할 수도 있습니다.
+
+```ts
+const isFetchingPosts = useIsFetching({
+  queryKey: ["posts"]
+});
+```
+
+- posts 관련 query만 counting
+
+---
+
+## ✍️ 한 줄 정리
+
+> `useIsFetching`은 현재 fetching 중인 모든 query의 개수를 반환하여, 전역 로딩 상태를 관리할 때 유용한 훅입니다.
