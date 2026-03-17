@@ -60,3 +60,44 @@ useIsFetching() === 2
 👉 동시에 여러 요청이 발생하면 개수가 증가합니다.
 
 ---
+
+## 3️⃣ `isFetching` vs `useIsFetching`
+
+| 구분              | 의미                           |
+| --------------- | ---------------------------- |
+| `isFetching`    | 특정 query의 fetch 상태 (boolean) |
+| `useIsFetching` | 전체 query fetch 개수 (number)   |
+
+
+---
+
+## 4️⃣ 사용 예시
+
+### 🔹 전역 로딩 UI
+
+```ts
+const isFetching = useIsFetching();
+
+return (
+  <>
+    {isFetching > 0 && <GlobalLoader />}
+    <App />
+  </>
+);
+```
+
+- 하나 이상의 요청이 있을 때 로딩 표시
+
+---
+
+### 🔹 버튼 활성화
+
+```ts
+const isFetching = useIsFetching();
+
+<button disabled={isFetching > 0}>
+  Submit
+</button>
+```
+
+---
