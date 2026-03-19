@@ -57,3 +57,33 @@ useEffect(() => {
 👉 현재 페이를 볼 때 다음 페이지 데이터를 미리 준비
 
 ---
+
+## 5️⃣ useQuery와 차이
+
+|항목|useQuery|prefetchQuery|
+|:---|:---|:---|
+|실행 시점|렌더링 시|수동|
+|반환값|data|없음|
+|목적|데이터 사용|캐싱|
+|UI 영향|있음|없음|
+
+---
+
+## 6️⃣ 중요한 옵션
+
+```ts
+queryClient.prefetchQuery({
+	queryKey: ["posts"],
+	queryFn: fetchPosts,
+	staleTime: 1000 * 60 * 5
+})
+```
+
+- `staleTime`을 설정하지 않으면 prefetch 직후 바로 stale 상태 될 수 있음
+- **적절한 staleTime 설정이 필요**
+
+---
+
+## ✍️ 한 줄 정리
+
+>`prefetchQuery`는 사용자가 곧 사용할 데이터를 미리 캐리에 넣어 UX를 개선하는 기능입니다.
