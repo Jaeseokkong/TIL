@@ -34,3 +34,26 @@ queryClient.prefetchQuery({
 ✔️ `queryClient`를 통해 캐시에 직접 접근해서 데이터를 미리 저장합니다.
 
 ---
+
+## 3️⃣ 동작 흐름
+
+1. `prefetchQuery` 실행 → 데이터 fetch
+2. 결과를 cache에 저장
+3. 이후 `useQuery` 실행 시 네트워크 요청 없이 캐시 데이터 즉시 사용
+
+---
+
+## 4️⃣ 예제 (다음 페이지 미리 로딩)
+
+```ts
+useEffect(() => { 
+	queryClient.prefetchQuery({ 
+		queryKey: ["posts", page + 1], 
+		queryFn: () => fetchPosts(page + 1), 
+	}); 
+}, [page]);
+```
+
+👉 현재 페이를 볼 때 다음 페이지 데이터를 미리 준비
+
+---
