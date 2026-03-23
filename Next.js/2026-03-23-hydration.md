@@ -51,3 +51,56 @@ Hydration 이후 (클릭 가능)
 즉, 화면은 이미 존재하고 React가 기능만 붙입니다.
 
 ---
+
+## 3️⃣ Hydration vs CSR (헷갈리기 쉬운 부분)
+
+| 구분       | CSR         | Hydration   |
+| -------- | ----------- | ----------- |
+| HTML 생성  | 없음 (JS로 생성) | 서버에서 생성     |
+| 초기 화면 속도 | 느림          | 빠름          |
+| React 역할 | 처음부터 렌더링    | 기존 HTML에 연결 |
+
+---
+
+👉 Hydration은 CSR의 반대 개념이 아닌 **SSR + CSR을 연결하는 과정**
+
+## 4️⃣ React Query와 Hydration
+
+Next.js에서 데이털르 서버에서 미리 가져오면 Hydration 개념이 한 단계 더 확장됩니다.
+
+서버에서 가져온 데이터를 클라이언트에서도 그래도 사용(로딩 없이)합니다.
+
+
+### 🔹 전체 흐름
+
+1. 서버에서 데이터 prefetch
+
+```ts
+await queryClient.prefetchQuery(...) 
+```
+
+
+2. 데이터 직렬화 (dehydrate)
+
+```ts
+const dehydratedState = dehydrate(queryClient)
+```
+
+
+3. 클라이언트에서 복원 (Hydration)
+
+```ts
+<Hydrate state={dehydratedState}>
+```
+
+---
+
+### 🔹 결과 
+
+- 서버에서 이미 데이터 존재
+- 클라이언트에서 다시 요청하지 않음
+- `useQuery`가 즉시 데이터 사용
+
+👉 사용자 입장에서는 **로딩이 없는 것처럼 보임**
+
+---
