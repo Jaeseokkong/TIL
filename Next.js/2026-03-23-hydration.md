@@ -104,3 +104,7 @@ const dehydratedState = dehydrate(queryClient)
 👉 사용자 입장에서는 **로딩이 없는 것처럼 보임**
 
 ---
+
+## ✍️ 한 줄 정리
+
+> Hydration은 **"서버에서 만든 HTML을 React가 이어받아 동작 가능한 앱으로 완성하는 과정"** 입니다.
