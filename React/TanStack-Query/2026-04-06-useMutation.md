@@ -120,3 +120,53 @@ useMutation({
 👉 mutation 성공 후 `posts` 재요청
 
 ---
+
+## 5️⃣ 낙관적 업데이트 (Optimistic Update)
+
+서버 응답을 기다리지 않고 **UI를 엄저 업데이트**하는 방식
+
+👉 사용자 경험(UX)이 매우 빨라짐
+
+---
+
+### 🔹 기본 패턴
+
+```ts
+const queryClient = useQueryClient()
+
+useMutation({
+  mutationFn: createPost,
+
+  onMutate: async (newPost) => {
+    await queryClient.cancelQueries(["posts"])
+
+    const previousPosts = queryClient.getQueryData(["posts"])
+
+    queryClient.setQueryData(["posts"], (old) => [
+      ...old,
+      newPost
+    ])
+
+    return { previousPosts }
+  },
+
+  onError: (err, newPost, context) => {
+    queryClient.setQueryData(["posts"], context.previousPosts)
+  },
+
+  onSettled: () => {
+    queryClient.invalidateQueries(["posts"])
+  }
+})
+```
+
+- `onMutate`에서 캐시를 먼저 업데이트하여 UI를 즉시 반영
+- 요청이 실패하면 `onError`에서 이전 상태로 롤백
+- 마지막 `onSettled`에서 서버 데이터와 동기화
+
+---
+
+## ✍️ 한 줄 정리
+
+>`useMutation`은 서버 데이터를 변경하는 훅이며,<br/>
+`invalidateQueries`와 **낙관적 업데이트**를 함께 사용하는 것이 핵심입니다.
