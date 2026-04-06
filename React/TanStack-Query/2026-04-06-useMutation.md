@@ -58,3 +58,65 @@ const { mutate } = useMutation({
 👉 `mutate()` 호출 시 서버 요청 실행
 
 ---
+
+## 3️⃣ 주요 옵션
+
+### 🔹 onSuccess
+
+mutation이 성공했을 때 실행됩니다.
+
+```ts
+useMutation({
+  mutationFn: createPost,
+  onSuccess: () => {
+    console.log("success")
+  }
+});
+```
+
+### 🔹 onError
+
+mutation 실패 시 실행됩니다.
+
+```
+useMutation({
+  mutationFn: createPost,
+  onError: (error) => {
+    console.log(error)
+  }
+})
+```
+### 🔹 onSettled
+
+성공/실패 여부와 관계없이 실행됩니다.
+
+```
+useMutation({
+  mutationFn: createPost,
+  onSettled: () => {
+    console.log("finished")
+  }
+})
+```
+
+---
+
+## 4️⃣ Query Invalidation
+
+데이터 변경 후에는 기존 캐시를 다시 가져와야 합니다.
+
+```ts
+import { useQueryClient } from "@tanstack/react-query"
+
+const queryClient = useQueryClient()
+
+useMutation({
+  mutationFn: createPost,
+  onSuccess: () => {
+    queryClient.invalidateQueries(["posts"])
+  }
+})
+```
+👉 mutation 성공 후 `posts` 재요청
+
+---
