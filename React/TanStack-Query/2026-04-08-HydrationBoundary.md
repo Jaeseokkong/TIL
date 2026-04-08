@@ -88,3 +88,7 @@ const { data } = useQuery({
 👉 이미 캐시에 데이터 존재 → 추가 요청 없음
 
 ---
+
+## ✍️ 한 줄 정리
+
+> HydrationBoundary는 **서버에서 가져온 React Query 데이터를 클라이언트 캐시에 주입하는 컴포넌트**입니다.
