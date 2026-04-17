@@ -58,6 +58,11 @@ screen.getByRole("button", { name: "로그인" });
 - `queryBy*` → 없을 수도 있음 (null 반환)
 - `findBy*` → 비동기 처리 (Promise)
 
+	- `getBy` + *`waitFor`* = `findBy`
+
+> 💡 `waitFor`<br/>
+일정 기간 동안 기다려야 할 때 사용하여 기대가 통과할 때까지 기다릴 수 있습니다.
+
 ---
 
 ## 5️⃣ 사용자 이벤트
