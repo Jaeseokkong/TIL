@@ -41,3 +41,31 @@
 👉 DOM을 수정해도 원본 HTML 파일은 바뀌지 않습니다.
 
 ---
+
+## 3️⃣ Critical Rendering Path (CRP)
+
+브라우저가 실제 화면을 그리기까지의 핵심 5단계
+
+### 1. DOM Tree 생성
+
+HTML을 파싱하여 DOM 구조 생성
+
+### 2. CSSOM Tree 생성
+
+CSS를 파싱하여 스타일 규칙 트리 생성
+
+### 3. Render Tree 생성
+
+DOM + CSSOM을 결한한 트리
+- `display: none` 요소는 포함되지 않음
+
+### 4. Layout (Reflow)
+
+각 요소의 위치와 크기 계산
+- 어디에 배치되는지 결정됨
+
+### 5. Paint
+
+계산된 정보를 바탕으로 픽셀을 화면에 그림
+
+---
