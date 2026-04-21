@@ -114,3 +114,19 @@ const { data } = useInfiniteQuery({
 ✔️ 같은 `queryKey`를 사용하면 캐시 공유
 
 ---
+
+## 5️⃣ prefetchQuery vs prefetchInfiniteQuery
+
+| 항목     | prefetchQuery | prefetchInfiniteQuery |
+| ------ | ------------- | --------------------- |
+| 데이터 구조 | 단일            | pages 배열              |
+| 대상     | 일반 쿼리         | infinite query        |
+| 페이지 관리 | 없음            | 있음                    |
+
+
+---
+
+## ✍️ 한 줄 정리
+
+> `prefetchInfiniteQuery`는 무한 스크롤 데이터를 미리 캐시에 채워
+**로딩 없는 빠른 UX를 만드는 선제적 데이터 fetch 전략**이다.
