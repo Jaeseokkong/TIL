@@ -68,3 +68,49 @@ await queryClient.prefetchInfiniteQuery({
 - `getNextPageParam`: 다음 페이지 계산
 
 ---
+
+## 3️⃣ 내부 동작 방식
+
+```bash
+prefetchInfiniteQuery 실행 
+	↓ 
+queryFn 실행 (pageParam = initialPageParam) 
+	↓ 
+첫 페이지 데이터 fetch 
+	↓
+Query Cache 저장
+	↓
+컴포넌트에서 useInfiniteQuery 실행
+	↓
+캐시 데이터 즉시 사용
+```
+
+--
+
+## 4️⃣ useInfiniteQuery와 연결
+
+### 1. 사전 fetch
+
+```ts
+await queryClient.prefetchInfiniteQuery({ 
+	queryKey: ["feed"], 
+	queryFn: fetchFeed, 
+	initialPageParam: 0, 
+	getNextPageParam: (lastPage) => lastPage.cursor 
+});
+```
+
+### 2. 실제 사용
+
+```ts
+const { data } = useInfiniteQuery({
+  queryKey: ["feed"],
+  queryFn: fetchFeed,
+  initialPageParam: 0,
+  getNextPageParam: (lastPage) => lastPage.cursor
+});
+```
+
+✔️ 같은 `queryKey`를 사용하면 캐시 공유
+
+---
