@@ -47,3 +47,39 @@ pointer → focus → mouseDown → mouseUp → click
 | 현실성    | 낮음        | 높음        |
 
 ---
+
+## 2️⃣ 주요 사용 예시 
+
+### 🔹 클릭
+
+```ts
+await user.click(button);
+```
+
+---
+
+### 🔹 입력
+
+```ts
+await user.type(input, "hello")
+```
+
+- 한 글자씩 입력됨 (실제 타이핑처럼)
+
+---
+
+### 🔹 키보드
+
+```ts
+await user.keyboard("{Enter}")
+```
+
+---
+
+### 🔹 초기화
+
+```ts
+await user.clear(input)
+```
+
+---
