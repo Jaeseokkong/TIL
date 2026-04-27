@@ -24,3 +24,54 @@ MSW를 사용하면 이런 문제를 해결할 수 있습니다.
 - 테스트, 개발, 스토리북 등 다양한 환경에서 재사용 가능 
 
 ---
+
+## 2️⃣ 동작 방식
+
+MSW는 환경에 따라 두 가지 방식으로 동작합니다.
+
+### 🔹 브라우저 환경
+
+- Service Worker를 사용
+- 네트워크 요청을 가로채고 mock 응답 반환
+
+### 🔹 Node.js 환경
+
+- request interception layer를 사용
+- Jest 같은 테스트 환경에서 활용
+
+---
+
+## 3️⃣ 기본 개념
+
+### 1. Handler 
+
+요청을 어떻게 처리할지 정의하는 함수
+
+```ts
+rest.get('/api/user', (req, res, ctx) => { 
+	return res( 
+		ctx.status(200), 
+		ctx.json({ name: 'John' }) 
+	) 
+})
+```
+
+---
+
+### 2. Worker (Browser)
+
+```ts
+const worker = setupWorker(...handlers);
+worker.start();
+```
+
+---
+
+### 3. Server (Node)
+
+```ts
+const server = setupServer(...handlers);
+server.listen();
+```
+
+---
