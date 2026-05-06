@@ -165,3 +165,17 @@ await queryClient.prefetchInfiniteQuery({
 `useInfinitePosts` 훅은 `fetchPosts`(HTTP 버전)를 그대로 사용하므로 수정 불필요했습니다.
 
 ---
+
+## 4️⃣ 핵심 정리
+
+|호출|주체사용|함수방식서버|
+|:---|:---|:---|
+|컴포넌트 (SSR)|`fetchPostsServer`|함수 직접 호출|
+|클라이언트 컴포넌트|`fetchPosts`|HTTP fetch → /`api/posts`|
+|API route|`getPostsData`|함수 직접 호출|
+
+---
+
+## ✍️ 한 줄 정리
+
+> Next.js App Router에서 서버/클라이언트 경계를 명확히 구분하지 않으면, 빌드 타임과 런타임 양쪽에서 예기치 않은 오류가 발생할 수 있어 **서버 전용 로직은 절대 클라이언트 번들에 포함되어서는 안 됩니다.**
