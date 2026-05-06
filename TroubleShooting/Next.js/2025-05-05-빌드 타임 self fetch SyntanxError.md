@@ -10,7 +10,7 @@ SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
     at JSON.parse (<anonymous>)
 ```
 
-### 🔹 원인
+### 🚨 원인
 
 Next.js는 빌드 시점(`next build`)에 페이지를 **prerender(사전 렌더링)** 합니다. 이 과정에서 서버 컴포넌트가 실행되는데, 문제는 **서버가 아직 실행중이지 않은 상태**라는 점 입니다.
 
@@ -109,5 +109,59 @@ export async function fetchPosts({ page = 1, category, search }: {
   return await getPostsData({ page, category, search }); // ✅ HTTP 없이 직접 호출
 }
 ```
+
+---
+
+## 3️⃣ 2차 문제 — 클라이언트에서 서버 전용 코드 실행 오류
+
+1차 해결 후 검색, 카테고리 필터, 무한 스크롤이 동작하지 않는 문제가 발생했습니다.
+
+### 🚨 원인 
+
+`fetchPosts`를 서버 직접 호출 방식으로 바꿨더니, 클라이언트 컴포넌트 (`'use client'`)의 `useInfiniteQuery`에서도 동일한 함수를 호출하게 되었습니다. `getPostData → getAllPosts`는 서버 전용 코드 (GitHub API, Node.js 환경 의존)라 클라이언트에서 실행할 수 없었습니다.
+
+--
+
+### 🔹 해결 — 서버용/클라이언트용 함수 분리 (`lib/api/posts.ts`)
+
+```ts
+// ✅ SSR 서버 컴포넌트용 — 함수 직접 호출
+export async function fetchPostsServer({ page = 1, category, search }: {
+  page: number;
+  category?: string;
+  search?: string;
+}): Promise<PostResponse> {
+  const { getPostsData } = await import("@/lib/posts");
+  return await getPostsData({ page, category, search });
+}
+
+// ✅ 클라이언트용 — HTTP fetch
+export async function fetchPosts({ page = 1, category, search }: {
+  page: number;
+  category?: string;
+  search?: string;
+}): Promise<PostResponse> {
+  const query = new URLSearchParams({ page: page.toString() });
+  if (category) query.append("category", category);
+  if (search) query.append("search", search);
+
+  const res = await fetch(`/api/posts?${query.toString()}`);
+  if (!res.ok) throw new Error("게시글 데이터를 불러오지 못했습니다.");
+  return res.json();
+}
+```
+
+```ts
+// app/page.tsx — SSR용 함수로 교체
+import { fetchPostsServer } from "@/lib/api/posts";
+
+await queryClient.prefetchInfiniteQuery({
+  queryKey: [queryKeys.posts, undefined, ""],
+  queryFn: ({ pageParam = 1 }) => fetchPostsServer({ page: pageParam }),
+  initialPageParam: 1,
+});
+```
+
+`useInfinitePosts` 훅은 `fetchPosts`(HTTP 버전)를 그대로 사용하므로 수정 불필요했습니다.
 
 ---
