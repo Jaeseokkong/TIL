@@ -1,0 +1,91 @@
+# 🔀 Mock Service Worker (MSW)
+
+Mock Service Worker는 브라우저 또는 Node.js 환경에서 **실제 네트워크 요청을 가로채(mock) 개발자가 정의한 응답을 대신 반환해주는 라이브러리**입니다.
+
+즉, 백엔드 서버 없이도 **API가 있는 것처럼 프론트엔드를 개발하고 테스트할 수 있게 해주는 도구**입니다.
+
+---
+
+## 1️⃣ 왜 사용하는가?
+
+프론트엔드 개발을 하다보면 이런 문제가 자주 발생합니다.
+
+- 백엔드 API가 아직 준비되지 않음
+- API 응답이 자주 바뀜
+- 테스트 환경에서 네트워크 의존성을 줄이고 싶음
+- 특정 에러 상황을 재현하기 어려움
+
+MSW를 사용하면 이런 문제를 해결할 수 있습니다.
+
+### 🔥 핵심 장점
+
+- 실제 네트워크 레벨에서 요청을 가로채기 때문에 더 현실적은 mocking
+- 코드 수정 없이도 **mock ↔ real API** 전환 가능
+- 테스트, 개발, 스토리북 등 다양한 환경에서 재사용 가능 
+
+---
+
+## 2️⃣ 동작 방식
+
+MSW는 환경에 따라 두 가지 방식으로 동작합니다.
+
+### 🔹 브라우저 환경
+
+- Service Worker를 사용
+- 네트워크 요청을 가로채고 mock 응답 반환
+
+### 🔹 Node.js 환경
+
+- request interception layer를 사용
+- Jest 같은 테스트 환경에서 활용
+
+---
+
+## 3️⃣ 기본 개념
+
+### 1. Handler 
+
+요청을 어떻게 처리할지 정의하는 함수
+
+```ts
+rest.get('/api/user', (req, res, ctx) => { 
+	return res( 
+		ctx.status(200), 
+		ctx.json({ name: 'John' }) 
+	) 
+})
+```
+
+---
+
+### 2. Worker (Browser)
+
+```ts
+const worker = setupWorker(...handlers);
+worker.start();
+```
+
+---
+
+### 3. Server (Node)
+
+```ts
+const server = setupServer(...handlers);
+server.listen();
+```
+
+---
+
+## 4️⃣ 사용 흐름
+
+1. handler 정의
+2. 브라우저 → worker 실행
+3. 테스트 → server 실행
+4. 요청 발생 → MSW가 가로채서 응답 반환
+
+---
+
+## 5️⃣ 한 줄 정리
+
+> **MSW**는 **"네트워크 레벨에서 API를 가짜로 만들어주는 도구"**<br/>
+→ 프론트엔드 개발과 테스트를 훨씬 유연하게 만들어줍니다.
