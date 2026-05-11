@@ -84,3 +84,59 @@ const parser = new XMLParser({
 - `attributeNamePrefix`: 속성 앞에 붙일 텍스트 설정
 
 ---
+
+## 2️⃣ fast-xml-parser 기타 기능
+
+### 🔹 XMLBuilder
+
+`fast-xml-parser`는 XML → 객체 변환뿐만 아니라
+객체 → XML 변환 기능도 제공합니다.
+
+```ts
+import { XMLBuilder } from "fast-xml-parser";
+
+const builder = new XMLBuilder();
+
+const obj = {
+	user: {
+		name: "John",
+		age: 20
+	}
+};
+
+const xml = builder.build(obj);
+
+console.log(xml);
+```
+
+출력:
+
+```xml
+<user>
+	<name>John</name>
+	<age>20</age>
+</user>
+```
+
+---
+
+### 🔹 XMLValidator
+
+XML 문법이 올바른지 검사할 수도 있습니다.
+
+```js
+import { XMLValidator } from "fast-xml-parser"; 
+
+const result = XMLValidator.validate(`
+<user>
+	<name>John</name>
+</user> 
+`);
+
+console.log(result); // true
+```
+
+- 정상일 경우 true
+- 잘못된 XML이면 에러 정보를 반환
+
+---
