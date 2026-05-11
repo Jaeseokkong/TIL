@@ -140,3 +140,45 @@ console.log(result); // true
 - 잘못된 XML이면 에러 정보를 반환
 
 ---
+
+## 3️⃣ DOMParser vs fast-xml-parser
+
+| DOMParser            | fast-xml-parser        |
+| -------------------- | ---------------------- |
+| 브라우저 내장 API          | 외부 라이브러리               |
+| XML/HTML을 DOM 형태로 변환 | XML을 JavaScript 객체로 변환 |
+| 브라우저 환경 중심           | Browser + Node.js 지원   |
+| DOM 탐색 필요            | 객체처럼 바로 접근 가능          |
+| XML 문서 구조 분석에 적합     | 데이터 처리에 더 적합           |
+
+
+### 🧐 예시
+
+```js
+const parser = new DOMParser();
+
+const xmlDoc = parser.parseFromString(xmlData, "text/xml"); 
+
+console.log(xmlDoc.querySelector("name").textContent);
+```
+
+DOMParser는 DOM 탐색 방식으로 데이터를 가져와야 합니다.
+
+반명 `fase-xml-parser`는 
+
+```js
+const parser = new XMLParser();
+
+const result = parser.parse(xmlData);
+
+console.log(result.user.name);
+```
+
+처럼 객체 접근 방식으로 사용할 수 있어서 더 직관적입니다.
+
+---
+
+## ✍️ 한 줄 정리
+
+> `XMLParser`는 XML 데이터를 JavaScript 객체로 변환해주는 도구이며,
+`fast-xml-parser`는 이를 빠르고 간편하게 처리할 수 있는 대표적인 라이브러리입니다.
