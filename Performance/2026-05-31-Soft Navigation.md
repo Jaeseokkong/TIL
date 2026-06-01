@@ -38,3 +38,43 @@ Page B 렌더링
 SPA에서 주로 사용되며 React, Next.js, Vue 등의 프레임워크에서 기본적으로 활용됩니다.
 
 ---
+
+## 1️⃣ Hard Navigation vs Soft Navigation
+
+| Hard Navigation | Soft Navigation |
+| --------------- | --------------- |
+| 전체 페이지 새로고침     | 일부 UI만 변경       |
+| HTML 다시 다운로드    | 필요한 데이터만 요청     |
+| JS 재실행          | 기존 앱 유지         |
+| 상태 초기화          | 상태 유지 가능        |
+| 상대적으로 느림        | 상대적으로 빠름        |
+
+---
+
+## 2️⃣ React 예시
+
+### 🔹 Hard Navigation
+
+```js
+<a href="/about">About</a>
+```
+
+브라우저가 새로운 문서를 요청합니다.
+
+---
+
+### 🔹 Soft Navigation
+
+```js
+<Link to="/about">About</Link>
+```
+
+또는 
+
+```js
+navigate("/about");
+```
+
+라우터가 URL만 변경하고 필요한 컴포넌트만 다시 렌더링합니다.
+
+---
