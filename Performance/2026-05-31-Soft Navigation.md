@@ -178,3 +178,34 @@ URL 변경
 을 하나의 Navigation으로 취급하려는 것입니다.
 
 ---
+
+## 7️⃣ 언제 발생할까?
+
+- React Router의 Link
+- React Router의 navigate
+- Next.js의 Link
+- Next.js의 router.push
+- Vue Router
+- Angular Router
+
+반대로 다음은 Hard Navigation입니다.
+
+```js
+<a href="/about">
+```
+
+```js
+window.location.href = "/about";
+```
+
+```js
+window.location.reload();
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+```
+Soft Navigation은 브라우저가 새로운 문서를 다시 로드하지 않고 JavaScript Router를 통해 화면과 URL만 변경하여 페이지 이동처럼 동작하는 방식입니다.
+```
