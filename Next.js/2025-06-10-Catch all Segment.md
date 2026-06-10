@@ -187,3 +187,7 @@ app/guide/[[...slug]]/page.tsx
 ```
 
 ---
+
+## ✍️ 한 줄 정리
+
+> Catch-all Segment(`[...slug]`)는 URL의 여러 경로를 하나의 배열로 수집하여 처리할 수 있는 Next.js App Router의 Dynamic Segment이다.
