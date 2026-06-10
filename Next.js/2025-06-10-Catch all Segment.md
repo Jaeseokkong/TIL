@@ -35,3 +35,69 @@ URL:
 이 문제를 해결하기 위해 Next.js는 **Catch-all Segment** 를 제공합니다.
 
 ---
+
+## 1️⃣ Catch-all Segment란?
+
+Catch-all Segment는 여러 개의 URL 세그먼트를 하나의 배열로 받아 처리하는 Dynamic Segment입니다.
+
+폴더 이름 앞에 `...`을 붙여 정의합니다.
+
+```js
+app/guide/[...slug]/page.tsx
+```
+
+여기서 `slug`는 URL 경로를 배열 형태로 전달받습니다.
+
+---
+
+## 2️⃣ 동작 방식
+
+다음 URL로 접근한다고 가정해보겠습니다.
+
+- URL
+
+```ts
+/guide/react
+```
+
+- params
+
+```ts
+{
+  slug: ["react"]
+}
+```
+
+---
+
+- URL
+
+```ts
+/guide/react/hooks
+```
+
+- params
+
+```ts
+{
+  slug: ["react", "hooks"]
+}
+```
+
+- URL
+
+```ts
+/guide/react/hooks/useEffect
+```
+
+- params
+
+```ts
+{
+  slug: ["react", "hooks", "useEffect"]
+}
+```
+
+즉 `guide` 뒤에 오는 모든 경로를 배열로 수집하게 됩니다.
+
+---
