@@ -101,3 +101,89 @@ app/guide/[...slug]/page.tsx
 즉 `guide` 뒤에 오는 모든 경로를 배열로 수집하게 됩니다.
 
 ---
+
+## 3️⃣ 사용 예시
+
+```tsx
+interface PageProps {
+  params: Promise<{
+    slug: string[];
+  }>;
+}
+
+export default async function GuidePage({
+  params,
+}: PageProps) {
+  const { slug } = await params;
+
+  return (
+    <div>
+      <h1>{slug.join(" > ")}</h1>
+    </div>
+  );
+}
+```
+
+- URL
+
+```ts
+/guide/react/hooks/useMemo
+```
+
+- 출력
+
+```ts
+react > hooks > useMemo
+```
+
+배열 형태로 전달되기 때문에 Breadcrumb UI를 만들거나 현재 위치를 표시하기 쉽습니다.
+
+---
+
+## 4️⃣ Optional Catch-all Segment
+
+기본 Catch-all Segment는 최소 하나 이상의 경로가 필요합니다.
+
+```ts
+app/guide/[...slug]/page.tsx
+```
+
+✅ 가능
+```ts
+/guide/react
+/guide/react/hooks
+```
+
+
+❌ 불가능
+
+```ts
+/guide
+```
+위 URL은 404가 발생합니다.
+
+---
+
+만약 최상위 경로까지 함께 처리하고 싶다면 Optional Catch-all Segment를 사용합니다.
+
+```ts
+app/guide/[[...slug]]/page.tsx
+```
+
+이제 다음 URL도 허용됩니다.
+
+- URL
+
+```ts
+/guide
+```
+
+- params
+
+```json
+{
+  slug: undefined
+}
+```
+
+---
