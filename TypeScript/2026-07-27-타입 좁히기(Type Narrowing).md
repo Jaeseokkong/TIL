@@ -16,7 +16,24 @@ Union 타입 등 넓은 타입에서 조건문을 통해 **더 구체적인 타�
 
 ---
 
-## 2️⃣ 예시 코드
+## 2️⃣ Assertion Function으로 좁히기
+
+`asserts` 키워드를 사용하면 함수 호출만으로 이후 코드에서 타입이 좁혀집니다.
+
+```ts
+function assertIsString(val: unknown): asserts val is string {
+  if (typeof val !== "string") throw new Error("문자열이 아닙니다.");
+}
+
+function process(val: unknown) {
+  assertIsString(val);
+  console.log(val.toUpperCase()); // string으로 좁혀짐
+}
+```
+
+---
+
+## 3️⃣ 예시 코드
 
 ```ts
 function printLength(value: string | number) {
