@@ -34,3 +34,21 @@ function render(state: FetchState) {
 ```
 
 - `status` 값에 따라 TypeScript가 나머지 필드의 존재를 자동으로 보장
+
+---
+
+## 3️⃣ Exhaustiveness Check
+
+`never` 타입을 이용하면 새로운 case를 빠뜨렸을 때 컴파일 타임에 잡아낼 수 있습니다.
+
+```ts
+function assertNever(x: never): never {
+  throw new Error(`처리되지 않은 케이스: ${x}`);
+}
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+> **Discriminated Union은 공통 리터럴 필드로 분기하여, 각 케이스의 타입을 안전하게 좁혀주는 TypeScript 패턴이다.**
