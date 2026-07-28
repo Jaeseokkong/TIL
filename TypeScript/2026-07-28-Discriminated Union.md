@@ -49,6 +49,25 @@ function assertNever(x: never): never {
 
 ---
 
+## 4️⃣ 실무 활용 - Redux 액션 타입
+
+Redux 액션 정의에서도 `type` 필드를 판별자로 사용하는 Discriminated Union 패턴이 흔히 쓰입니다.
+
+```ts
+type Action =
+  | { type: "INCREMENT"; payload: number }
+  | { type: "RESET" };
+
+function reducer(state: number, action: Action): number {
+  switch (action.type) {
+    case "INCREMENT": return state + action.payload;
+    case "RESET": return 0;
+  }
+}
+```
+
+---
+
 ## ✍️ 한 줄 정리
 
 > **Discriminated Union은 공통 리터럴 필드로 분기하여, 각 케이스의 타입을 안전하게 좁혀주는 TypeScript 패턴이다.**
