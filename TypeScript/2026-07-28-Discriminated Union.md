@@ -9,3 +9,28 @@
 
 일반 Union만으로는 어떤 필드가 어떤 타입에 존재하는지 매번 옵셔널 체이닝/타입 단언이 필요합니다.
 공통 리터럴 필드를 기준으로 분기하면 이런 번거로움 없이 안전하게 처리할 수 있습니다.
+
+---
+
+## 2️⃣ 예시 코드
+
+```ts
+type LoadingState = { status: "loading" };
+type SuccessState = { status: "success"; data: string[] };
+type ErrorState = { status: "error"; message: string };
+
+type FetchState = LoadingState | SuccessState | ErrorState;
+
+function render(state: FetchState) {
+  switch (state.status) {
+    case "loading":
+      return "로딩 중...";
+    case "success":
+      return state.data.join(", "); // data 접근 가능
+    case "error":
+      return state.message; // message 접근 가능
+  }
+}
+```
+
+- `status` 값에 따라 TypeScript가 나머지 필드의 존재를 자동으로 보장
