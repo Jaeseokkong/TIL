@@ -27,6 +27,18 @@ config.width; // number literal 추론 유지, 자동완성도 정확
 
 ---
 
+## 3️⃣ as const와의 차이
+
+```ts
+const config2 = { width: 100 } as const;
+// 모든 프로퍼티가 readonly 리터럴 타입이 됨, 타입 검사는 하지 않음
+```
+
+- `as const`는 **불변화 + 리터럴 타입 고정**이 목적
+- `satisfies`는 **타입 검사 + 원래 타입 유지**가 목적 → 둘은 함께 쓰이기도 함 (`{...} as const satisfies T`)
+
+---
+
 ## ✍️ 한 줄 정리
 
 > **satisfies는 타입을 넓히지 않고 검사만 수행해, 타입 안전성과 정확한 타입 추론을 동시에 얻을 수 있게 해준다.**
