@@ -37,6 +37,21 @@ export default function Profile() {
 
 ---
 
+## 3️⃣ 원격 이미지 사용 시 설정
+
+외부 도메인의 이미지를 사용하려면 `next.config.js`에 허용 도메인을 명시해야 합니다.
+
+```js
+// next.config.js
+module.exports = {
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "cdn.example.com" }],
+  },
+};
+```
+
+---
+
 ## ✍️ 한 줄 정리
 
 > **next/image는 포맷 변환·반응형 크기 제공·지연 로딩을 자동화해 이미지 성능과 레이아웃 안정성을 함께 챙겨준다.**
