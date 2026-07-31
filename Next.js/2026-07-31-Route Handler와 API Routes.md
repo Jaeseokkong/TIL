@@ -42,6 +42,22 @@ export async function POST(request: Request) {
 
 ---
 
+## 4️⃣ 미들웨어와의 조합
+
+Route Handler 진입 전에 `middleware.ts`에서 인증 등 공통 로직을 먼저 처리할 수 있습니다.
+
+```ts
+// middleware.ts
+export function middleware(request: Request) {
+  const token = request.headers.get("authorization");
+  if (!token) return Response.json({ message: "Unauthorized" }, { status: 401 });
+}
+
+export const config = { matcher: "/api/:path*" };
+```
+
+---
+
 ## ✍️ 한 줄 정리
 
 > **Route Handler는 Web 표준 API 기반으로 HTTP 메서드를 명시적으로 분리하며, 기본적으로 캐싱까지 고려해 동작한다.**
