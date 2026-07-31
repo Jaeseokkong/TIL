@@ -32,3 +32,16 @@ export async function POST(request: Request) {
 
 - HTTP 메서드마다 별도 함수로 분리되어 가독성이 높아짐
 - Web 표준 API를 사용해 Edge Runtime에서도 동일하게 동작 가능
+
+---
+
+## 3️⃣ 캐싱 동작 차이
+
+- App Router의 GET Route Handler는 기본적으로 **정적으로 캐싱**될 수 있음 (동적 함수 사용 시 자동으로 동적 처리)
+- 캐싱을 원치 않으면 `export const dynamic = "force-dynamic"` 명시
+
+---
+
+## ✍️ 한 줄 정리
+
+> **Route Handler는 Web 표준 API 기반으로 HTTP 메서드를 명시적으로 분리하며, 기본적으로 캐싱까지 고려해 동작한다.**
