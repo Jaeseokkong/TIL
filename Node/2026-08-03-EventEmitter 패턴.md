@@ -42,6 +42,20 @@ orderService.createOrder({ id: 1 });
 
 ---
 
+## 3️⃣ 'error' 이벤트 처리 주의점
+
+`error` 이벤트에 리스너가 없으면 Node.js 프로세스가 **강제 종료**됩니다.
+
+```js
+emitter.on("error", (err) => {
+  console.error("에러 처리:", err.message);
+});
+```
+
+- 항상 `error` 이벤트 리스너를 등록해두는 것이 안전
+
+---
+
 ## ✍️ 한 줄 정리
 
 > **EventEmitter는 발행-구독 패턴으로 로직 간 결합도를 낮추는 Node.js의 핵심 이벤트 기반 모듈이다.**
