@@ -28,3 +28,24 @@ public class OrderService {
 ```
 
 checked Exception도 롤백하려면 `@Transactional(rollbackFor = Exception.class)`로 명시해야 함
+
+---
+
+## 3️⃣ 자주 하는 실수 - 자기 호출(Self-Invocation)
+
+프록시 기반이기 때문에, **같은 클래스 내부에서 this로 호출**하면 트랜잭션이 적용되지 않습니다.
+
+```java
+public void outer() {
+    this.inner(); // 프록시를 거치지 않아 @Transactional 무시됨
+}
+
+@Transactional
+public void inner() { ... }
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+> **@Transactional은 AOP 프록시로 메서드 실행을 트랜잭션으로 감싸 원자성을 보장하며, 같은 클래스 내부 호출에서는 적용되지 않는다.**
