@@ -13,7 +13,21 @@ Spring MVC에서 발생하는 예외를 컨트롤러 단위 또는 전역으로 
 
 ---
 
-## 2️⃣ 예시 코드
+## 2️⃣ 커스텀 예외 설계
+
+```java
+public class EntityNotFoundException extends RuntimeException {
+    public EntityNotFoundException(String message) {
+        super(message);
+    }
+}
+```
+
+- 도메인별 커스텀 예외를 만들어두면 `@ExceptionHandler`에서 세분화된 응답을 내려주기 쉬움
+
+---
+
+## 3️⃣ 예시 코드
 
 ```java
 @RestControllerAdvice
