@@ -13,3 +13,25 @@ Core Web Vitals는 Google이 정의한 **사용자 체감 성능 측정 지표**
 | CLS (Cumulative Layout Shift) | 예기치 않은 레이아웃 이동 정도 | 0.1 이하 |
 
 (INP는 2024년부터 기존 FID를 대체)
+
+---
+
+## 2️⃣ 개선 방법
+
+- **LCP** - 이미지 preload, 서버 응답 시간 단축, 렌더링 차단 리소스 제거
+- **INP** - 긴 JS 작업을 잘게 쪼개기(청크), 불필요한 리렌더링 줄이기
+- **CLS** - 이미지/광고 영역에 명시적 width·height 지정, 폰트 로딩 시 레이아웃 흔들림 방지
+
+```js
+// web-vitals 라이브러리로 실측
+import { onLCP, onINP, onCLS } from "web-vitals";
+onLCP(console.log);
+onINP(console.log);
+onCLS(console.log);
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+> **Core Web Vitals(LCP, INP, CLS)는 로딩·반응성·시각적 안정성을 수치화한 지표로, 실제 사용자 체감 성능 개선의 기준이 된다.**
