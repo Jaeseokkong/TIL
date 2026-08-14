@@ -12,7 +12,18 @@ Access Token은 탈취 위험을 줄이기 위해 짧은 유효기간을 갖는�
 
 ---
 
-## 2️⃣ 예시 코드 (axios interceptor)
+## 2️⃣ 저장 위치 비교
+
+| 저장 위치 | XSS 위험 | CSRF 위험 |
+|-----------|----------|-----------|
+| localStorage | 높음 | 낮음 |
+| httpOnly Cookie | 낮음 | 높음 (SameSite로 완화 가능) |
+
+👉 Refresh Token은 httpOnly + `SameSite=Strict` 쿠키 조합이 일반적으로 권장됨
+
+---
+
+## 3️⃣ 예시 코드 (axios interceptor)
 
 ```js
 axios.interceptors.response.use(
