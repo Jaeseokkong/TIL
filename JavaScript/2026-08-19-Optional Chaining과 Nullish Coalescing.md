@@ -13,3 +13,15 @@ const result = obj.method?.(); // 메서드가 없을 수도 있을 때
 
 - 중간에 `null`/`undefined`를 만나면 즉시 `undefined`를 반환하고 이후 접근을 멈춤
 - `user.address.city`처럼 직접 접근하면 address가 없을 때 TypeError 발생
+
+---
+
+## 2️⃣ Nullish Coalescing (??)
+
+```js
+const count = data.count ?? 0;      // data.count가 null/undefined일 때만 0
+const count2 = data.count || 0;     // data.count가 0, "", false여도 0으로 대체됨 (의도치 않은 동작)
+```
+
+- `||`는 falsy 전체를 대체하지만, `??`는 **null과 undefined만** 기본값으로 대체
+- 숫자 0이나 빈 문자열도 유효한 값으로 다뤄야 할 때는 반드시 `??` 사용
