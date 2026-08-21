@@ -43,3 +43,13 @@ body {
 ```
 
 - `data-theme` 속성만 바꾸면 하위 요소 전체의 색상이 자동으로 갱신됨
+
+---
+
+## 3️⃣ JavaScript로 값 변경하기
+
+```js
+document.documentElement.style.setProperty("--primary-color", "#22c55e");
+```
+
+- 사용자가 테마 색상을 직접 고르는 기능 등을 구현할 때 CSS 재컴파일 없이 즉시 반영 가능
