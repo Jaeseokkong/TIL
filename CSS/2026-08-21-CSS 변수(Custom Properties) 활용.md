@@ -53,3 +53,19 @@ document.documentElement.style.setProperty("--primary-color", "#22c55e");
 ```
 
 - 사용자가 테마 색상을 직접 고르는 기능 등을 구현할 때 CSS 재컴파일 없이 즉시 반영 가능
+
+---
+
+## 4️⃣ 기본값(fallback) 지정하기
+
+```css
+.box {
+  color: var(--text-color, #333); /* --text-color가 없으면 #333 사용 */
+}
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+> **CSS 변수는 런타임에 해석되는 네이티브 변수로, 다크모드나 동적 테마처럼 JS와 값을 주고받아야 하는 상황에 특히 유용하다.**
