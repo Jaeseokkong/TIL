@@ -30,3 +30,16 @@ function AppProvider({ children }) {
 // ✅ useMemo로 값 참조를 고정
 const value = useMemo(() => ({ user, setUser }), [user]);
 ```
+
+---
+
+## 3️⃣ Context 분리 전략
+
+- 자주 바뀌는 값과 잘 바뀌지 않는 값을 **서로 다른 Context로 분리**
+- 예: `UserContext`(자주 변경)와 `ThemeContext`(거의 고정)를 나누면, 유저 정보가 바뀌어도 테마 구독 컴포넌트는 영향받지 않음
+
+---
+
+## ✍️ 한 줄 정리
+
+> **Context 값은 useMemo로 참조를 고정하고, 변경 빈도가 다른 값은 별도 Context로 분리해야 불필요한 리렌더링을 막을 수 있다.**
