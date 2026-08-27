@@ -33,3 +33,20 @@ getProperty(user, "email"); // ❌ 컴파일 에러: "email"은 user의 key가 �
 ```
 
 - `K extends keyof T`로 제약을 걸면, 존재하지 않는 키 접근을 컴파일 타임에 막을 수 있음
+
+---
+
+## 3️⃣ 제네릭 인터페이스 활용
+
+```ts
+interface ApiResponse<T> {
+  data: T;
+  status: number;
+}
+
+function fetchUser(): Promise<ApiResponse<{ id: number; name: string }>> {
+  return fetch("/api/user").then((res) => res.json());
+}
+```
+
+- API 응답처럼 "형태는 같지만 데이터 타입이 다른" 구조를 표현할 때 유용
