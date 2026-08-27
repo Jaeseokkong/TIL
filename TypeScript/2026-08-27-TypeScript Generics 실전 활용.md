@@ -50,3 +50,22 @@ function fetchUser(): Promise<ApiResponse<{ id: number; name: string }>> {
 ```
 
 - API 응답처럼 "형태는 같지만 데이터 타입이 다른" 구조를 표현할 때 유용
+
+---
+
+## 4️⃣ 기본 타입 지정 (Default Type)
+
+```ts
+interface State<T = unknown> {
+  value: T;
+  loading: boolean;
+}
+
+const s: State = { value: 1, loading: false }; // T는 unknown으로 기본 설정
+```
+
+---
+
+## ✍️ 한 줄 정리
+
+> **제네릭은 타입을 매개변수화해 재사용성을 높이며, extends로 제약을 걸면 안전성까지 함께 챙길 수 있다.**
