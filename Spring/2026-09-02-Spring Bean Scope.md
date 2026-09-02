@@ -24,3 +24,11 @@ public class RequestContext {
 
 - 빈을 요청(주입/조회)할 때마다 **매번 새 인스턴스**를 생성
 - 상태를 가져야 하는 객체(예: 요청별 컨텍스트)에 적합
+
+---
+
+## 3️⃣ 주의할 점 - Singleton에 Prototype 주입하기
+
+Singleton 빈 내부에 Prototype 빈을 필드로 주입하면, 주입 시점에 **딱 한 번만** 생성되어 사실상 Singleton처럼 동작해버립니다.
+
+- 해결책: `ObjectProvider<T>`나 프록시 모드(`proxyMode = ScopedProxyMode.TARGET_CLASS`)를 사용해 호출 시점마다 새 인스턴스를 받도록 구성
