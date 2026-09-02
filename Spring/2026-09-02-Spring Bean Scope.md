@@ -32,3 +32,18 @@ public class RequestContext {
 Singleton 빈 내부에 Prototype 빈을 필드로 주입하면, 주입 시점에 **딱 한 번만** 생성되어 사실상 Singleton처럼 동작해버립니다.
 
 - 해결책: `ObjectProvider<T>`나 프록시 모드(`proxyMode = ScopedProxyMode.TARGET_CLASS`)를 사용해 호출 시점마다 새 인스턴스를 받도록 구성
+
+---
+
+## 4️⃣ 그 외 스코프
+
+| 스코프 | 설명 |
+|--------|------|
+| request | HTTP 요청 하나당 인스턴스 하나 (웹 환경) |
+| session | HTTP 세션 하나당 인스턴스 하나 |
+
+---
+
+## ✍️ 한 줄 정리
+
+> **Singleton은 공유되는 상태 없는 객체에, Prototype은 요청마다 새로워야 하는 상태 객체에 적합하며, Singleton 안에 Prototype을 그냥 주입하면 의도대로 동작하지 않는다.**
