@@ -31,3 +31,17 @@ lhci autorun --collect.url=https://example.com --assert.preset=lighthouse:recomm
   }
 }
 ```
+
+---
+
+## 3️⃣ CI 파이프라인에 통합하기
+
+```yaml
+# .github/workflows/lighthouse.yml
+- name: Run Lighthouse CI
+  run: |
+    npm install -g @lhci/cli
+    lhci autorun
+```
+
+- 매 PR마다 자동 실행되어, 특정 지표(LCP, CLS 등)가 기준치 아래로 떨어지면 **CI를 실패 처리**하도록 구성 가능
