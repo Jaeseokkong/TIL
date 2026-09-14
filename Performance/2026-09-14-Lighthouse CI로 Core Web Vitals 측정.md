@@ -8,3 +8,26 @@
 
 - Lighthouse 검사를 CLI/CI 환경에서 자동 실행하고, 결과를 기준값과 비교해 **회귀(regression) 여부를 감지**
 - PR마다 성능 점수를 자동으로 리포트해, 성능 저하를 병합 전에 발견 가능
+
+---
+
+## 2️⃣ 기본 설정
+
+```bash
+npm install -g @lhci/cli
+
+lhci autorun --collect.url=https://example.com --assert.preset=lighthouse:recommended
+```
+
+```json
+// lighthouserc.json
+{
+  "ci": {
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.8 }]
+      }
+    }
+  }
+}
+```
