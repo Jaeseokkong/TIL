@@ -22,3 +22,17 @@
 ```html
 <script src="analytics.js" defer></script> <!-- HTML 파싱을 막지 않고, 파싱 완료 후 실행 -->
 ```
+
+---
+
+## 3️⃣ 최적화 포인트
+
+- CSS는 최대한 빨리, 작게 전달 (Critical CSS 인라인화 등)
+- JS는 `defer`/`async`로 파싱 차단을 줄이고, 꼭 필요한 스크립트만 렌더링 전에 실행
+- Layout을 유발하는 속성(width, top 등) 대신 transform/opacity로 애니메이션 처리해 Reflow 비용 절감
+
+---
+
+## ✍️ 한 줄 정리
+
+> **Critical Rendering Path는 DOM·CSSOM 생성부터 Layout·Paint까지의 흐름이며, CSS/JS가 이 흐름을 막지 않도록 하는 것이 초기 렌더링 최적화의 핵심이다.**
