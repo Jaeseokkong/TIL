@@ -12,3 +12,25 @@ AOP(관점 지향 프로그래밍)는 로깅, 트랜잭션, 보안 체크처럼 
 | Advice | 실제로 실행되는 부가 기능 코드 (Before, After, Around 등) |
 | Pointcut | Advice를 적용할 대상(메서드)을 지정하는 표현식 |
 | JoinPoint | Advice가 적용될 수 있는 지점 (메서드 호출 시점 등) |
+
+---
+
+## 2️⃣ 예시 코드 - 실행 시간 로깅
+
+```java
+@Aspect
+@Component
+public class LoggingAspect {
+
+    @Around("execution(* com.example.service..*(..))")
+    public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        long start = System.currentTimeMillis();
+        Object result = joinPoint.proceed();
+        long elapsed = System.currentTimeMillis() - start;
+        System.out.println(joinPoint.getSignature() + " 실행 시간: " + elapsed + "ms");
+        return result;
+    }
+}
+```
+
+- `service` 패키지 하위 모든 메서드 실행 전후로 자동으로 시간 측정 로직이 끼워짐 (핵심 로직은 전혀 건드리지 않음)
